@@ -1,0 +1,33 @@
+{
+  "name": "galahad/laravel-addressing",
+  "description": "Laravel package providing addressing functionality",
+  "keywords": [
+    "laravel",
+    "address",
+    "addressing",
+    "validation",
+    "countries"
+  ],
+  "homepage": "https://github.com/glhd/laravel-addressing",
+  "authors": [
+    {
+      "name": "Chris Morrell"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/support": "~5.2",
+    "commerceguys/addressing": "^0.8.2",
+    "illuminate/http": "^5.2",
+    "illuminate/routing": "^5.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Galahad\\LaravelAddressing\\": "src/"
+    }
+  },
+  "license": "MIT"
+}

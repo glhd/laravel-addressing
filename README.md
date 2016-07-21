@@ -1,2 +1,2 @@
-# laravel-addressing
+# Laravel Addressing
 Laravel package providing addressing functionality
