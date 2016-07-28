@@ -12,5 +12,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class AddressFacade extends Facade
 {
-	protected static function getFacadeAccessor() { return 'address'; }
+	protected static function getFacadeAccessor() {
+		return Address::class;
+	}
 }

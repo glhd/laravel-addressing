@@ -14,7 +14,7 @@ class AddressServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('address', function ($app) {
+        $this->app->singleton(Address::class, function ($app) {
             return new Address();
         });
     }
