@@ -2,13 +2,15 @@
 
 namespace InterNACHI\Address;
 
+use Illuminate\Support\Facades\Facade;
+
 /**
  * Class Facade
  *
  * @package InterNACHI\Address
  * @author Junior Grossi <junior@internachi.org>
  */
-class Facade extends \Illuminate\Support\Facades\Facade
+class AddressFacade extends Facade
 {
 	protected static function getFacadeAccessor() { return 'address'; }
 }
