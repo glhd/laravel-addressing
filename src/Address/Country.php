@@ -240,4 +240,19 @@ class Country
 	{
 		return $this->findByField('name', $name);
 	}
+
+	/**
+	 * Get all the administrative areas from a given country
+	 *
+	 * @return ArrayObject|null
+	 */
+	public function getAdministrativeAreas()
+	{
+		if (is_null($this->administrativeAreas)) {
+			$admArea = new AdministrativeArea($this);
+			$this->administrativeAreas = $admArea->getAll();
+		}
+
+		return $this->administrativeAreas;
+	}
 }
