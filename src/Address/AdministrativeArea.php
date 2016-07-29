@@ -3,7 +3,7 @@
 namespace InterNACHI\Address;
 
 use ArrayObject;
-use CommerceGuys\Addressing\Model\Subdivision;
+use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 
 /**
  * Class AdministrativeArea
@@ -29,6 +29,11 @@ class AdministrativeArea
 	protected $name = null;
 
 	/**
+	 * @var SubdivisionRepository|null
+	 */
+	protected $subdivisionRepository;
+
+	/**
 	 * Construct method
 	 *
 	 * @param Country $country
@@ -36,6 +41,7 @@ class AdministrativeArea
 	public function __construct(Country $country)
 	{
 		$this->country = $country;
+		$this->subdivisionRepository = $this->getCountry()->getSubdivisionRepository();
 	}
 
 	/**
@@ -48,7 +54,6 @@ class AdministrativeArea
 		$country = $this->getCountry();
 		$repo = $country->getSubdivisionRepository();
 		$list = new ArrayObject;
-		/** @var Subdivision $area */
 		foreach ($repo->getList($country->getCode()) as $code => $name) {
 			$admArea = new static($country);
 			$admArea->setCode($code);
@@ -57,6 +62,48 @@ class AdministrativeArea
 		}
 
 		return $list;
+	}
+
+	/**
+	 * Get an administrative area by field and value
+	 *
+	 * @param $fieldName
+	 * @param $fieldValue
+	 * @return AdministrativeArea
+	 */
+	protected function findByField($fieldName, $fieldValue)
+	{
+		$fieldValue = strtolower($fieldValue);
+		$list = $this->getAll();
+		/** @var AdministrativeArea $admArea */
+		foreach ($list as $admArea) {
+			$method = 'get'.ucfirst($fieldName);
+			if (strtolower($admArea->$method()) == $fieldValue) {
+				return $admArea;
+			}
+		}
+	}
+
+	/**
+	 * Get an administrative area by code
+	 *
+	 * @param $code
+	 * @return AdministrativeArea
+	 */
+	public function findByCode($code)
+	{
+		return $this->findByField('code', $code);
+	}
+
+	/**
+	 * Get an administrative area by name
+	 *
+	 * @param $name
+	 * @return AdministrativeArea
+	 */
+	public function findByName($name)
+	{
+		return $this->findByField('name', $name);
 	}
 	
 	/**
@@ -117,5 +164,13 @@ class AdministrativeArea
 	public function setName($name)
 	{
 		$this->name = $name;
+	}
+
+	/**
+	 * @return SubdivisionRepository|null
+	 */
+	public function getSubdivisionRepository()
+	{
+		return $this->subdivisionRepository;
 	}
 }
