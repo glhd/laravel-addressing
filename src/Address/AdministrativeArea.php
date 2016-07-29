@@ -47,6 +47,11 @@ class AdministrativeArea
 	protected $subdivisionRepository;
 
 	/**
+	 * @var Subdivision
+	 */
+	protected $subdivision;
+
+	/**
 	 * Construct method
 	 *
 	 * @param Country|string $country
@@ -80,6 +85,7 @@ class AdministrativeArea
 			$admArea->setCode($subdivision->getCode());
 			$admArea->setName($subdivision->getName());
 			$admArea->setLocale($country->getLocale());
+			$admArea->setSubdivision($subdivision);
 			$admArea->setLocalities($this->fillLocalities($subdivision->getChildren()));
 			$list->append($admArea);
 		}
@@ -203,6 +209,22 @@ class AdministrativeArea
 	public function setLocale($locale)
 	{
 		$this->locale = $locale;
+	}
+
+	/**
+	 * @return Subdivision
+	 */
+	public function getSubdivision()
+	{
+		return $this->subdivision;
+	}
+
+	/**
+	 * @param Subdivision $subdivision
+	 */
+	public function setSubdivision(Subdivision $subdivision)
+	{
+		$this->subdivision = $subdivision;
 	}
 
 	/**
