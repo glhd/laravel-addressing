@@ -3,8 +3,10 @@
 namespace InterNACHI\Address;
 
 use ArrayObject;
+use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 use CommerceGuys\Addressing\Model\Subdivision;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use Illuminate\Support\Arr;
 
 /**
  * Class AdministrativeArea
@@ -35,6 +37,11 @@ class AdministrativeArea
 	protected $locale = 'en';
 
 	/**
+	 * @var ArrayObject
+	 */
+	protected $localities = null;
+
+	/**
 	 * @var SubdivisionRepository|null
 	 */
 	protected $subdivisionRepository;
@@ -53,6 +60,7 @@ class AdministrativeArea
 			$this->country = $object->findByCode($country);
 		}
 
+		$this->localities = new ArrayObject();
 		$this->subdivisionRepository = $this->getCountry()->getSubdivisionRepository();
 	}
 
@@ -72,6 +80,7 @@ class AdministrativeArea
 			$admArea->setCode($subdivision->getCode());
 			$admArea->setName($subdivision->getName());
 			$admArea->setLocale($country->getLocale());
+			$admArea->setLocalities($this->fillLocalities($subdivision->getChildren()));
 			$list->append($admArea);
 		}
 
@@ -119,7 +128,7 @@ class AdministrativeArea
 	{
 		return $this->findByField('name', $name);
 	}
-	
+
 	/**
 	 * Get the country instance
 	 *
@@ -194,6 +203,45 @@ class AdministrativeArea
 	public function setLocale($locale)
 	{
 		$this->locale = $locale;
+	}
+
+	/**
+	 * Get the administrative area localities
+	 *
+	 * @return ArrayObject
+	 */
+	public function getLocalities()
+	{
+		return $this->localities;
+	}
+
+	/**
+	 * Set the administrative area localities
+	 *
+	 * @param mixed $localities
+	 */
+	public function setLocalities($localities)
+	{
+		if ($localities instanceof LazySubdivisionCollection) {
+			$this->localities = $this->fillLocalities($localities);
+			return;
+		}
+
+		if ($localities instanceof ArrayObject) {
+			$this->localities = $localities;
+		}
+	}
+
+	/**
+	 * Fill the localities according the InterNACHI classes
+	 *
+	 * @param LazySubdivisionCollection $localities
+	 */
+	protected function fillLocalities(LazySubdivisionCollection $localities)
+	{
+		foreach ($localities as $locality) {
+			// TODO
+		}
 	}
 
 	/**
