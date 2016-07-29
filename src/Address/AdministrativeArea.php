@@ -36,11 +36,17 @@ class AdministrativeArea
 	/**
 	 * Construct method
 	 *
-	 * @param Country $country
+	 * @param Country|string $country
 	 */
-	public function __construct(Country $country)
+	public function __construct($country)
 	{
-		$this->country = $country;
+		if ($country instanceof Country) {
+			$this->country = $country;
+		} elseif (is_string($country)) {
+			$object = new Country;
+			$this->country = $object->findByCode($country);
+		}
+
 		$this->subdivisionRepository = $this->getCountry()->getSubdivisionRepository();
 	}
 
