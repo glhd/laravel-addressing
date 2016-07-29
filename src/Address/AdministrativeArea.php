@@ -3,6 +3,7 @@
 namespace InterNACHI\Address;
 
 use ArrayObject;
+use CommerceGuys\Addressing\Model\Subdivision;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 
 /**
@@ -27,6 +28,11 @@ class AdministrativeArea
 	 * @var null|string
 	 */
 	protected $name = null;
+
+	/**
+	 * @var string
+	 */
+	protected $locale = 'en';
 
 	/**
 	 * @var SubdivisionRepository|null
@@ -60,10 +66,12 @@ class AdministrativeArea
 		$country = $this->getCountry();
 		$repo = $country->getSubdivisionRepository();
 		$list = new ArrayObject;
-		foreach ($repo->getList($country->getCode()) as $code => $name) {
+		/** @var Subdivision $subdivision */
+		foreach ($repo->getAll($country->getCode()) as $subdivision) {
 			$admArea = new static($country);
-			$admArea->setCode($code);
-			$admArea->setName($name);
+			$admArea->setCode($subdivision->getCode());
+			$admArea->setName($subdivision->getName());
+			$admArea->setLocale($country->getLocale());
 			$list->append($admArea);
 		}
 
@@ -170,6 +178,22 @@ class AdministrativeArea
 	public function setName($name)
 	{
 		$this->name = $name;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+
+	/**
+	 * @param string $locale
+	 */
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
 	}
 
 	/**
