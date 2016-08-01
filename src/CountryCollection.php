@@ -2,6 +2,8 @@
 
 namespace Galahad\LaravelAddressing;
 
+use Exception;
+
 /**
  * Class CountryCollection
  *
@@ -14,10 +16,14 @@ class CountryCollection extends Collection implements CollectionInterface
      * Insert method for Country objects
      *
      * @param mixed $country
+     * @throws Exception
      */
-    public function insert(Country $country)
+    public function insert($country)
     {
-        return parent::insert($country);
+        if ($country instanceof Country) {
+            return parent::insert($country);
+        }
+        throw new Exception('You can only insert Country objects in a CountryCollection');
     }
 
     /**
