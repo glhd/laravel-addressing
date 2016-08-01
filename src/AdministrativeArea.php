@@ -85,7 +85,6 @@ class AdministrativeArea
 			$admArea->setName($subdivision->getName());
 			$admArea->setLocale($country->getLocale());
 			$admArea->setSubdivision($subdivision);
-			$admArea->setLocalities($this->fillLocalities($subdivision->getChildren()));
 			$list->append($admArea);
 		}
 
