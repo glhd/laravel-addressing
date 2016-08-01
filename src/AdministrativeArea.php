@@ -1,12 +1,11 @@
 <?php
 
-namespace InterNACHI\Address;
+namespace Galahad\LaravelAddressing;
 
 use ArrayObject;
 use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 use CommerceGuys\Addressing\Model\Subdivision;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
-use Illuminate\Support\Arr;
 
 /**
  * Class AdministrativeArea

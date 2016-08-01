@@ -1,9 +1,9 @@
 <?php
 
-namespace InterNACHI\Address;
+namespace Galahad\LaravelAddressing;
+
 use ArrayObject;
 use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
-use Illuminate\Support\Arr;
 
 /**
  * Class Locality
