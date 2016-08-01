@@ -23,6 +23,16 @@ class CountryCollection extends Collection implements CollectionInterface
         if ($country instanceof Country) {
             return parent::insert($country);
         }
+
+        if (is_array($country)) {
+            foreach ($country as $c) {
+                if (! $c instanceof Country) {
+                    throw new Exception('All the array elements of a CountryCollection should be Country objects');
+                }
+            }
+            return parent::insert($country);
+        }
+
         throw new Exception('You can only insert Country objects in a CountryCollection');
     }
 
@@ -33,6 +43,12 @@ class CountryCollection extends Collection implements CollectionInterface
      */
     public function toList()
     {
-        // TODO
+        $list = [];
+        /** @var Country $element */
+        foreach ($this as $element) {
+            $list[$element->getCode()] = $element->getName();
+        }
+
+        return $list;
     }
 }
