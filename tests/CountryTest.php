@@ -28,11 +28,11 @@ class CountryTest extends PHPUnit_Framework_TestCase
         $country = new Country;
 
         $brazil = $country->findByCode('BR');
-        $acState = $brazil->getAdministrativeAreas()->offsetGet(0);
+        $acState = $brazil->getAdministrativeAreas()->getByKey(0);
 
         $us = $country->findByCode('US');
-        $alabamaState = $us->getAdministrativeAreas()->offsetGet(0);
-        $coloradoState = $us->getAdministrativeAreas()->offsetGet(9);
+        $alabamaState = $us->getAdministrativeAreas()->getByKey(0);
+        $coloradoState = $us->getAdministrativeAreas()->getByKey(9);
 
         $this->assertEquals($acState->getName(), 'Acre');
         $this->assertEquals($alabamaState->getName(), 'Alabama');
