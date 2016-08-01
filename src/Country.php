@@ -178,7 +178,7 @@ class Country
 	/**
 	 * Get all countries
 	 *
-	 * @return ArrayObject
+	 * @return CountryCollection
 	 */
 	public function getAll()
 	{
