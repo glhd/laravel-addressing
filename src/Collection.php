@@ -42,10 +42,16 @@ class Collection implements IteratorAggregate
     /**
      * Insert a new element in the collection
      *
-     * @param $value
+     * @param mixed $value
      */
     public function insert($value)
     {
+        if (is_array($value)) {
+            foreach ($value as $val) {
+                $this->items->append($val);
+            }
+            return;
+        }
         $this->items->append($value);
     }
 
