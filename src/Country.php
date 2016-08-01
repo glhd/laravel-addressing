@@ -3,7 +3,6 @@
 namespace Galahad\LaravelAddressing;
 
 use ArrayObject;
-use CommerceGuys\Addressing\Model\Address;
 use CommerceGuys\Addressing\Repository\CountryRepository;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 
