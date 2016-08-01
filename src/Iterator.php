@@ -3,15 +3,15 @@
 namespace Galahad\LaravelAddressing;
 
 use ArrayObject;
-use Iterator;
+use Iterator as BaseIterator;
 
 /**
- * Class Collection
+ * Class Iterator
  *
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class Collection implements Iterator
+class Iterator implements BaseIterator
 {
     /**
      * @var ArrayObject
@@ -24,16 +24,6 @@ class Collection implements Iterator
     public function __construct()
     {
         $this->items = new ArrayObject();
-    }
-
-    /**
-     * Insert a new element in the collection
-     *
-     * @param $object
-     */
-    public function insert($object)
-    {
-        $this->items->append($object);
     }
 
     /**
