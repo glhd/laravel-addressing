@@ -12,6 +12,11 @@
   "authors": [
     {
       "name": "Chris Morrell"
+    },
+    {
+      "name": "Junior Grossi",
+      "email": "juniorgro@gmail.com",
+      "homepage": "http://github.com/jgrossi"
     }
   ],
   "require": {
