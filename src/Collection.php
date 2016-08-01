@@ -2,7 +2,6 @@
 
 namespace Galahad\LaravelAddressing;
 
-use ArrayObject;
 use IteratorAggregate;
 use Traversable;
 
@@ -15,17 +14,9 @@ use Traversable;
 class Collection implements IteratorAggregate
 {
     /**
-     * @var ArrayObject
+     * @var array
      */
-    private $items;
-
-    /**
-     * The construct method
-     */
-    public function __construct()
-    {
-        $this->items = new ArrayObject();
-    }
+    private $items = [];
 
     /**
      * Retrieve an external iterator
@@ -48,11 +39,11 @@ class Collection implements IteratorAggregate
     {
         if (is_array($value)) {
             foreach ($value as $val) {
-                $this->items->append($val);
+                $this->items[] = $val;
             }
             return;
         }
-        $this->items->append($value);
+        $this->items[] = $value;
     }
 
     /**
@@ -62,6 +53,19 @@ class Collection implements IteratorAggregate
      */
     public function count()
     {
-        return $this->items->count();
+        return count($this->items);
+    }
+
+    /**
+     * Get an element by its position
+     *
+     * @param int $key
+     * @return mixed
+     */
+    public function getByKey($key)
+    {
+        if (isset($this->items[$key])) {
+            return $this->items[$key];
+        }
     }
 }

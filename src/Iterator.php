@@ -2,7 +2,6 @@
 
 namespace Galahad\LaravelAddressing;
 
-use ArrayObject;
 use Iterator as BaseIterator;
 
 /**
@@ -14,16 +13,16 @@ use Iterator as BaseIterator;
 class Iterator implements BaseIterator
 {
     /**
-     * @var ArrayObject
+     * @var array
      */
     protected $items;
 
     /**
      * The construct class
      *
-     * @param ArrayObject $items
+     * @param array $items
      */
-    public function __construct(ArrayObject $items)
+    public function __construct(array $items)
     {
         $this->items = $items;
     }
@@ -87,7 +86,7 @@ class Iterator implements BaseIterator
 
     /**
      * Rewind the Iterator to the first element
-     * 
+     *
      * @link http://php.net/manual/en/iterator.rewind.php
      * @return void Any returned value is ignored.
      * @since 5.0.0
