@@ -243,7 +243,7 @@ class Country
 	/**
 	 * Get all the administrative areas from a given country
 	 *
-	 * @return ArrayObject|null
+	 * @return AdministrativeAreaCollection
 	 */
 	public function getAdministrativeAreas()
 	{
