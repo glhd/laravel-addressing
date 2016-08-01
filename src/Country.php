@@ -183,13 +183,13 @@ class Country
 	public function getAll()
 	{
 		$countries = $this->countryRepository->getList($this->locale);
-		$list = new ArrayObject();
+		$list = new CountryCollection();
 		foreach ($countries as $code => $name) {
 			$country = new static;
 			$country->setName($name);
 			$country->setCode($code);
 			$country->setLocale($this->locale);
-			$list->append($country);
+			$list->insert($country);
 		}
 
 		return $list;
