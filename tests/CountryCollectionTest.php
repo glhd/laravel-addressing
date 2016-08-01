@@ -22,4 +22,16 @@ class CountryCollectionTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($country->getName(), $countries[$key]);
         }
     }
+
+    public function testToListFeature()
+    {
+        $factory = new Country;
+        $expected = ['BR' => 'Brazil', 'US' => 'United States'];
+        $collection = new CountryCollection();
+        $collection->insert([
+            $factory->findByCode('BR'),
+            $factory->findByCode('US'),
+        ]);
+        $this->assertEquals($collection->toList(), $expected);
+    }
 }
