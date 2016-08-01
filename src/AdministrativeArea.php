@@ -77,7 +77,7 @@ class AdministrativeArea
 	{
 		$country = $this->getCountry();
 		$repo = $country->getSubdivisionRepository();
-		$list = new ArrayObject;
+		$list = new AdministrativeAreaCollection();
 		/** @var Subdivision $subdivision */
 		foreach ($repo->getAll($country->getCode()) as $subdivision) {
 			$admArea = new static($country);
@@ -85,7 +85,7 @@ class AdministrativeArea
 			$admArea->setName($subdivision->getName());
 			$admArea->setLocale($country->getLocale());
 			$admArea->setSubdivision($subdivision);
-			$list->append($admArea);
+			$list->insert($admArea);
 		}
 
 		return $list;
