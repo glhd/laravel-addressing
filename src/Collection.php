@@ -27,6 +27,16 @@ class Collection implements Iterator
     }
 
     /**
+     * Insert a new element in the collection
+     *
+     * @param $object
+     */
+    public function insert($object)
+    {
+        $this->items->append($object);
+    }
+
+    /**
      * Return the current element
      * @link http://php.net/manual/en/iterator.current.php
      * @return mixed Can return any type.
