@@ -16,8 +16,8 @@ use CommerceGuys\Addressing\Repository\SubdivisionRepository;
  * echo $country->findByCode('br')->getName();
  * $allCountries = $country->getAll(); // Return an ArrayObject with Country objects
  *
- * @package InterNACHI\Address
- * @author Junior Grossi <junior@internachi.org>
+ * @package Galahad\LaravelAddressing
+ * @author Junior Grossi <juniorgro@gmail.com>
  */
 class Country
 {

@@ -10,8 +10,8 @@ use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 /**
  * Class AdministrativeArea
  *
- * @package InterNACHI\Address
- * @author Junior Grossi <junior@internachi.org>
+ * @package Galahad\LaravelAddressing
+ * @author Junior Grossi <juniorgro@gmail.com>
  */
 class AdministrativeArea
 {

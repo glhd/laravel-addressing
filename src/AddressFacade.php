@@ -5,10 +5,10 @@ namespace Galahad\LaravelAddressing;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Class Facade
+ * Class AddressFacade
  *
- * @package InterNACHI\Address
- * @author Junior Grossi <junior@internachi.org>
+ * @package Galahad\LaravelAddressing
+ * @author Junior Grossi <juniorgro@gmail.com>
  */
 class AddressFacade extends Facade
 {

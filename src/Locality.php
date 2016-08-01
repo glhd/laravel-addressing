@@ -8,8 +8,8 @@ use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 /**
  * Class Locality
  *
- * @package InterNACHI\Address
- * @author Junior Grossi <junior@internachi.org>
+ * @package Galahad\LaravelAddressing
+ * @author Junior Grossi <juniorgro@gmail.com>
  */
 class Locality
 {
