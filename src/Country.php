@@ -58,9 +58,12 @@ class Country
 
 	/**
 	 * Construct method
+	 *
+	 * @param string|null $locale
 	 */
-	public function __construct()
+	public function __construct($locale = null)
 	{
+		$this->setLocale($locale);
 		$this->countryRepository = new CountryRepository();
 		$this->subdivisionRepository = new SubdivisionRepository();
 	}
