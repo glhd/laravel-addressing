@@ -230,6 +230,17 @@ class Country
 	}
 
 	/**
+	 * Shortcut for the getByCode() method
+	 *
+	 * @param $code
+	 * @return Country|null
+	 */
+	public function code($code)
+	{
+		return $this->getByCode($code);
+	}
+
+	/**
 	 * Get a country instance by the name
 	 *
 	 * @param $name
@@ -253,5 +264,15 @@ class Country
 		}
 
 		return $this->administrativeAreas;
+	}
+
+	/**
+	 * Shortcut for getAdministrativeAreas() method
+	 *
+	 * @return AdministrativeAreaCollection
+	 */
+	public function states()
+	{
+		return $this->getAdministrativeAreas();
 	}
 }
