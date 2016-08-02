@@ -242,6 +242,16 @@ class AdministrativeArea
 	}
 
 	/**
+	 * Shortcut for the getLocalities() method
+	 *
+	 * @return LocalityCollection
+	 */
+	public function cities()
+	{
+		return $this->getLocalities();
+	}
+
+	/**
 	 * Set the administrative area localities
 	 *
 	 * @param LocalityCollection $localities
