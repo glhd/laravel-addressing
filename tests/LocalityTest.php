@@ -1,6 +1,7 @@
 <?php
 
 use Galahad\LaravelAddressing\Country;
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Locality;
 
 /**
@@ -20,6 +21,14 @@ class LocalityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($beloHorizonte->getAdministrativeArea()->getName(), 'Minas Gerais');
         $this->assertEquals($beloHorizonte->getName(), 'Belo Horizonte');
         $this->assertInstanceOf(Locality::class, $beloHorizonte);
+    }
+
+    public function testGetMagicMethod()
+    {
+        $maker = new LaravelAddressing();
+        $city = $maker->country('BR')->state('MG')->city('Belo Horizonte');
+
+        $this->assertEquals($city->name, 'Belo Horizonte');
     }
 
 //    public function testBoulderCity()
