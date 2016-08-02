@@ -2,8 +2,7 @@
 
 namespace Galahad\LaravelAddressing;
 
-use ArrayObject;
-use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
+use CommerceGuys\Addressing\Model\Subdivision;
 
 /**
  * Class Locality
@@ -19,6 +18,16 @@ class Locality
 	protected $administrativeArea;
 
 	/**
+	 * @var string
+	 */
+	protected $name;
+
+	/**
+	 * @var string
+	 */
+	protected $locale;
+
+	/**
 	 * The constructor method
 	 *
 	 * @param AdministrativeArea $administrativeArea
@@ -31,18 +40,69 @@ class Locality
 	/**
 	 * Get all localities from a given Administrative Area
 	 *
-	 * @return ArrayObject
+	 * @return LocalityCollection
 	 */
 	public function getAll()
 	{
 		$subdivision = $this->administrativeArea->getSubdivision();
 		$list = new LocalityCollection();
 		$children = $subdivision->getChildren();
-		/** @var LazySubdivisionCollection $child */
+		/** @var Subdivision $child */
 		foreach ($children as $child) {
 			$locality = new static($this->administrativeArea);
-			// TODO
+			$locality->setName($child->getName());
+			$locality->setLocale($child->getLocale());
 			$list->insert($locality);
 		}
+
+		return $list;
+	}
+
+	/**
+	 * Get the locality name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Set the locality name
+	 *
+	 * @param string $name
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+
+	/**
+	 * Get the locality locale
+	 *
+	 * @return string
+	 */
+	public function getLocale()
+	{
+		return $this->locale;
+	}
+
+	/**
+	 * Set the locality locale
+	 *
+	 * @param string $locale
+	 */
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
+	}
+
+	/**
+	 * @return AdministrativeArea
+	 */
+	public function getAdministrativeArea()
+	{
+		return $this->administrativeArea;
 	}
 }
