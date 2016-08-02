@@ -36,7 +36,7 @@ class AdministrativeArea
 	protected $locale = 'en';
 
 	/**
-	 * @var ArrayObject
+	 * @var null|LocalityCollection
 	 */
 	protected $localities = null;
 
@@ -64,7 +64,6 @@ class AdministrativeArea
 			$this->country = $object->getByCode($country);
 		}
 
-		$this->localities = new ArrayObject();
 		$this->subdivisionRepository = $this->getCountry()->getSubdivisionRepository();
 	}
 
@@ -228,28 +227,28 @@ class AdministrativeArea
 	/**
 	 * Get the administrative area localities
 	 *
-	 * @return ArrayObject
+	 * @return LocalityCollection
 	 */
 	public function getLocalities()
 	{
+		if ($this->localities instanceof LocalityCollection) {
+			return $this->localities;
+		}
+
+		$locality = new Locality($this);
+		$this->setLocalities($locality->getAll());
+
 		return $this->localities;
 	}
 
 	/**
 	 * Set the administrative area localities
 	 *
-	 * @param mixed $localities
+	 * @param LocalityCollection $localities
 	 */
-	public function setLocalities($localities)
+	protected function setLocalities(LocalityCollection $localities)
 	{
-		if ($localities instanceof LazySubdivisionCollection) {
-			$this->localities = $this->fillLocalities($localities);
-			return;
-		}
-
-		if ($localities instanceof ArrayObject) {
-			$this->localities = $localities;
-		}
+		$this->localities = $localities;
 	}
 
 	/**
