@@ -40,7 +40,7 @@ class LaravelAddressing
      * @param $code
      * @return Country|null
      */
-    public function country($code)
+    public function getCountryByCode($code)
     {
         return $this->country->getByCode($code);
     }
@@ -55,7 +55,7 @@ class LaravelAddressing
      * @param int $asArrayList
      * @return CountryCollection|array
      */
-    public function countries($asArrayList = 0)
+    public function getCountries($asArrayList = 0)
     {
         if ($asArrayList === static::ARRAY_LIST) {
             return $this->country->getAll()->toList();
