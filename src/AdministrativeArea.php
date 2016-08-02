@@ -262,18 +262,6 @@ class AdministrativeArea
 	}
 
 	/**
-	 * Fill the localities according the InterNACHI classes
-	 *
-	 * @param LazySubdivisionCollection $localities
-	 */
-	protected function fillLocalities(LazySubdivisionCollection $localities)
-	{
-		foreach ($localities as $locality) {
-			// TODO
-		}
-	}
-
-	/**
 	 * @return SubdivisionRepository|null
 	 */
 	public function getSubdivisionRepository()
