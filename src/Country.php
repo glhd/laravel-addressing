@@ -19,7 +19,7 @@ use CommerceGuys\Addressing\Repository\SubdivisionRepository;
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class Country
+class Country extends Entity
 {
 	/**
 	 * @var string|null
@@ -294,20 +294,6 @@ class Country
 		$state = $this->getAdministrativeAreas()->getByName($code);
 		if ($state instanceof AdministrativeArea) {
 			return $state;
-		}
-	}
-
-	/**
-	 * Get property if get method exists
-	 *
-	 * @param $name
-	 * @return mixed
-	 */
-	function __get($name)
-	{
-		$method = 'get'.ucfirst($name);
-		if (method_exists($this, $method)) {
-			return $this->$method();
 		}
 	}
 }

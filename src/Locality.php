@@ -10,7 +10,7 @@ use CommerceGuys\Addressing\Model\Subdivision;
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class Locality
+class Locality extends Entity
 {
 	/**
 	 * @var AdministrativeArea

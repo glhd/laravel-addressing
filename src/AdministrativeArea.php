@@ -13,7 +13,7 @@ use CommerceGuys\Addressing\Repository\SubdivisionRepository;
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class AdministrativeArea
+class AdministrativeArea extends Entity
 {
 	/**
 	 * @var Country|null
