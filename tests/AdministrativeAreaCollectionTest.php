@@ -36,4 +36,14 @@ class AdministrativeAreaCollectionTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($states->count(), 27);
     }
+
+    public function testCollectionList()
+    {
+        $country = new Country();
+        $usStates = $country->getByCode('US')->getAdministrativeAreas()->toList();
+
+        $this->assertTrue(isset($usStates['AL']));
+        $this->assertTrue(isset($usStates['CO']));
+        $this->assertTrue(isset($usStates['CA']));
+    }
 }
