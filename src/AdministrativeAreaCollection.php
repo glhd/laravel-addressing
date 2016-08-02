@@ -41,6 +41,17 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
     }
 
     /**
+     * Shortcut for getByCode()
+     *
+     * @param $code
+     * @return AdministrativeArea
+     */
+    public function code($code)
+    {
+        return $this->getByCode($code);
+    }
+
+    /**
      * Get an administrative are by name
      *
      * @param string $name
@@ -51,5 +62,16 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
         $first = $this->getByKey(0);
 
         return $first->getByName($name);
+    }
+
+    /**
+     * Shortcut for getByName()
+     *
+     * @param $name
+     * @return AdministrativeArea
+     */
+    public function name($name)
+    {
+        return $this->getByName($name);
     }
 }

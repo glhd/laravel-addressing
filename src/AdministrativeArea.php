@@ -122,6 +122,17 @@ class AdministrativeArea
 	}
 
 	/**
+	 * Shortcut for getByCode()
+	 *
+	 * @param $code
+	 * @return AdministrativeArea
+	 */
+	public function code($code)
+	{
+		return $this->getByCode($code);
+	}
+
+	/**
 	 * Get an administrative area by name
 	 *
 	 * @param $name
@@ -130,6 +141,17 @@ class AdministrativeArea
 	public function getByName($name)
 	{
 		return $this->getByField('name', $name);
+	}
+
+	/**
+	 * Shortcut for getByName()
+	 *
+	 * @param $name
+	 * @return AdministrativeArea
+	 */
+	public function name($name)
+	{
+		return $this->getByName($name);
 	}
 
 	/**
