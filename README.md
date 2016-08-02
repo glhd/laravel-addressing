@@ -38,8 +38,8 @@ echo Addressing::country('US')->state('AL')->name; // Alabama
 ```
 
 ```php
-$cities = Addressing::country('BR')->states();
-foreach ($cities as $code => $name) {
+$states = Addressing::country('BR')->states();
+foreach ($states as $code => $name) {
     echo "[$code]: $name\n";
 }
 ```
