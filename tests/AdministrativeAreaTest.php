@@ -1,6 +1,7 @@
 <?php
 
 use Galahad\LaravelAddressing\Country;
+use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**
  * Class AdministrativeAreaTest
@@ -27,5 +28,13 @@ class AdministrativeAreaTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($alabama->getCode(), 'AL');
         $this->assertEquals($alabama2->getCode(), 'AL');
+    }
+
+    public function testGetMagicMethod()
+    {
+        $maker = new LaravelAddressing();
+        $firstState = $maker->country('US')->states()->getByKey(0);
+
+        $this->assertEquals($firstState->name, 'Alabama');
     }
 }
