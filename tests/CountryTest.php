@@ -38,4 +38,14 @@ class CountryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($alabamaState->getName(), 'Alabama');
         $this->assertEquals($coloradoState->getName(), 'Colorado');
     }
+
+    public function testShortcuts()
+    {
+        $country = new Country;
+        $brazil = $country->code('BR');
+        $us = $country->code('US');
+
+        $this->assertEquals($brazil->getName(), 'Brazil');
+        $this->assertEquals($us->getName(), 'United States');
+    }
 }
