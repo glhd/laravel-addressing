@@ -274,6 +274,28 @@ class AdministrativeArea
 	}
 
 	/**
+	 * Shortcut to get a Locality from an AdministrativeArea object
+	 *
+	 * @param $name
+	 * @return Locality
+	 */
+	public function city($name)
+	{
+		return $this->getLocalities()->getByName($name);
+	}
+
+	/**
+	 * Shortcut to get a locality from an administrative area
+	 *
+	 * @param $name
+	 * @return Locality
+	 */
+	public function locality($name)
+	{
+		return $this->getLocalities()->getByName($name);
+	}
+
+	/**
 	 * Set the administrative area localities
 	 *
 	 * @param LocalityCollection $localities
