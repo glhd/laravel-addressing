@@ -31,6 +31,16 @@ class LocalityTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($city->name, 'Belo Horizonte');
     }
 
+    public function testValuesList()
+    {
+        $maker = new LaravelAddressing();
+        $cities = $maker->country('BR')->state('MG')->cities()->toList();
+
+        $this->assertTrue(isset($cities['Belo Horizonte']));
+        $this->assertTrue(isset($cities['Barbacena']));
+        $this->assertTrue(isset($cities['Juiz de Fora']));
+    }
+
 //    public function testBoulderCity()
 //    {
 //        $colorado = (new Country)->getByCode('US')->getAdministrativeAreas()->getByName('Colorado');

@@ -17,7 +17,13 @@ class LocalityCollection extends Collection implements CollectionInterface
      */
     public function toList()
     {
-        // TODO: Implement toList() method.
+        $values = [];
+        /** @var Locality $locality */
+        foreach ($this as $locality) {
+            $values[$locality->getName()] = $locality->getName();
+        }
+
+        return $values;
     }
 
     /**
