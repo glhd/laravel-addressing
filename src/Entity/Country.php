@@ -1,10 +1,15 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Entity;
 
 use ArrayObject;
 use CommerceGuys\Addressing\Repository\CountryRepository;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use Galahad\LaravelAddressing\Address;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\Entity\Entity;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 
 /**
  * Class Country
@@ -181,7 +186,7 @@ class Country extends Entity
 	/**
 	 * Get all countries
 	 *
-	 * @return CountryCollection
+	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
 	 */
 	public function getAll()
 	{
@@ -257,7 +262,7 @@ class Country extends Entity
 	/**
 	 * Get all the administrative areas from a given country
 	 *
-	 * @return AdministrativeAreaCollection
+	 * @return \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
 	 */
 	public function getAdministrativeAreas()
 	{

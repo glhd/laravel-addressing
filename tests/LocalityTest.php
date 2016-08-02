@@ -1,8 +1,8 @@
 <?php
 
-use Galahad\LaravelAddressing\Country;
+use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
-use Galahad\LaravelAddressing\Locality;
+use Galahad\LaravelAddressing\Entity\Locality;
 
 /**
  * Class LocalityTest

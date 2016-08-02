@@ -1,6 +1,6 @@
 <?php
-use Galahad\LaravelAddressing\Country;
-use Galahad\LaravelAddressing\CountryCollection;
+use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
 
 /**
  * Class CountryCollectionTest
@@ -17,7 +17,7 @@ class CountryCollectionTest extends PHPUnit_Framework_TestCase
         foreach ($countries as $countryName) {
             $collection->insert($country->getByName($countryName));
         }
-        /** @var Country $country */
+        /** @var \Galahad\LaravelAddressing\Entity\Country $country */
         foreach ($collection as $key => $country) {
             $this->assertEquals($country->getName(), $countries[$key]);
         }

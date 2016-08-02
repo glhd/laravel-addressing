@@ -1,6 +1,6 @@
 <?php
 
-use Galahad\LaravelAddressing\Country;
+use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**

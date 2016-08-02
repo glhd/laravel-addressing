@@ -1,7 +1,7 @@
 <?php
 
-use Galahad\LaravelAddressing\AdministrativeArea;
-use Galahad\LaravelAddressing\Country;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Country;
 
 /**
  * Class CountryTest

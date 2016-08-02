@@ -1,6 +1,6 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Entity;
 
 /**
  * Class Entity

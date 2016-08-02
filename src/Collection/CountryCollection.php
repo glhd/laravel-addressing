@@ -1,8 +1,11 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Collection;
 
 use Exception;
+use Galahad\LaravelAddressing\Collection\Collection;
+use Galahad\LaravelAddressing\Collection\CollectionInterface;
+use Galahad\LaravelAddressing\Entity\Country;
 
 /**
  * Class CountryCollection

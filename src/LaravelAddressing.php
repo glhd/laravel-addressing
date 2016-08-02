@@ -3,6 +3,8 @@
 namespace Galahad\LaravelAddressing;
 
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\Entity\Country;
 
 /**
  * Class LaravelAddressing

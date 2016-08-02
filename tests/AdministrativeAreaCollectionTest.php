@@ -1,7 +1,7 @@
 <?php
 
-use Galahad\LaravelAddressing\AdministrativeAreaCollection;
-use Galahad\LaravelAddressing\Country;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
+use Galahad\LaravelAddressing\Entity\Country;
 
 /**
  * Class AdministrativeAreaCollectionTest

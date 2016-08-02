@@ -1,11 +1,15 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Entity;
 
 use ArrayObject;
-use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 use CommerceGuys\Addressing\Model\Subdivision;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
+use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\Entity\Entity;
+use Galahad\LaravelAddressing\Entity\Locality;
+use Galahad\LaravelAddressing\Collection\LocalityCollection;
 
 /**
  * Class AdministrativeArea
@@ -249,7 +253,7 @@ class AdministrativeArea extends Entity
 	/**
 	 * Get the administrative area localities
 	 *
-	 * @return LocalityCollection
+	 * @return \Galahad\LaravelAddressing\Collection\LocalityCollection
 	 */
 	public function getLocalities()
 	{

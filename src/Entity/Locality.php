@@ -1,8 +1,11 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Entity;
 
 use CommerceGuys\Addressing\Model\Subdivision;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Entity;
+use Galahad\LaravelAddressing\Collection\LocalityCollection;
 
 /**
  * Class Locality
@@ -40,7 +43,7 @@ class Locality extends Entity
 	/**
 	 * Get all localities from a given Administrative Area
 	 *
-	 * @return LocalityCollection
+	 * @return \Galahad\LaravelAddressing\Collection\LocalityCollection
 	 */
 	public function getAll()
 	{
