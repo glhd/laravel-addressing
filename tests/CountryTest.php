@@ -56,4 +56,12 @@ class CountryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($country->code('US')->name, 'United States');
         $this->assertEquals($country->code('BR')->name, 'Brazil');
     }
+
+    public function testLocale()
+    {
+        $country = new Country('pt');
+
+        $this->assertEquals($country->code('US')->name, 'Estados Unidos');
+        $this->assertEquals($country->code('BR')->name, 'Brasil');
+    }
 }
