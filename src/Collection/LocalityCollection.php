@@ -2,8 +2,6 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use Galahad\LaravelAddressing\Collection\Collection;
-use Galahad\LaravelAddressing\Collection\CollectionInterface;
 use Galahad\LaravelAddressing\Entity\Locality;
 
 /**

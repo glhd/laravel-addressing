@@ -1,4 +1,5 @@
 <?php
+
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 

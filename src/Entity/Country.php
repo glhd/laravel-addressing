@@ -8,8 +8,6 @@ use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 use Galahad\LaravelAddressing\Address;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
-use Galahad\LaravelAddressing\Entity\Entity;
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 
 /**
  * Class Country

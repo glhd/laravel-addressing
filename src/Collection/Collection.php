@@ -2,7 +2,6 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use Galahad\LaravelAddressing\Collection\Iterator;
 use IteratorAggregate;
 use Traversable;
 

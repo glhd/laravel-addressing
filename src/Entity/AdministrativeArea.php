@@ -6,9 +6,6 @@ use ArrayObject;
 use CommerceGuys\Addressing\Model\Subdivision;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
-use Galahad\LaravelAddressing\Entity\Country;
-use Galahad\LaravelAddressing\Entity\Entity;
-use Galahad\LaravelAddressing\Entity\Locality;
 use Galahad\LaravelAddressing\Collection\LocalityCollection;
 
 /**

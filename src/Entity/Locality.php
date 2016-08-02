@@ -3,8 +3,6 @@
 namespace Galahad\LaravelAddressing\Entity;
 
 use CommerceGuys\Addressing\Model\Subdivision;
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
-use Galahad\LaravelAddressing\Entity\Entity;
 use Galahad\LaravelAddressing\Collection\LocalityCollection;
 
 /**
