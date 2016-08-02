@@ -26,12 +26,20 @@ class LaravelAddressing
     protected $country;
 
     /**
-     * The construct method
+     * @var null|string
      */
-    public function __construct()
+    protected $locale;
+
+    /**
+     * The construct method
+     *
+     * @param string|null $locale
+     */
+    public function __construct($locale = null)
     {
+        $this->locale = $locale;
         $this->subdivisionRepository = new SubdivisionRepository();
-        $this->country = new Country();
+        $this->country = new Country($locale);
     }
 
     /**
@@ -95,6 +103,26 @@ class LaravelAddressing
     public function countries($asArrayList = 0)
     {
         return $this->getCountries($asArrayList);
+    }
+
+    /**
+     * Get the locale
+     *
+     * @return null|string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set the default locale
+     *
+     * @param null|string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
     public function getAdministrativeAreas($countryCode)
