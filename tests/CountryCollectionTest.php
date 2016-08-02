@@ -15,7 +15,7 @@ class CountryCollectionTest extends PHPUnit_Framework_TestCase
         $country = new Country;
         $countries = ['Brazil', 'United States', 'Argentina', 'Canada', 'Chile'];
         foreach ($countries as $countryName) {
-            $collection->insert($country->findByName($countryName));
+            $collection->insert($country->getByName($countryName));
         }
         /** @var Country $country */
         foreach ($collection as $key => $country) {
@@ -29,8 +29,8 @@ class CountryCollectionTest extends PHPUnit_Framework_TestCase
         $expected = ['BR' => 'Brazil', 'US' => 'United States'];
         $collection = new CountryCollection();
         $collection->insert([
-            $factory->findByCode('BR'),
-            $factory->findByCode('US'),
+            $factory->getByCode('BR'),
+            $factory->getByCode('US'),
         ]);
         $this->assertEquals($collection->toList(), $expected);
     }

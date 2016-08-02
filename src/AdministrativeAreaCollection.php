@@ -32,12 +32,12 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
      * @param string $code
      * @return AdministrativeArea
      */
-    public function findByCode($code)
+    public function getByCode($code)
     {
         /** @var AdministrativeArea $first */
         $first = $this->getByKey(0);
 
-        return $first->findByCode($code);
+        return $first->getByCode($code);
     }
 
     /**
@@ -46,10 +46,10 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
      * @param string $name
      * @return AdministrativeArea
      */
-    public function findByName($name)
+    public function getByName($name)
     {
         $first = $this->getByKey(0);
 
-        return $first->findByName($name);
+        return $first->getByName($name);
     }
 }

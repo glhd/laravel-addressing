@@ -42,7 +42,7 @@ class LaravelAddressing
      */
     public function country($code)
     {
-        return $this->country->findByCode($code);
+        return $this->country->getByCode($code);
     }
 
     /**

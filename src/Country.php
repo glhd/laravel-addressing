@@ -202,7 +202,7 @@ class Country
 	 * @param $fieldValue
 	 * @return Country|null
 	 */
-	protected function findByField($fieldName, $fieldValue)
+	protected function getByField($fieldName, $fieldValue)
 	{
 		$fieldValue = strtolower($fieldValue);
 		$list = static::getAll();
@@ -224,9 +224,9 @@ class Country
 	 * @param $code
 	 * @return Country|null
 	 */
-	public function findByCode($code)
+	public function getByCode($code)
 	{
-		return $this->findByField('code', $code);
+		return $this->getByField('code', $code);
 	}
 
 	/**
@@ -235,9 +235,9 @@ class Country
 	 * @param $name
 	 * @return Country|null
 	 */
-	public function findByName($name)
+	public function getByName($name)
 	{
-		return $this->findByField('name', $name);
+		return $this->getByField('name', $name);
 	}
 
 	/**

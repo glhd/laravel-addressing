@@ -61,7 +61,7 @@ class AdministrativeArea
 			$this->country = $country;
 		} elseif (is_string($country)) {
 			$object = new Country;
-			$this->country = $object->findByCode($country);
+			$this->country = $object->getByCode($country);
 		}
 
 		$this->localities = new ArrayObject();
@@ -98,7 +98,7 @@ class AdministrativeArea
 	 * @param $fieldValue
 	 * @return AdministrativeArea
 	 */
-	protected function findByField($fieldName, $fieldValue)
+	protected function getByField($fieldName, $fieldValue)
 	{
 		$fieldValue = strtolower($fieldValue);
 		$list = $this->getAll();
@@ -117,9 +117,9 @@ class AdministrativeArea
 	 * @param $code
 	 * @return AdministrativeArea
 	 */
-	public function findByCode($code)
+	public function getByCode($code)
 	{
-		return $this->findByField('code', $code);
+		return $this->getByField('code', $code);
 	}
 
 	/**
@@ -128,9 +128,9 @@ class AdministrativeArea
 	 * @param $name
 	 * @return AdministrativeArea
 	 */
-	public function findByName($name)
+	public function getByName($name)
 	{
-		return $this->findByField('name', $name);
+		return $this->getByField('name', $name);
 	}
 
 	/**

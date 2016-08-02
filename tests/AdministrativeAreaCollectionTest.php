@@ -13,7 +13,7 @@ class AdministrativeAreaCollectionTest extends PHPUnit_Framework_TestCase
     public function testCollectionClass()
     {
         $country = new Country;
-        $brazil = $country->findByCode('BR');
+        $brazil = $country->getByCode('BR');
         $states = $brazil->getAdministrativeAreas();
 
         $this->assertInstanceOf(AdministrativeAreaCollection::class, $states);
@@ -22,7 +22,7 @@ class AdministrativeAreaCollectionTest extends PHPUnit_Framework_TestCase
     public function testUSStatesCount()
     {
         $country = new Country;
-        $us = $country->findByCode('US');
+        $us = $country->getByCode('US');
         $states = $us->getAdministrativeAreas();
 
         $this->assertEquals($states->count(), 62);

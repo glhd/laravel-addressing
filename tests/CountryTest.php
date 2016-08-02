@@ -14,9 +14,9 @@ class CountryTest extends PHPUnit_Framework_TestCase
     {
         $country = new Country;
 
-        $us = $country->findByName('United States');
-        $br = $country->findByName('Brazil');
-        $brazil = $country->findByCode('BR');
+        $us = $country->getByName('United States');
+        $br = $country->getByName('Brazil');
+        $brazil = $country->getByCode('BR');
 
         $this->assertEquals($us->getCode(), 'US');
         $this->assertEquals($br->getCode(), 'BR');
@@ -27,10 +27,10 @@ class CountryTest extends PHPUnit_Framework_TestCase
     {
         $country = new Country;
 
-        $brazil = $country->findByCode('BR');
+        $brazil = $country->getByCode('BR');
         $acState = $brazil->getAdministrativeAreas()->getByKey(0);
 
-        $us = $country->findByCode('US');
+        $us = $country->getByCode('US');
         $alabamaState = $us->getAdministrativeAreas()->getByKey(0);
         $coloradoState = $us->getAdministrativeAreas()->getByKey(9);
 

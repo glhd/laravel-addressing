@@ -12,8 +12,8 @@ class AdministrativeAreaTest extends PHPUnit_Framework_TestCase
     public function testMinasGeraisStateInBrazil()
     {
         $country = new Country;
-        $brazil = $country->findByCode('BR');
-        $minasGerais = $brazil->getAdministrativeAreas()->findByCode('MG');
+        $brazil = $country->getByCode('BR');
+        $minasGerais = $brazil->getAdministrativeAreas()->getByCode('MG');
 
         $this->assertEquals($minasGerais->getName(), 'Minas Gerais');
     }
@@ -21,8 +21,8 @@ class AdministrativeAreaTest extends PHPUnit_Framework_TestCase
     public function testAlabamaCodeByName()
     {
         $country = new Country;
-        $us = $country->findByCode('US');
-        $alabama = $us->getAdministrativeAreas()->findByName('Alabama');
+        $us = $country->getByCode('US');
+        $alabama = $us->getAdministrativeAreas()->getByName('Alabama');
 
         $this->assertEquals($alabama->getCode(), 'AL');
     }
