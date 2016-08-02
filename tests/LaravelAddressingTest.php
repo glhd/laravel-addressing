@@ -18,4 +18,13 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($usCode->getName(), 'United States');
         $this->assertEquals($usName->getCode(), 'US');
     }
+
+    public function testCountryList()
+    {
+        $addressing = new LaravelAddressing();
+        $countries = $addressing->getCountries(LaravelAddressing::ARRAY_LIST);
+
+        $this->assertEquals($countries['US'], 'United States');
+        $this->assertEquals($countries['BR'], 'Brazil');
+    }
 }
