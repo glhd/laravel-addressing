@@ -57,6 +57,17 @@ class LaravelAddressing
     }
 
     /**
+     * Shortcut to getCountryByCode() method
+     *
+     * @param $code
+     * @return Country|null
+     */
+    public function country($code)
+    {
+        return $this->getCountryByCode($code);
+    }
+
+    /**
      * Get the countries list
      *
      * Example:
@@ -73,6 +84,17 @@ class LaravelAddressing
         }
 
         return $this->country->getAll();
+    }
+
+    /**
+     * Shortcut for getCountries() method
+     *
+     * @param int $asArrayList
+     * @return array|CountryCollection
+     */
+    public function countries($asArrayList = 0)
+    {
+        return $this->getCountries($asArrayList);
     }
 
     public function getAdministrativeAreas($countryCode)
