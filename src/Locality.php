@@ -59,6 +59,23 @@ class Locality
 	}
 
 	/**
+	 * Get a locality by name
+	 *
+	 * @param $name
+	 * @return Locality
+	 */
+	public function getByName($name)
+	{
+		$all = $this->getAll();
+		/** @var Locality $locality */
+		foreach ($all as $locality) {
+			if (strtolower($locality->getName()) == strtolower($name)) {
+				return $locality;
+			}
+		}
+	}
+
+	/**
 	 * Get the locality name
 	 *
 	 * @return string
