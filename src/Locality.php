@@ -36,13 +36,13 @@ class Locality
 	public function getAll()
 	{
 		$subdivision = $this->administrativeArea->getSubdivision();
-		$list = new ArrayObject();
+		$list = new LocalityCollection();
 		$children = $subdivision->getChildren();
 		/** @var LazySubdivisionCollection $child */
 		foreach ($children as $child) {
 			$locality = new static($this->administrativeArea);
 			// TODO
-			$list->append($locality);
+			$list->insert($locality);
 		}
 	}
 }
