@@ -48,4 +48,12 @@ class CountryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($brazil->getName(), 'Brazil');
         $this->assertEquals($us->getName(), 'United States');
     }
+
+    public function testGetMagicMethod()
+    {
+        $country = new Country;
+
+        $this->assertEquals($country->code('US')->name, 'United States');
+        $this->assertEquals($country->code('BR')->name, 'Brazil');
+    }
 }
