@@ -296,4 +296,18 @@ class Country
 			return $state;
 		}
 	}
+
+	/**
+	 * Get property if get method exists
+	 *
+	 * @param $name
+	 * @return mixed
+	 */
+	function __get($name)
+	{
+		$method = 'get'.ucfirst($name);
+		if (method_exists($this, $method)) {
+			return $this->$method();
+		}
+	}
 }
