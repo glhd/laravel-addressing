@@ -25,4 +25,31 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
 
         return $items;
     }
+
+    /**
+     * Get an administrative are by code
+     *
+     * @param string $code
+     * @return AdministrativeArea
+     */
+    public function findByCode($code)
+    {
+        /** @var AdministrativeArea $first */
+        $first = $this->getByKey(0);
+
+        return $first->findByCode($code);
+    }
+
+    /**
+     * Get an administrative are by name
+     *
+     * @param string $name
+     * @return AdministrativeArea
+     */
+    public function findByName($name)
+    {
+        $first = $this->getByKey(0);
+
+        return $first->findByName($name);
+    }
 }
