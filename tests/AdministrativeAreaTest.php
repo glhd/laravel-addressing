@@ -23,7 +23,9 @@ class AdministrativeAreaTest extends PHPUnit_Framework_TestCase
         $country = new Country;
         $us = $country->getByCode('US');
         $alabama = $us->getAdministrativeAreas()->getByName('Alabama');
+        $alabama2 = $us->states()->name('Alabama');
 
         $this->assertEquals($alabama->getCode(), 'AL');
+        $this->assertEquals($alabama2->getCode(), 'AL');
     }
 }
