@@ -19,4 +19,30 @@ class LocalityCollection extends Collection implements CollectionInterface
     {
         // TODO: Implement toList() method.
     }
+
+    /**
+     * Override the getByKey method to return the correct instance
+     *
+     * @param int $key
+     * @return Locality
+     */
+    public function getByKey($key)
+    {
+        return parent::getByKey($key);
+    }
+
+    /**
+     * Get a locality by its name
+     *
+     * @param $name
+     * @return Locality
+     */
+    public function getByName($name)
+    {
+        if ($this->count()) {
+            $locality = $this->getByKey(0);
+
+            return $locality->getByName($name);
+        }
+    }
 }
