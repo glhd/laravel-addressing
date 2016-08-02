@@ -275,4 +275,22 @@ class Country
 	{
 		return $this->getAdministrativeAreas();
 	}
+
+	/**
+	 * Shortcut to get a state from a country
+	 *
+	 * @param $code
+	 * @return AdministrativeArea
+	 */
+	public function state($code)
+	{
+		$state = $this->getAdministrativeAreas()->getByCode($code);
+		if ($state instanceof AdministrativeArea) {
+			return $state;
+		}
+		$state = $this->getAdministrativeAreas()->getByName($code);
+		if ($state instanceof AdministrativeArea) {
+			return $state;
+		}
+	}
 }
