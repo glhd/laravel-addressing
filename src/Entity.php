@@ -18,7 +18,7 @@ class Entity
      */
     function __get($name)
     {
-        $name = array_walk(explode('_', $name), 'ucfirst'); // some_name => ['Some', 'Name']
+        $name = array_map('ucfirst', explode('_', $name)); // some_name => ['Some', 'Name']
         $name = implode('', $name); // SomeName
         $method = 'get'.$name;
         if (method_exists($this, $method)) {
