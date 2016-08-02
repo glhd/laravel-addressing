@@ -46,6 +46,17 @@ class LaravelAddressing
     }
 
     /**
+     * Get a country by its name
+     *
+     * @param $name
+     * @return Country
+     */
+    public function getCountryByName($name)
+    {
+        return $this->country->getByName($name);
+    }
+
+    /**
      * Get the countries list
      *
      * Example:
