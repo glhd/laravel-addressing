@@ -161,6 +161,25 @@ class AdministrativeArea extends Entity
 		return $this->getByName($name);
 	}
 
+    /**
+     * Get an administrative area by code or by name
+     *
+     * @param string $value
+     * @return AdministrativeArea|null
+     */
+    public function getByCodeOrName($value)
+	{
+        $result = $this->getByCode($value);
+        if (! $result instanceof AdministrativeArea) {
+            $result = $this->getByName($value);
+            if (! $result instanceof AdministrativeArea) {
+                return null;
+            }
+        }
+
+        return $result;
+	}
+
 	/**
 	 * Get the country instance
 	 *
