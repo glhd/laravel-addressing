@@ -67,6 +67,17 @@ class LaravelAddressing
     }
 
     /**
+     * Get a country by code or by name
+     *
+     * @param string $value
+     * @return Country|null
+     */
+    public function getCountryByCodeOrName($value)
+    {
+        return $this->country->getByCodeOrName($value);
+    }
+
+    /**
      * Shortcut to getCountryByCode() method
      *
      * @param $code
