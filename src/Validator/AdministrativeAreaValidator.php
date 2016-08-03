@@ -86,6 +86,24 @@ class AdministrativeAreaValidator extends Validator
     }
 
     /**
+     * Validate an administrative area trying first by code and after by name
+     *
+     * @param string $attribute
+     * @param mixed $value
+     * @param array $parameters
+     * @return bool
+     */
+    public function validateAdministrativeArea($attribute, $value, $parameters)
+    {
+        $codeValidation = $this->validateAdministrativeAreaCode($attribute, $value, $parameters);
+        if (! $codeValidation) {
+            return $this->validateAdministrativeAreaName($attribute, $value, $parameters);
+        }
+
+        return true;
+    }
+
+    /**
      * Get the country instance according the parameters and values
      *
      * @param array $parameters
