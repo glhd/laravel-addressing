@@ -17,6 +17,7 @@ class AdministrativeAreaValidatorTest extends PHPUnit_Framework_TestCase
     protected $rules = [
         'state_code' => 'administrative_area_code:country',
         'state_name' => 'administrative_area_name:country',
+        'state' => 'administrative_area:country',
     ];
 
     /**
@@ -90,6 +91,34 @@ class AdministrativeAreaValidatorTest extends PHPUnit_Framework_TestCase
         $this->validator->setData([
             'country' => 'United States',
             'state_name' => 'Collorado',
+        ]);
+        $this->assertFalse($this->validator->passes());
+    }
+
+    public function testGeneralAdministrativeAreaValidation()
+    {
+        // Valid US state
+        $this->validator->setData([
+            'country' => 'US',
+            'state' => 'AL',
+        ]);
+        $this->assertTrue($this->validator->passes());
+        // Invalid US state
+        $this->validator->setData([
+            'country' => 'US',
+            'state' => 'ZZ',
+        ]);
+        $this->assertFalse($this->validator->passes());
+        // Valid US state using its name
+        $this->validator->setData([
+            'country' => 'US',
+            'state' => 'Alabama',
+        ]);
+        $this->assertTrue($this->validator->passes());
+        // Invalid US state using its name
+        $this->validator->setData([
+            'country' => 'US',
+            'state' => 'Allabama',
         ]);
         $this->assertFalse($this->validator->passes());
     }
