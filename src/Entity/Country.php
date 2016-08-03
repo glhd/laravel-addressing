@@ -257,6 +257,25 @@ class Country extends Entity
 		return $this->getByField('name', $name);
 	}
 
+    /**
+     * Get a country by code or name
+     *
+     * @param string $value
+     * @return Country|null
+     */
+    public function getByCodeOrName($value)
+	{
+        $result = $this->getByCode($value);
+        if (! $result instanceof Country) {
+            $result = $this->getByName($value);
+            if (! $result instanceof Country) {
+                return null;
+            }
+        }
+
+        return $result;
+	}
+
 	/**
 	 * Get all the administrative areas from a given country
 	 *
