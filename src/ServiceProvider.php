@@ -2,6 +2,10 @@
 
 namespace Galahad\LaravelAddressing;
 
+use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
+use Galahad\LaravelAddressing\Validator\CountryValidator;
+use Illuminate\Support\Facades\Validator;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 	public function boot()
@@ -25,6 +29,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 	
 	protected function registerValidators()
 	{
+	    // Country validators
+	    $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
+	        return new CountryValidator($translator, $data, $rules, $messages, $attributes);
+        });
+
+        // AdministrativeArea validators
+        $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
+            return new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
+        });
 		
 		/*
 		
@@ -38,18 +51,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 		]);
 		
 		 */
-		
-		Validator::extend('country_code', function($attribute, $value, $parameters, $validator) {
-			
-		});
-		
-		Validator::extend('country_name', function($attribute, $value, $parameters, $validator) {
-			
-		});
-		
-		Validator::extend('administrative_area', function($attribute, $value, $parameters, $validator) {
-			
-		});
 		
 		Validator::extend('postal_code', function($attribute, $value, $parameters, $validator) {
 			
