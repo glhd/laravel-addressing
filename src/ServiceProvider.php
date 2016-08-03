@@ -2,6 +2,18 @@
 
 namespace Galahad\LaravelAddressing;
 
+use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
+use Galahad\LaravelAddressing\Validator\CountryValidator;
+use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
+use Illuminate\Support\Facades\Validator;
+
+/**
+ * Class ServiceProvider
+ *
+ * @package Galahad\LaravelAddressing
+ * @author Chris Morrell
+ * @author Junior Grossi <juniorgro@gmail.com>
+ */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 	public function boot()
@@ -22,37 +34,25 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 			return new LaravelAddressing();
 		});
 	}
-	
+
+    /**
+     * Register all custom validators
+     */
 	protected function registerValidators()
 	{
-		
-		/*
-		
-		Example:
-		
-		$this->validate($request, [
-			'display_name' => 'required|maxlen:255',
-			'country' => 'required|len:2|country_code',
-			'state' => 'administrative_area:country',
-			'postal' => 'postal_code:country,state'
-		]);
-		
-		 */
-		
-		Validator::extend('country_code', function($attribute, $value, $parameters, $validator) {
-			
-		});
-		
-		Validator::extend('country_name', function($attribute, $value, $parameters, $validator) {
-			
-		});
-		
-		Validator::extend('administrative_area', function($attribute, $value, $parameters, $validator) {
-			
-		});
-		
-		Validator::extend('postal_code', function($attribute, $value, $parameters, $validator) {
-			
-		});
+	    // Country validators
+	    $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
+	        return new CountryValidator($translator, $data, $rules, $messages, $attributes);
+        });
+
+        // AdministrativeArea validators
+        $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
+            return new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
+        });
+
+        // PostalCode validator
+        $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
+            return new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
+        });
 	}
 }

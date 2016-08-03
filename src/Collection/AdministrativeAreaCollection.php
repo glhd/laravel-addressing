@@ -76,4 +76,24 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
     {
         return $this->getByName($name);
     }
+
+    /**
+     * @param int $key
+     * @return AdministrativeArea
+     */
+    public function getByKey($key)
+    {
+        return parent::getByKey($key);
+    }
+
+    /**
+     * Get an administrative area by code or name
+     *
+     * @param string $value
+     * @return AdministrativeArea|null
+     */
+    public function getByCodeOrName($value)
+    {
+        return $this->getByKey(0)->getByCodeOrName($value);
+    }
 }
