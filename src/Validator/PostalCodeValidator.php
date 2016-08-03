@@ -65,7 +65,7 @@ class PostalCodeValidator extends Validator
             if ($admArea instanceof AdministrativeArea) {
                 $postalCodePattern = $admArea->getPostalCodePattern();
 
-                return preg_match("/^$postalCodePattern/", $value);
+                return preg_match("/^$postalCodePattern/", $value) === 1;
             }
         }
 
