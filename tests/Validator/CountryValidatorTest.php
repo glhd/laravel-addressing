@@ -4,6 +4,11 @@ use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Illuminate\Validation\Validator;
 use Symfony\Component\Translation\Translator;
 
+/**
+ * Class CountryValidatorTest
+ *
+ * @author Junior Grossi <juniorgro@gmail.com>
+ */
 class CountryValidatorTest extends PHPUnit_Framework_TestCase
 {
     /**
