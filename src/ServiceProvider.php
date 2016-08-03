@@ -6,6 +6,13 @@ use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class ServiceProvider
+ *
+ * @package Galahad\LaravelAddressing
+ * @author Chris Morrell
+ * @author Junior Grossi <juniorgro@gmail.com>
+ */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 	public function boot()
@@ -26,7 +33,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 			return new LaravelAddressing();
 		});
 	}
-	
+
+    /**
+     * Register all custom validators
+     */
 	protected function registerValidators()
 	{
 	    // Country validators

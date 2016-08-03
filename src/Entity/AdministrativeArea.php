@@ -31,6 +31,11 @@ class AdministrativeArea extends Entity
 	 */
 	protected $name = null;
 
+    /**
+     * @var string|null
+     */
+    protected $postalCodePattern;
+
 	/**
 	 * @var string
 	 */
@@ -84,6 +89,7 @@ class AdministrativeArea extends Entity
 			$admArea->setCode($subdivision->getCode());
 			$admArea->setName($subdivision->getName());
 			$admArea->setLocale($country->getLocale());
+            $admArea->setPostalCodePattern($subdivision->getPostalCodePattern());
 			$admArea->setSubdivision($subdivision);
 			$list->insert($admArea);
 		}
@@ -313,4 +319,24 @@ class AdministrativeArea extends Entity
 	{
 		return $this->subdivisionRepository;
 	}
+
+    /**
+     * Get the postal code pattern
+     *
+     * @return null|string
+     */
+    public function getPostalCodePattern()
+    {
+        return $this->postalCodePattern;
+    }
+
+    /**
+     * Set the postal code pattern
+     *
+     * @param null|string $postalCodePattern
+     */
+    public function setPostalCodePattern($postalCodePattern)
+    {
+        $this->postalCodePattern = $postalCodePattern;
+    }
 }
