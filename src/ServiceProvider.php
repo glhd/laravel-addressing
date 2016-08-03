@@ -4,6 +4,7 @@ namespace Galahad\LaravelAddressing;
 
 use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
+use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -48,22 +49,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
             return new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
         });
-		
-		/*
-		
-		Example:
-		
-		$this->validate($request, [
-			'display_name' => 'required|maxlen:255',
-			'country' => 'required|len:2|country_code',
-			'state' => 'administrative_area:country',
-			'postal' => 'postal_code:country,state'
-		]);
-		
-		 */
-		
-		Validator::extend('postal_code', function($attribute, $value, $parameters, $validator) {
-			
-		});
+
+        // PostalCode validator
+        $this->app->validator->resolver(function($translator, $data, $rules, $messages = [], $attributes = []) {
+            return new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
+        });
 	}
 }
