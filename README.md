@@ -83,15 +83,15 @@ You can use `administrative_area_code`, `administrative_area_name` or `administr
 
 ```php
 $this->validate($request, [
-    'state' => 'required|administrative_area_code',
+    'state' => 'required|administrative_area_code:country_field',
 ]);
 
 $this->validate($request, [
-    'state' => 'required|administrative_area_name',
+    'state' => 'required|administrative_area_name:country_field',
 ]);
 
 $this->validate($request, [
-    'state' => 'required|administrative_area', // verifies first code and after name
+    'state' => 'required|administrative_area:country_field', // verifies first code and after name
 ]);
 ```
 
@@ -101,7 +101,7 @@ You can check if the postal code starts with the correct pattern using `postal_c
 
 ```php
 $this->validate($request, [
-    'postal_code' => 'required|postal_code',
+    'postal_code' => 'required|postal_code:country_field,administrative_area_field',
 ]);
 ```
 
