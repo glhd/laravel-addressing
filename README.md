@@ -107,7 +107,7 @@ $this->validate($request, [
 
 ## API
 
-You can also get Countries and Administrative Areas (states) in `JSON` format:
+You can also get Countries, Administrative Areas (states) and Cities in `JSON` format:
 
 ```json
 // GET /galahad/addressing/countries
@@ -138,6 +138,20 @@ You can also get Countries and Administrative Areas (states) in `JSON` format:
         "WY": "Wyoming"
      },
      "status": 200
+}
+
+// GET /galahad/addressing/BR/MG/cities
+{
+     "label": "Cities",
+     "status": 200,
+     "country_code": "BR",
+     "administrative_area_code": "MG",
+     "options": {
+        "Abadia dos Dourados",
+        "Abaeté",
+        "Abre Campo",
+        "*********"
+     }
 }
 ```
 

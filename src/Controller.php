@@ -4,6 +4,8 @@ namespace Galahad\LaravelAddressing;
 
 use Exception;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\Collection\LocalityCollection;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 use Galahad\LaravelAddressing\Entity\Country;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -80,6 +82,47 @@ class Controller extends BaseController
                 'message' => "Could not get countries",
             ]);
         }
+	}
+
+    /**
+     * Get cities from a given country and administrative area
+     *
+     * @param Request $request
+     * @param string $countryCode
+     * @param string $admAreaCode
+     */
+    public function getCities(Request $request, $countryCode, $admAreaCode)
+	{
+        $this->checkQueryParameters($request);
+        $message = 'Something is wrong';
+        $country = $this->addressing->getCountryByCode($countryCode);
+        if ($country instanceof Country) {
+            $admArea = $country->getAdministrativeAreas()->getByCode($admAreaCode);
+            if ($admArea instanceof AdministrativeArea) {
+                $cities = $admArea->getLocalities();
+                if ($cities instanceof LocalityCollection) {
+                    echo json_encode([
+                        'label' => 'Cities',
+                        'status' => 200,
+                        'country_code' => $countryCode,
+                        'administrative_area_code' => $admAreaCode,
+                        'options' => $cities->toList(),
+                    ]);
+                    return;
+                } else {
+                    $message = 'We could not get cities from the given country and administrative area';
+                }
+            } else {
+                $message = 'Invalid administrative area';
+            }
+        } else {
+            $message = 'Invalid country';
+        }
+        echo json_encode([
+            'error' => true,
+            'status' => 500,
+            'message' => $message,
+        ]);
 	}
 
     /**
