@@ -36,14 +36,27 @@ class PostalCodeValidatorTest extends PHPUnit_Framework_TestCase
 
     public function testColoradoPostalCode()
     {
-        $defaultValues = ['country' => 'US', 'state' => 'CO'];
-        $this->validator->setData(['postal_code' => '80301'] + $defaultValues);
+        $default = ['country' => 'US', 'state' => 'CO'];
+        $this->validator->setData(['postal_code' => '80301'] + $default);
         $this->assertTrue($this->validator->passes());
 
-        $this->validator->setData(['postal_code' => '81000'] + $defaultValues);
+        $this->validator->setData(['postal_code' => '81000'] + $default);
         $this->assertTrue($this->validator->passes());
 
-        $this->validator->setData(['postal_code' => '82000'] + $defaultValues);
+        $this->validator->setData(['postal_code' => '82000'] + $default);
+        $this->assertFalse($this->validator->passes());
+    }
+
+    public function testBrazilianPostalCodes()
+    {
+        $default = ['country' => 'BR', 'state' => 'MG'];
+        $this->validator->setData(['postal_code' => '31170-070'] + $default);
+        $this->assertTrue($this->validator->passes());
+
+        $this->validator->setData(['postal_code' => '31310-190'] + $default);
+        $this->assertTrue($this->validator->passes());
+
+        $this->validator->setData(['postal_code' => '21000-000'] + $default);
         $this->assertFalse($this->validator->passes());
     }
 }
