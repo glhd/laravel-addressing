@@ -4,6 +4,12 @@
 
 ## Installation
 
+First, install the composer package:
+
+```
+composer require galahad/laravel-addressing
+```
+
 In `config/app.php` add the Service Provider:
 
 ```php
