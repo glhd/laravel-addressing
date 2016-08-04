@@ -39,7 +39,7 @@ class Controller extends BaseController
      * @param Request $request
      */
     public function getAdministrativeAreas(Request $request, $countryCode)
-	{
+    {
         $this->checkQueryParameters($request);
         $country = $this->addressing->getCountryByCode($countryCode);
         if ($country instanceof Country) {
@@ -58,7 +58,7 @@ class Controller extends BaseController
                 'message' => "Country not found [$countryCode]",
             ]);
         }
-	}
+    }
 
     /**
      * Get all countries as JSON list
@@ -66,7 +66,7 @@ class Controller extends BaseController
      * @param Request $request
      */
     public function getCountries(Request $request)
-	{
+    {
         $this->checkQueryParameters($request);
         $countries = $this->addressing->getCountries();
         if ($countries instanceof CountryCollection) {
@@ -82,7 +82,7 @@ class Controller extends BaseController
                 'message' => "Could not get countries",
             ]);
         }
-	}
+    }
 
     /**
      * Get cities from a given country and administrative area
@@ -92,7 +92,7 @@ class Controller extends BaseController
      * @param string $admAreaCode
      */
     public function getCities(Request $request, $countryCode, $admAreaCode)
-	{
+    {
         $this->checkQueryParameters($request);
         $message = 'Something is wrong';
         $country = $this->addressing->getCountryByCode($countryCode);
@@ -123,7 +123,7 @@ class Controller extends BaseController
             'status' => 500,
             'message' => $message,
         ]);
-	}
+    }
 
     /**
      * Validate if is a AJAX request
@@ -132,11 +132,11 @@ class Controller extends BaseController
      * @throws Exception
      */
     public function validateAjaxRequest(Request $request)
-	{
-        if (! $request->isXmlHttpRequest()) {
+    {
+        if (!$request->isXmlHttpRequest()) {
             throw new Exception('This URL only accepts AJAX requests');
         }
-	}
+    }
 
     /**
      * Parse some query parameters from the request
@@ -144,8 +144,8 @@ class Controller extends BaseController
      * @param Request $request
      */
     protected function checkQueryParameters(Request $request)
-	{
+    {
         $locale = $request->get('locale', 'en');
         $this->addressing->setLocale($locale);
-	}
+    }
 }

@@ -3,6 +3,7 @@
 namespace Galahad\LaravelAddressing;
 
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
 
@@ -139,13 +140,24 @@ class LaravelAddressing
         $this->country->setLocale($locale);
     }
 
+    /**
+     * Get all the administrative areas by country code
+     *
+     * @param string $countryCode
+     * @return AdministrativeAreaCollection
+     */
     public function getAdministrativeAreas($countryCode)
     {
-        $repo = $this->getSubdivisionRepository();
+        $country = $this->getCountryByCode($countryCode);
 
-        return $repo->getAll($countryCode);
+        return $country->getAdministrativeAreas();
     }
 
+    /**
+     * Get the SubdivisionRepository instance
+     *
+     * @return SubdivisionRepository
+     */
     protected function getSubdivisionRepository()
     {
         if (!isset($this->subdivisionRepository)) {
@@ -155,6 +167,9 @@ class LaravelAddressing
         return $this->subdivisionRepository;
     }
 
+    /**
+     * TODO
+     */
     protected function getAddressFormatRepository()
     {
         // TODO

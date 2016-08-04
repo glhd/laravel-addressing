@@ -1,11 +1,11 @@
 <?php
 
-Route::group(['prefix' => 'galahad/addressing'], function() {
+Route::group(['prefix' => 'galahad/addressing'], function () {
 
-	Route::get('/{country}/administrative-areas', [
-		'as' => 'galahad.addressing.administrative-areas',
-		'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas',
-	]);
+    Route::get('/{country}/administrative-areas', [
+        'as' => 'galahad.addressing.administrative-areas',
+        'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas',
+    ]);
 
     Route::get('/{country}/{administrativeArea}/cities', [
         'as' => 'galahad.addressing.cities',
