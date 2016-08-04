@@ -146,12 +146,12 @@ You can also get Countries, Administrative Areas (states) and Cities in `JSON` f
      "status": 200,
      "country_code": "BR",
      "administrative_area_code": "MG",
-     "options": {
+     "options": [
         "Abadia dos Dourados",
         "Abaeté",
         "Abre Campo",
         "*********"
-     }
+     ]
 }
 ```
 
