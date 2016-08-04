@@ -22,7 +22,7 @@ class LocalityCollection extends Collection implements CollectionInterface
         $values = [];
         /** @var Locality $locality */
         foreach ($this as $locality) {
-            $values[$locality->getName()] = $locality->getName();
+            $values[] = $locality->getName();
         }
 
         return $values;
