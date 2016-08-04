@@ -53,3 +53,46 @@ foreach ($cities as $city) {
 }
 ```
 
+## API
+
+You can also get Countries and Administrative Areas (states) in `JSON` format:
+
+```json
+// GET /galahad/addressing/countries
+{
+    "label": "Countries",
+    "status": 200,
+    "options": {
+        "AF": "Afghanistan",
+        "**": "*******",
+        "ZW": "Zimbabwe"
+    }
+}
+// If error
+{
+    "error": true,
+    "status": 500,
+    "message": "Could not get countries"
+}
+
+// GET /galahad/addressing/US/adminstrative-areas
+{
+     "label": "State",
+     "expected_length": 2,
+     "country": "US",
+     "options": {
+        "AL": "Alabama",
+        "**": "*******",
+        "WY": "Wyoming"
+     },
+     "status": 200
+}
+```
+
+### Setting custom Locales
+
+You can get the countries list using a custom locale:
+
+```
+GET /galahad/addressing/countries?locale=pt
+```

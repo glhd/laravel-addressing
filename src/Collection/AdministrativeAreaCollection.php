@@ -96,4 +96,16 @@ class AdministrativeAreaCollection extends Collection implements CollectionInter
     {
         return $this->getByKey(0)->getByCodeOrName($value);
     }
+
+    /**
+     * Return the list as a json string
+     *
+     * @return string
+     */
+    public function toJson()
+    {
+        $list = $this->toList();
+
+        return json_encode($list);
+    }
 }

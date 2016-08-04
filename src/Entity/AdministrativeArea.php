@@ -83,8 +83,9 @@ class AdministrativeArea extends Entity
 		$country = $this->getCountry();
 		$repo = $country->getSubdivisionRepository();
 		$list = new AdministrativeAreaCollection();
+        $locale = $this->country->getLocale();
 		/** @var Subdivision $subdivision */
-		foreach ($repo->getAll($country->getCode()) as $subdivision) {
+		foreach ($repo->getAll($country->getCode(), 0, $locale) as $subdivision) {
 			$admArea = new static($country);
 			$admArea->setCode($subdivision->getCode());
 			$admArea->setName($subdivision->getName());
