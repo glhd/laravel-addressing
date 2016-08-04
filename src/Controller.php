@@ -21,8 +21,6 @@ class Controller extends \Illuminate\Routing\Controller
 
     /**
      * The construct method
-     *
-     * @param LaravelAddressing $addressing
      */
     public function __construct()
     {

@@ -15,9 +15,9 @@
 
 Route::group(['prefix' => 'galahad/addressing'], function() {
 
-	Route::get('/{country}/administrative-areas', [
+	Route::get('/{country}/administrative-areas{format?}', [
 		'as' => 'galahad.addressing.administrative-areas',
-		'uses' => '\\Galahad\\LaravelAddressing\\AddressingController@getAdministrativeAreas'
+		'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas'
 	]);
 	
 });
