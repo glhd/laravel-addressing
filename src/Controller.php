@@ -3,7 +3,9 @@
 namespace Galahad\LaravelAddressing;
 
 use Exception;
+use Galahad\LaravelAddressing\Entity\Country;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 
 /**
  * Class Controller
@@ -12,7 +14,7 @@ use Illuminate\Http\Request;
  * @author Chris Morrell
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class Controller extends \Illuminate\Routing\Controller
+class Controller extends BaseController
 {
     /**
      * @var LaravelAddressing
@@ -34,7 +36,7 @@ class Controller extends \Illuminate\Routing\Controller
      * @param string $format
      * @param Request $request
      */
-    public function getAdministrativeAreas($countryCode, $format = 'json', Request $request)
+    public function getAdministrativeAreas(Request $request, $countryCode, $format = 'json')
 	{
 		$this->validateAjaxRequest($request);
         $this->checkQueryParameters($request);
