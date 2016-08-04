@@ -62,10 +62,11 @@ You can also get Countries and Administrative Areas (states) in `JSON` format:
 {
     "label": "Countries",
     "status": 200,
-    "options": [
+    "options": {
         "AF": "Afghanistan",
-        // ...
-    ]
+        "**": "*******",
+        "ZW": "Zimbabwe"
+    }
 }
 // If error
 {
@@ -81,7 +82,8 @@ You can also get Countries and Administrative Areas (states) in `JSON` format:
      "country": "US",
      "options": {
         "AL": "Alabama",
-        // ...
+        "**": "*******",
+        "WY": "Wyoming"
      },
      "status": 200
 }
