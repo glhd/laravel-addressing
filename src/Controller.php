@@ -38,7 +38,7 @@ class Controller extends BaseController
      */
     public function getAdministrativeAreas(Request $request, $countryCode, $format = 'json')
 	{
-		$this->validateAjaxRequest($request);
+//		$this->validateAjaxRequest($request);
         $this->checkQueryParameters($request);
         $format = $this->filterFormat($format);
         $country = $this->addressing->getCountryByCode($countryCode);
