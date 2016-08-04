@@ -136,6 +136,7 @@ class LaravelAddressing
     public function setLocale($locale)
     {
         $this->locale = $locale;
+        $this->country->setLocale($locale);
     }
 
     public function getAdministrativeAreas($countryCode)
