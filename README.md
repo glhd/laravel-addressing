@@ -53,6 +53,52 @@ foreach ($cities as $city) {
 }
 ```
 
+## Validators
+
+You can use some custom validators in your Laravel app:
+
+### Countries
+
+You can use `country_code` and `country_name` validators:
+
+```php
+$this->validate($request, [
+    'country' => 'required|country_code',
+]);
+
+$this->validate($request, [
+    'country' => 'required|country_name',
+]);
+```
+
+### Administrative Areas (States)
+
+You can use `administrative_area_code`, `administrative_area_name` or `administrative_area` (verifies both `code` and `name`):
+
+```php
+$this->validate($request, [
+    'state' => 'required|administrative_area_code',
+]);
+
+$this->validate($request, [
+    'state' => 'required|administrative_area_name',
+]);
+
+$this->validate($request, [
+    'state' => 'required|administrative_area', // verifies first code and after name
+]);
+```
+
+### Postal Code
+
+You can check if the postal code starts with the correct pattern using `postal_code` validator:
+
+```php
+$this->validate($request, [
+    'postal_code' => 'required|postal_code',
+]);
+```
+
 ## API
 
 You can also get Countries and Administrative Areas (states) in `JSON` format:
