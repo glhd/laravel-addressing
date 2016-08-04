@@ -3,6 +3,7 @@
 namespace Galahad\LaravelAddressing;
 
 use Exception;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -53,6 +54,30 @@ class Controller extends BaseController
                 'error' => true,
                 'status' => 404,
                 'message' => "Country not found [$countryCode]",
+            ]);
+        }
+	}
+
+    /**
+     * Get all countries as JSON list
+     *
+     * @param Request $request
+     */
+    public function getCountries(Request $request)
+	{
+        $this->checkQueryParameters($request);
+        $countries = $this->addressing->getCountries();
+        if ($countries instanceof CountryCollection) {
+            echo json_encode([
+                'label' => 'Countries',
+                'status' => 200,
+                'options' => $countries->toList(),
+            ]);
+        } else {
+            echo json_encode([
+                'error' => true,
+                'status' => 500,
+                'message' => "Could not get countries",
             ]);
         }
 	}
