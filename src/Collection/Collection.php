@@ -8,6 +8,8 @@ use Traversable;
 /**
  * Class Collection
  *
+ * @todo: Should this subclass https://laravel.com/docs/5.2/collections ?
+ *
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */

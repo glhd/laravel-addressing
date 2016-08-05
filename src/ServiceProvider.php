@@ -18,7 +18,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot()
     {
-        if (!$this->app->routesAreCached()) {
+    	// TODO: Is this a way to make this configurable?
+        if (!$this->app->routesAreCached()) { // TODO: I'm actually not sure if this method exists. Can you check?
             require_once __DIR__ . '/routes.php';
         }
 

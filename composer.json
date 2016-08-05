@@ -26,7 +26,8 @@
     "illuminate/http": "^5.2",
     "illuminate/routing": "^5.2",
     "symfony/intl": "^3.1",
-    "illuminate/validation": "^5.2"
+    "illuminate/validation": "^5.2",
+    "commerceguys/intl": "^0.7.1"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.5"

@@ -13,6 +13,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * Class Controller
  *
+ * @todo Switch to \Illuminate\Http\JsonResponse rather than echo json_encode()
+ *
  * @package Galahad\LaravelAddressing
  * @author Chris Morrell
  * @author Junior Grossi <juniorgro@gmail.com>
@@ -29,6 +31,7 @@ class Controller extends BaseController
      */
     public function __construct()
     {
+    	// TODO: Shouldn't this use the service locator?
         $this->addressing = new LaravelAddressing();
     }
 

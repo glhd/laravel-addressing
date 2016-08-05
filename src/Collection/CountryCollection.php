@@ -40,6 +40,7 @@ class CountryCollection extends Collection implements CollectionInterface
     /**
      * Return all the items ready for a <select> HTML element
      *
+     * @todo Refactor as toArray()
      * @return mixed
      */
     public function toList()

@@ -48,7 +48,7 @@ class AdministrativeAreaValidator extends Validator
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
         $this->setCustomMessages($this->messages);
-        $this->addressing = new LaravelAddressing();
+        $this->addressing = new LaravelAddressing(); // TODO: Shouldn't this load from the service locator?
     }
 
     /**
@@ -112,7 +112,7 @@ class AdministrativeAreaValidator extends Validator
     private function getCountryInstance(array $parameters)
     {
         $countryCode = $this->getValue($parameters[0]);
-        $country = $this->addressing->getCountryByCode($countryCode);
+        $country = $this->addressing->getCountryByCode($countryCode); // TODO: I think there's a method that already does this logic
         if (is_null($country)) {
             $country = $this->addressing->getCountryByName($countryCode);
             return $country;

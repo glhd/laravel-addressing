@@ -19,6 +19,12 @@ use Galahad\LaravelAddressing\Collection\CountryCollection;
  * echo $country->findByCode('br')->getName();
  * $allCountries = $country->getAll(); // Return an ArrayObject with Country objects
  *
+ * @todo: This class seems to be doing the work of CountryRepository and Country. What's the point of it?
+ * @todo: CommerceGuys\Intl\Country\CountryRepository already exists to load countries, and
+ * @todo: CommerceGuys\Intl\Country\Country already exists to represent a country. I see some value in
+ * @todo: subclassing these—specifically to add a function that lets you load a country by name—this seems
+ * @todo: like odd additional work…
+ *
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */
@@ -232,7 +238,7 @@ class Country extends Entity
 	 */
 	public function getByCode($code)
 	{
-		return $this->getByField('code', $code);
+		return $this->getByField('code', $code); // TODO: I'm guessing that CountryRepository::get() will be significantly faster here
 	}
 
 	/**
@@ -265,6 +271,21 @@ class Country extends Entity
      */
     public function getByCodeOrName($value)
 	{
+		/*
+		 * TODO: Try to reduce nesting where possible. You should be able to refactor into:
+		 *
+		 *      if ($country = $this->getByCode($value)) {
+		 *      	return $country;
+		 *      }
+		 *
+		 *      if ($country = $this->getByName($value)) {
+		 *      	return $country;
+		 *      }
+		 *
+		 *      return null;
+		 *
+		 */
+		
         $result = $this->getByCode($value);
         if (! $result instanceof Country) {
             $result = $this->getByName($value);
