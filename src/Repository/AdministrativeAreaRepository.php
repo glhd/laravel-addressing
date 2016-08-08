@@ -104,4 +104,16 @@ class AdministrativeAreaRepository extends SubdivisionRepository
 
         return $subdivisions;
     }
+
+    /**
+     * Overriding method just for autocompletion purposes
+     *
+     * @param string $id
+     * @param null $locale
+     * @return AdministrativeArea
+     */
+    public function get($id, $locale = null)
+    {
+        return parent::get($id, $locale);
+    }
 }
