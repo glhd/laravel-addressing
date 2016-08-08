@@ -83,4 +83,27 @@ class AdministrativeAreaRepository extends SubdivisionRepository
         return $subdivision;
     }
 
+    /**
+     * Get all administrative areas as a collection instance
+     *
+     * @param string $countryCode
+     * @param null $parentId
+     * @param null $locale
+     * @return AdministrativeAreaCollection
+     */
+    public function getAll($countryCode, $parentId = null, $locale = null)
+    {
+        $definitions = $this->loadDefinitions($countryCode, $parentId);
+        if (empty($definitions)) {
+            return [];
+        }
+
+        $subdivisions = new AdministrativeAreaCollection();
+        foreach (array_keys($definitions['subdivisions']) as $id) {
+            $subdivision = $this->createSubdivisionFromDefinitions($id, $definitions, $locale);
+            $subdivisions->push($subdivision);
+        }
+
+        return $subdivisions;
+    }
 }
