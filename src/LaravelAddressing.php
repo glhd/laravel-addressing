@@ -12,8 +12,6 @@ use Galahad\LaravelAddressing\Repository\CountryRepository;
  *
  * @todo Get rid of all "city" code
  *
- * @todo Addressing::findCountry($codeOrName)
- * @todo Addressing::countries()
  * @todo Addressing::setLocale()
  * @todo Addressing::getLocale()
  * @todo Addressing::country($code)->administrativeAreas()
@@ -112,6 +110,16 @@ class LaravelAddressing
             return $this->country($codeOrName);
         }
         return $this->countryByName($codeOrName);
+    }
+
+    /**
+     * Return a country collection with all countries
+     *
+     * @return Collection\CountryCollection
+     */
+    public function countries()
+    {
+        return $this->countryRepository->getAll($this->locale);
     }
 
     /**
