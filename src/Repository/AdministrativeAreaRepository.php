@@ -3,6 +3,7 @@
 namespace Galahad\LaravelAddressing\Repository;
 
 use Closure;
+use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 use CommerceGuys\Addressing\Enum\PatternType;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
@@ -72,11 +73,8 @@ class AdministrativeAreaRepository extends SubdivisionRepository
         $setValues($id, $definition);
 
         if (!empty($definition['has_children'])) {
-            $children = new AdministrativeAreaCollection();
-            $children->setCountryCode($definition['country_code']);
-            $children->setParentId($id);
-            $children->setLocale($definition['locale']);
-            $children->setSubdivisionRepository($this);
+            $children = new LazySubdivisionCollection($definition['country_code'], $id, $definition['locale']);
+            $children->setRepository($this);
             $subdivision->setChildren($children);
         }
 
