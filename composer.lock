@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "commerceguys/addressing",
-            "version": "v0.8.2",
+            "version": "v0.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/addressing.git",
-                "reference": "93ddf176d7dd851edb0bb05694ed1614c5c67ef8"
+                "reference": "f8839e77aaf825fdc678182264be53e12bc9d3b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/93ddf176d7dd851edb0bb05694ed1614c5c67ef8",
-                "reference": "93ddf176d7dd851edb0bb05694ed1614c5c67ef8",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/f8839e77aaf825fdc678182264be53e12bc9d3b2",
+                "reference": "f8839e77aaf825fdc678182264be53e12bc9d3b2",
                 "shasum": ""
             },
             "require": {
@@ -29,6 +29,7 @@
             "require-dev": {
                 "mikey179/vfsstream": "1.*",
                 "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.*",
                 "symfony/intl": ">=2.3",
                 "symfony/validator": ">=2.3"
             },
@@ -68,7 +69,7 @@
                 "localization",
                 "postal"
             ],
-            "time": "2015-12-24 23:07:20"
+            "time": "2016-08-04 16:29:10"
         },
         {
             "name": "commerceguys/enum",
