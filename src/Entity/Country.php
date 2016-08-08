@@ -20,6 +20,11 @@ class Country extends BaseCountry
     protected $addressing;
 
     /**
+     * @var array
+     */
+    protected $administrativeAreasList = [];
+
+    /**
      * The constructor method
      */
     public function __construct()
@@ -54,6 +59,27 @@ class Country extends BaseCountry
         }
 
         return $this->addressing->getAdministrativeAreaRepository()->get($code);
+    }
+
+    public function administrativeAreaByName($name)
+    {
+
+    }
+
+    /**
+     * Get all administrative areas as a array list
+     *
+     * @return array
+     */
+    public function getAdministrativeAreasList()
+    {
+        if (!$this->administrativeAreasList) {
+            $this->administrativeAreasList = $this->addressing->getAdministrativeAreaRepository()->getList(
+                $this->getCountryCode(), 0, $this->getLocale()
+            );
+        }
+
+        return $this->administrativeAreasList;
     }
 
     /**
