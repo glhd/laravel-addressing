@@ -2,6 +2,7 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
+use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 use Illuminate\Support\Collection;
 
 /**
@@ -26,6 +27,11 @@ class AdministrativeAreaCollection extends Collection
      * @var string|null
      */
     protected $locale = null;
+
+    /**
+     * @var SubdivisionRepository
+     */
+    protected $subdivisionRepository;
 
     /**
      * @return array|mixed
@@ -73,5 +79,21 @@ class AdministrativeAreaCollection extends Collection
     public function setLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubdivisionRepository()
+    {
+        return $this->subdivisionRepository;
+    }
+
+    /**
+     * @param mixed $subdivisionRepository
+     */
+    public function setSubdivisionRepository(SubdivisionRepository $subdivisionRepository)
+    {
+        $this->subdivisionRepository = $subdivisionRepository;
     }
 }
