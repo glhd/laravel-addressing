@@ -34,28 +34,19 @@ And add the `Addressing` alias in the same file:
 
 ```php
 $country = Addressing::country('US');
-echo $country->name; // United States
+echo $country->getName(); // United States
 ```
 
 ### Administrative Areas (States)
 
 ```php
-echo Addressing::country('US')->state('AL')->name; // Alabama
+echo Addressing::country('US')->administrativeArea('AL')->getName(); // Alabama
 ```
 
 ```php
-$states = Addressing::country('BR')->states();
-foreach ($states as $code => $name) {
-    echo "[$code]: $name\n";
-}
-```
-
-### Cities
-
-```php
-$cities = Addressing::country('BR')->state('MG')->cities();
-foreach ($cities as $city) {
-    echo $city->name;
+$administrativeAreas = Addressing::country('BR')->administrativeAreas();
+foreach ($administrativeAreas as $administrativeArea) {
+    echo sprint("[%s]: %s\n", $administrativeArea->getCode(), $administrativeArea->getName());
 }
 ```
 
@@ -107,13 +98,12 @@ $this->validate($request, [
 
 ## API
 
-You can also get Countries, Administrative Areas (states) and Cities in `JSON` format:
+You can also get Countries and Administrative Areas (states) in `JSON` format:
 
 ```json
 // GET /galahad/addressing/countries
 {
     "label": "Countries",
-    "status": 200,
     "options": {
         "AF": "Afghanistan",
         "**": "*******",
@@ -123,7 +113,6 @@ You can also get Countries, Administrative Areas (states) and Cities in `JSON` f
 // If error
 {
     "error": true,
-    "status": 500,
     "message": "Could not get countries"
 }
 
@@ -136,22 +125,7 @@ You can also get Countries, Administrative Areas (states) and Cities in `JSON` f
         "AL": "Alabama",
         "**": "*******",
         "WY": "Wyoming"
-     },
-     "status": 200
-}
-
-// GET /galahad/addressing/BR/MG/cities
-{
-     "label": "Cities",
-     "status": 200,
-     "country_code": "BR",
-     "administrative_area_code": "MG",
-     "options": [
-        "Abadia dos Dourados",
-        "Abaeté",
-        "Abre Campo",
-        "*********"
-     ]
+     }
 }
 ```
 

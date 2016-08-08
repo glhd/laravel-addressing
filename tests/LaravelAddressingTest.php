@@ -1,5 +1,10 @@
 <?php
 
+use CommerceGuys\Intl\Exception\UnknownCountryException;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**
@@ -9,38 +14,120 @@ use Galahad\LaravelAddressing\LaravelAddressing;
  */
 class LaravelAddressingTest extends PHPUnit_Framework_TestCase
 {
-    public function testGettingUS()
-    {
-        $addressing = new LaravelAddressing();
-        $usCode = $addressing->getCountryByCode('US');
-        $usName = $addressing->getCountryByName('United States');
+    /**
+     * @var LaravelAddressing
+     */
+    protected $addressing;
 
-        $this->assertEquals($usCode->getName(), 'United States');
-        $this->assertEquals($usName->getCode(), 'US');
+    /**
+     * Setup the LaravelAddressing instance
+     */
+    protected function setUp()
+    {
+        $this->addressing = new LaravelAddressing();
     }
 
-    public function testCountryList()
+    public function testTheReturningTypeOfCountryMethod()
     {
-        $addressing = new LaravelAddressing();
-        $countries = $addressing->getCountries(LaravelAddressing::ARRAY_LIST);
-
-        $this->assertEquals($countries['US'], 'United States');
-        $this->assertEquals($countries['BR'], 'Brazil');
+        $country = $this->addressing->country('US');
+        $this->assertTrue($country instanceof Country);
     }
 
-    public function testCountryWithShortcuts()
+    public function testIfTheCountryHasTheCorrectName()
     {
-        $maker = new LaravelAddressing();
-
-        $this->assertEquals($maker->country('US')->name, 'United States');
-        $this->assertEquals($maker->country('CA')->name, 'Canada');
+        $country = $this->addressing->country('US');
+        $this->assertEquals($country->getName(), 'United States');
+        $this->assertEquals($country->getCountryCode(), 'US');
     }
 
-    public function testLocale()
+    public function testIfTheCountryByNameMethodIsReturningTheCorrectCountry()
     {
-        $maker = new LaravelAddressing('pt');
+        $country = $this->addressing->countryByName('United States');
+        $this->assertTrue($country instanceof Country);
+        $this->assertEquals($country->getCountryCode(), 'US');
+        $country = $this->addressing->countryByName('Brazil');
+        $this->assertEquals($country->getCountryCode(), 'BR');
+    }
 
-        $this->assertEquals($maker->country('US')->name, 'Estados Unidos');
-        $this->assertEquals($maker->country('CA')->name, 'Canadá');
+    public function testIfFindCountryMethodIsWorking()
+    {
+        $country = $this->addressing->findCountry('US');
+        $this->assertEquals($country->getName(), 'United States');
+        $country = $this->addressing->findCountry('United States');
+        $this->assertEquals($country->getCountryCode(), 'US');
+        $this->setExpectedException(UnknownCountryException::class);
+        $country = $this->addressing->findCountry('ZZZZZZZZZ');
+    }
+
+    public function testIfCountriesMethodIsReturningACountryCollection()
+    {
+        $countries = $this->addressing->countries();
+        $this->assertTrue($countries instanceof CountryCollection);
+        /** @var Country $firstCountry */
+        $firstCountry = $countries->first();
+        $this->assertEquals($firstCountry->getName(), 'Afghanistan');
+        $this->assertEquals($firstCountry->getCountryCode(), 'AF');
+    }
+
+    public function testIfUSAndBRCountriesExistInCountryList()
+    {
+        $countries = $this->addressing->countriesList();
+        $this->assertTrue(isset($countries['US']));
+        $this->assertTrue(isset($countries['BR']));
+        $countries = array_flip($countries);
+        $this->assertTrue(isset($countries['United States']));
+        $this->assertTrue(isset($countries['Brazil']));
+    }
+
+    public function testIfAdministrativeAreasMethodReturnsAAdministrativeAreaCollection()
+    {
+        $country = $this->addressing->country('US');
+        $this->assertTrue($country->administrativeAreas() instanceof AdministrativeAreaCollection);
+    }
+
+    public function testIfSomeUSStatesMatch()
+    {
+        $country = $this->addressing->country('US');
+        /** @var AdministrativeArea $firstAdministrativeArea */
+        $firstAdministrativeArea = $country->administrativeAreas()->first();
+        $this->assertTrue($firstAdministrativeArea instanceof AdministrativeArea);
+        $this->assertEquals($firstAdministrativeArea->getName(), 'Alabama');
+    }
+
+    public function testIfSomeBrazilianStatesMatch()
+    {
+        $country = $this->addressing->country('BR');
+        /** @var AdministrativeArea $firstAdministrativeArea */
+        $firstAdministrativeArea = $country->administrativeAreas()->first();
+        $this->assertEquals($firstAdministrativeArea->getName(), 'Acre');
+        $this->assertEquals($firstAdministrativeArea->getCode(), 'AC');
+        $this->assertEquals($firstAdministrativeArea->getCountryCode(), 'BR');
+    }
+
+    public function testGettingASpecificAdministrativeAreaInUS()
+    {
+        $country = $this->addressing->country('US');
+        $colorado = $country->administrativeArea('US-CO');
+        $this->assertEquals($colorado->getName(), 'Colorado');
+        $alabama = $country->administrativeArea('US-AL');
+        $this->assertEquals($alabama->getName(), 'Alabama');
+    }
+
+    public function testGettingASpecificAdministrativeAreaWithoutTheCountryCode()
+    {
+        $country = $this->addressing->country('US');
+        $colorado = $country->administrativeArea('CO');
+        $this->assertEquals($colorado->getName(), 'Colorado');
+        $alabama = $country->administrativeArea('AL');
+        $this->assertEquals($alabama->getName(), 'Alabama');
+    }
+
+    public function testFindAdministrativeArea()
+    {
+        $country = $this->addressing->country('US');
+        $alabama = $country->findAdministrativeArea('AL');
+        $this->assertEquals($alabama->getName(), 'Alabama');
+        $alabama = $country->findAdministrativeArea('Alabama');
+        $this->assertEquals($alabama->getCode(), 'AL');
     }
 }

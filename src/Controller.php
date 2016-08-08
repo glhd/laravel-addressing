@@ -2,18 +2,15 @@
 
 namespace Galahad\LaravelAddressing;
 
+use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Exception;
-use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Collection\LocalityCollection;
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
-use Galahad\LaravelAddressing\Entity\Country;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
  * Class Controller
- *
- * @todo Switch to \Illuminate\Http\JsonResponse rather than echo json_encode()
  *
  * @package Galahad\LaravelAddressing
  * @author Chris Morrell
@@ -28,11 +25,11 @@ class Controller extends BaseController
 
     /**
      * The construct method
+     * @param LaravelAddressing $addressing
      */
-    public function __construct()
+    public function __construct(LaravelAddressing $addressing)
     {
-    	// TODO: Shouldn't this use the service locator?
-        $this->addressing = new LaravelAddressing();
+        $this->addressing = $addressing;
     }
 
     /**
@@ -40,26 +37,24 @@ class Controller extends BaseController
      *
      * @param string $countryCode
      * @param Request $request
+     * @return JsonResponse
      */
     public function getAdministrativeAreas(Request $request, $countryCode)
     {
         $this->checkQueryParameters($request);
-        $country = $this->addressing->getCountryByCode($countryCode);
-        if ($country instanceof Country) {
-            $admAreas = $country->getAdministrativeAreas();
-            echo json_encode([
+        try {
+            $country = $this->addressing->country($countryCode);
+            return new JsonResponse([
                 'label' => 'State',
                 'expected_length' => 2,
                 'country' => $countryCode,
-                'options' => $admAreas->toList(),
-                'status' => 200,
-            ]);
-        } else {
-            echo json_encode([
+                'options' => $country->getAdministrativeAreasList(),
+            ], 200);
+        } catch (UnknownCountryException $exception) {
+            return new JsonResponse([
                 'error' => true,
-                'status' => 404,
                 'message' => "Country not found [$countryCode]",
-            ]);
+            ], 404);
         }
     }
 
@@ -67,65 +62,23 @@ class Controller extends BaseController
      * Get all countries as JSON list
      *
      * @param Request $request
+     * @return JsonResponse
      */
     public function getCountries(Request $request)
     {
         $this->checkQueryParameters($request);
-        $countries = $this->addressing->getCountries();
-        if ($countries instanceof CountryCollection) {
-            echo json_encode([
+        $countries = $this->addressing->countriesList();
+        if (count($countries) > 0) {
+            return new JsonResponse([
                 'label' => 'Countries',
-                'status' => 200,
-                'options' => $countries->toList(),
-            ]);
+                'options' => $countries,
+            ], 200);
         } else {
-            echo json_encode([
+            return new JsonResponse([
                 'error' => true,
-                'status' => 500,
                 'message' => "Could not get countries",
-            ]);
+            ], 500);
         }
-    }
-
-    /**
-     * Get cities from a given country and administrative area
-     *
-     * @param Request $request
-     * @param string $countryCode
-     * @param string $admAreaCode
-     */
-    public function getCities(Request $request, $countryCode, $admAreaCode)
-    {
-        $this->checkQueryParameters($request);
-        $message = 'Something is wrong';
-        $country = $this->addressing->getCountryByCode($countryCode);
-        if ($country instanceof Country) {
-            $admArea = $country->getAdministrativeAreas()->getByCode($admAreaCode);
-            if ($admArea instanceof AdministrativeArea) {
-                $cities = $admArea->getLocalities();
-                if ($cities instanceof LocalityCollection) {
-                    echo json_encode([
-                        'label' => 'Cities',
-                        'status' => 200,
-                        'country_code' => $countryCode,
-                        'administrative_area_code' => $admAreaCode,
-                        'options' => $cities->toList(),
-                    ]);
-                    return;
-                } else {
-                    $message = 'We could not get cities from the given country and administrative area';
-                }
-            } else {
-                $message = 'Invalid administrative area';
-            }
-        } else {
-            $message = 'Invalid country';
-        }
-        echo json_encode([
-            'error' => true,
-            'status' => 500,
-            'message' => $message,
-        ]);
     }
 
     /**
