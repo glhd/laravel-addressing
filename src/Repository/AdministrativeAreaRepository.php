@@ -3,7 +3,7 @@
 namespace Galahad\LaravelAddressing\Repository;
 
 use Closure;
-use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
+use CommerceGuys\Addressing\Enum\PatternType;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
