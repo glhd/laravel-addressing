@@ -58,6 +58,11 @@ class LaravelAddressing
     protected $administrativeAreaRepository;
 
     /**
+     * @var array
+     */
+    protected $countryList = null;
+
+    /**
      * Constructor method
      *
      * @param string $locale
@@ -88,12 +93,25 @@ class LaravelAddressing
      */
     public function countryByName($countryName)
     {
-        /** @var Country $country */
-        foreach ($this->countryRepository->getList($this->locale) as $country) {
-            if ($country->getName() == $countryName) {
-                return $country;
-            }
+        $inverseCountryList = array_flip($this->getCountryList());
+        if (isset($inverseCountryList[$countryName])) {
+            $countryCode = $inverseCountryList[$countryName];
+            return $this->country($countryCode);
         }
+    }
+
+    /**
+     * Get the country list if not loaded yet
+     *
+     * @return array
+     */
+    protected function getCountryList()
+    {
+        if (!$this->countryList) {
+            $this->countryList = $this->countryRepository->getList($this->locale);
+        }
+
+        return $this->countryList;
     }
 
     /**
