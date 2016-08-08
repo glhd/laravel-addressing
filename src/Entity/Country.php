@@ -35,8 +35,17 @@ class Country extends BaseCountry
     public function administrativeAreas()
     {
         $administrativeAreaRepository = $this->addressing->getAdministrativeAreaRepository();
-        $locale = $this->addressing->getLocale();
 
-        return $administrativeAreaRepository->getAll($this->getCountryCode(), 0, $locale);
+        return $administrativeAreaRepository->getAll($this->getCountryCode(), 0, $this->getLocale());
+    }
+
+    /**
+     * Get the locale according the LaravelAddressing class
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->addressing->getLocale();
     }
 }
