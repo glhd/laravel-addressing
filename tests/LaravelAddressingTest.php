@@ -102,4 +102,13 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($firstAdministrativeArea->getCode(), 'AC');
         $this->assertEquals($firstAdministrativeArea->getCountryCode(), 'BR');
     }
+
+    public function testGettingASpecificAdministrativeAreaInUS()
+    {
+        $country = $this->addressing->country('US');
+        $colorado = $country->administrativeArea('US-CO');
+        $this->assertEquals($colorado->getName(), 'Colorado');
+        $alabama = $country->administrativeArea('US-AL');
+        $this->assertEquals($alabama->getName(), 'Alabama');
+    }
 }
