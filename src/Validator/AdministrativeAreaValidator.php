@@ -48,7 +48,6 @@ class AdministrativeAreaValidator extends Validator
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
         $this->setCustomMessages($this->messages);
-        $this->addressing = LaravelAddressing::getInstance();
     }
 
     /**
@@ -114,5 +113,21 @@ class AdministrativeAreaValidator extends Validator
         $countryCodeOrName = $this->getValue($parameters[0]);
 
         return $this->addressing->findCountry($countryCodeOrName);
+    }
+
+    /**
+     * @return LaravelAddressing
+     */
+    public function getAddressing()
+    {
+        return $this->addressing;
+    }
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function setAddressing(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
     }
 }

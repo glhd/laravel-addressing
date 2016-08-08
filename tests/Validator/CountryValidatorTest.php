@@ -1,6 +1,7 @@
 <?php
 
 use CommerceGuys\Intl\Exception\UnknownCountryException;
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Illuminate\Validation\Validator;
 use Symfony\Component\Translation\Translator;
@@ -34,6 +35,7 @@ class CountryValidatorTest extends PHPUnit_Framework_TestCase
     {
         $this->validator = new CountryValidator(new Translator($this->locale));
         $this->validator->setRules($this->rules);
+        $this->validator->setAddressing(new LaravelAddressing($this->locale));
     }
 
     public function testCountryCodeWithDifferentSize()

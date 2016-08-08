@@ -48,7 +48,6 @@ class CountryValidator extends Validator
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
         $this->setCustomMessages($this->messages);
-        $this->addressing = LaravelAddressing::getInstance();
     }
 
     /**
@@ -81,5 +80,21 @@ class CountryValidator extends Validator
         }
 
         return false;
+    }
+
+    /**
+     * @return LaravelAddressing
+     */
+    public function getAddressing()
+    {
+        return $this->addressing;
+    }
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function setAddressing(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
     }
 }

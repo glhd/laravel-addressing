@@ -1,5 +1,6 @@
 <?php
 
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Validation\Validator;
 use Symfony\Component\Translation\Translator;
@@ -32,6 +33,7 @@ class PostalCodeValidatorTest extends PHPUnit_Framework_TestCase
     {
         $this->validator = new PostalCodeValidator(new Translator($this->locale));
         $this->validator->setRules($this->rules);
+        $this->validator->setAddressing(new LaravelAddressing($this->locale));
     }
 
     public function testColoradoPostalCode()

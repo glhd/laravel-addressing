@@ -26,10 +26,12 @@ class Country extends BaseCountry
 
     /**
      * The constructor method
+     *
+     * @param LaravelAddressing $addressing
      */
-    public function __construct()
+    public function __construct(LaravelAddressing $addressing)
     {
-        $this->addressing = LaravelAddressing::getInstance();
+        $this->addressing = $addressing;
     }
 
     /**

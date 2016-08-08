@@ -43,7 +43,6 @@ class PostalCodeValidator extends Validator
         array $customAttributes = []
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
-        $this->addressing = LaravelAddressing::getInstance();
         $this->setCustomMessages($this->messages);
     }
 
@@ -70,5 +69,21 @@ class PostalCodeValidator extends Validator
         }
 
         return false;
+    }
+
+    /**
+     * @return LaravelAddressing
+     */
+    public function getAddressing()
+    {
+        return $this->addressing;
+    }
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function setAddressing(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
     }
 }

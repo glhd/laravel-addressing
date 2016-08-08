@@ -6,6 +6,7 @@ use Closure;
 use CommerceGuys\Intl\Country\CountryRepository as BaseCountryRepository;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**
  * Class CountryRepository
@@ -16,6 +17,20 @@ use Galahad\LaravelAddressing\Entity\Country;
 class CountryRepository extends BaseCountryRepository
 {
     /**
+     * @var LaravelAddressing
+     */
+    protected $addressing;
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function __construct(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
+        parent::__construct();
+    }
+
+    /**
      * Create Country class for LaravelAddressing package
      *
      * @param string $countryCode
@@ -25,7 +40,7 @@ class CountryRepository extends BaseCountryRepository
      */
     protected function createCountryFromDefinition($countryCode, array $definition, $locale)
     {
-        $country = new Country();
+        $country = new Country($this->getAddressing());
         $setValues = Closure::bind(function ($countryCode, $definition, $locale) {
             $this->countryCode = $countryCode;
             $this->name = $definition['name'];
@@ -63,5 +78,23 @@ class CountryRepository extends BaseCountryRepository
         }
 
         return $countries;
+    }
+
+    /**
+     * Get the main LaravelAddressing container
+     *
+     * @return LaravelAddressing
+     */
+    public function getAddressing()
+    {
+        return $this->addressing;
+    }
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function setAddressing(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
     }
 }

@@ -33,7 +33,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         $this->app->singleton(LaravelAddressing::class, function ($app) {
-            return LaravelAddressing::getInstance();
+            return new LaravelAddressing();
         });
     }
 
@@ -44,17 +44,23 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         // Country validators
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            return new CountryValidator($translator, $data, $rules, $messages, $attributes);
+            $validator = new CountryValidator($translator, $data, $rules, $messages, $attributes);
+            $validator->setAddressing($this->app->make(LaravelAddressing::class));
+            return $validator;
         });
 
         // AdministrativeArea validators
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            return new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
+            $validator = new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
+            $validator->setAddressing($this->app->make(LaravelAddressing::class));
+            return $validator;
         });
 
         // PostalCode validator
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            return new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
+            $validator = new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
+            $validator->setAddressing($this->app->make(LaravelAddressing::class));
+            return $validator;
         });
     }
 }

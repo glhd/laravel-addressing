@@ -24,7 +24,7 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->addressing = LaravelAddressing::getInstance();
+        $this->addressing = new LaravelAddressing();
     }
 
     public function testTheReturningTypeOfCountryMethod()
