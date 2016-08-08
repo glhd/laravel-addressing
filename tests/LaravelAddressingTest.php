@@ -1,5 +1,6 @@
 <?php
 
+use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
@@ -54,8 +55,8 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($country->getName(), 'United States');
         $country = $this->addressing->findCountry('United States');
         $this->assertEquals($country->getCountryCode(), 'US');
+        $this->setExpectedException(UnknownCountryException::class);
         $country = $this->addressing->findCountry('ZZZZZZZZZ');
-        $this->assertTrue(is_null($country));
     }
 
     public function testIfCountriesMethodIsReturningACountryCollection()
@@ -119,5 +120,14 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($colorado->getName(), 'Colorado');
         $alabama = $country->administrativeArea('AL');
         $this->assertEquals($alabama->getName(), 'Alabama');
+    }
+
+    public function testFindAdministrativeArea()
+    {
+        $country = $this->addressing->country('US');
+        $alabama = $country->findAdministrativeArea('AL');
+        $this->assertEquals($alabama->getName(), 'Alabama');
+        $alabama = $country->findAdministrativeArea('Alabama');
+        $this->assertEquals($alabama->getCode(), 'AL');
     }
 }

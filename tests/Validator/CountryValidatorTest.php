@@ -1,5 +1,6 @@
 <?php
 
+use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Illuminate\Validation\Validator;
 use Symfony\Component\Translation\Translator;
@@ -43,6 +44,7 @@ class CountryValidatorTest extends PHPUnit_Framework_TestCase
 
     public function testCountryCodeWithCorrectSizeButInvalid()
     {
+        $this->setExpectedException(UnknownCountryException::class);
         $this->validator->setData(['country_code' => 'ZZ']);
         $this->assertFalse($this->validator->passes());
     }
@@ -57,6 +59,7 @@ class CountryValidatorTest extends PHPUnit_Framework_TestCase
 
     public function testWrongCountryName()
     {
+        $this->setExpectedException(UnknownCountryException::class);
         $this->validator->setData(['country_name' => 'United Stattes']);
         $this->assertFalse($this->validator->passes());
     }

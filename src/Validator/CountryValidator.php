@@ -48,7 +48,7 @@ class CountryValidator extends Validator
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
         $this->setCustomMessages($this->messages);
-        $this->addressing = new LaravelAddressing();
+        $this->addressing = LaravelAddressing::getInstance();
     }
 
     /**
@@ -60,7 +60,7 @@ class CountryValidator extends Validator
      */
     protected function validateCountryName($attribute, $value)
     {
-        $country = $this->addressing->getCountryByName($value);
+        $country = $this->addressing->countryByName($value);
 
         return $country instanceof Country;
     }
@@ -75,7 +75,7 @@ class CountryValidator extends Validator
     protected function validateCountryCode($attribute, $value)
     {
         if ($this->getSize($attribute, $value) == 2) {
-            $country = $this->addressing->getCountryByCode($value);
+            $country = $this->addressing->country($value);
 
             return $country instanceof Country;
         }
