@@ -77,6 +77,22 @@ class Country extends BaseCountry
     }
 
     /**
+     * Find an administrative area by code or name
+     *
+     * @param string $codeOrName
+     * @return AdministrativeArea
+     */
+    public function findAdministrativeArea($codeOrName)
+    {
+        $administrativeArea = $this->administrativeArea($codeOrName);
+        if (! $administrativeArea instanceof AdministrativeArea) {
+            return $this->administrativeAreaByName($codeOrName);
+        }
+
+        return $administrativeArea;
+    }
+
+    /**
      * Get all administrative areas as a array list
      *
      * @return array
