@@ -43,7 +43,6 @@ class PostalCodeValidator extends Validator
         array $customAttributes = []
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
-        $this->addressing = new LaravelAddressing();
         $this->setCustomMessages($this->messages);
     }
 
@@ -58,10 +57,10 @@ class PostalCodeValidator extends Validator
     protected function validatePostalCode($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'postal_code');
-        $country = $this->addressing->getCountryByCodeOrName($this->getValue($parameters[0]));
+        $country = $this->addressing->findCountry($this->getValue($parameters[0]));
         if ($country instanceof Country) {
             $admAreaValue = $this->getValue($parameters[1]);
-            $admArea = $country->getAdministrativeAreas()->getByCodeOrName($admAreaValue);
+            $admArea = $country->findAdministrativeArea($admAreaValue);
             if ($admArea instanceof AdministrativeArea) {
                 $postalCodePattern = $admArea->getPostalCodePattern();
 
@@ -70,5 +69,21 @@ class PostalCodeValidator extends Validator
         }
 
         return false;
+    }
+
+    /**
+     * @return LaravelAddressing
+     */
+    public function getAddressing()
+    {
+        return $this->addressing;
+    }
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function setAddressing(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
     }
 }
