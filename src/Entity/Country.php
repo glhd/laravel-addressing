@@ -34,9 +34,22 @@ class Country extends BaseCountry
      */
     public function administrativeAreas()
     {
-        $administrativeAreaRepository = $this->addressing->getAdministrativeAreaRepository();
+        return $this->addressing->getAdministrativeAreaRepository()->getAll(
+            $this->getCountryCode(),
+            0,
+            $this->getLocale()
+        );
+    }
 
-        return $administrativeAreaRepository->getAll($this->getCountryCode(), 0, $this->getLocale());
+    /**
+     * Get an administrative area by code
+     *
+     * @param $code
+     * @return AdministrativeArea
+     */
+    public function administrativeArea($code)
+    {
+        return $this->addressing->getAdministrativeAreaRepository()->get($code);
     }
 
     /**
