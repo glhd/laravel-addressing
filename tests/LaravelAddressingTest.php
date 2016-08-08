@@ -1,5 +1,6 @@
 <?php
 
+use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 
@@ -53,5 +54,15 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($country->getCountryCode(), 'US');
         $country = $this->addressing->findCountry('ZZZZZZZZZ');
         $this->assertTrue(is_null($country));
+    }
+
+    public function testIfCountriesMethodIsReturningACountryCollection()
+    {
+        $countries = $this->addressing->countries();
+        $this->assertTrue($countries instanceof CountryCollection);
+        /** @var Country $firstCountry */
+        $firstCountry = $countries->first();
+        $this->assertEquals($firstCountry->getName(), 'Afghanistan');
+        $this->assertEquals($firstCountry->getCountryCode(), 'AF');
     }
 }
