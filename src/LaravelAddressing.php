@@ -60,16 +60,41 @@ class LaravelAddressing
     protected $countryList = null;
 
     /**
+     * @var LaravelAddressing|null
+     */
+    private static $instance = null;
+
+    /**
      * Constructor method
      *
      * @param string $locale
      */
-    public function __construct($locale = 'en')
+    private function __construct($locale = 'en')
     {
         $this->locale = $locale;
         $this->countryRepository = new CountryRepository();
         $this->administrativeAreaRepository = new AdministrativeAreaRepository();
     }
+
+    /**
+     * Singleton instance of LaravelAddressing
+     *
+     * @param string $locale
+     * @return LaravelAddressing
+     */
+    public static function getInstance($locale = 'en')
+    {
+        if (!static::$instance) {
+            static::$instance = new static($locale);
+        }
+
+        return static::$instance;
+    }
+
+    /**
+     * Prevent cloning
+     */
+    private function __clone() {}
 
     /**
      * Get a country by code
