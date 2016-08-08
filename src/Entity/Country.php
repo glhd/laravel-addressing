@@ -12,5 +12,5 @@ use CommerceGuys\Intl\Country\Country as BaseCountry;
  */
 class Country extends BaseCountry
 {
-    
+
 }
