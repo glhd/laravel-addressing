@@ -61,9 +61,19 @@ class Country extends BaseCountry
         return $this->addressing->getAdministrativeAreaRepository()->get($code);
     }
 
-    public function administrativeAreaByName($name)
+    /**
+     * Get an administrative area by name
+     *
+     * @param string $administrativeAreaName
+     * @return AdministrativeArea
+     */
+    public function administrativeAreaByName($administrativeAreaName)
     {
-
+        foreach ($this->getAdministrativeAreasList() as $code => $name) {
+            if ($name == $administrativeAreaName) {
+                return $this->administrativeArea($code);
+            }
+        }
     }
 
     /**
