@@ -1,6 +1,8 @@
 <?php
 
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 
@@ -74,5 +76,30 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $countries = array_flip($countries);
         $this->assertTrue(isset($countries['United States']));
         $this->assertTrue(isset($countries['Brazil']));
+    }
+
+    public function testIfAdministrativeAreasMethodReturnsAAdministrativeAreaCollection()
+    {
+        $country = $this->addressing->country('US');
+        $this->assertTrue($country->administrativeAreas() instanceof AdministrativeAreaCollection);
+    }
+
+    public function testIfSomeUSStatesMatch()
+    {
+        $country = $this->addressing->country('US');
+        /** @var AdministrativeArea $firstAdministrativeArea */
+        $firstAdministrativeArea = $country->administrativeAreas()->first();
+        $this->assertTrue($firstAdministrativeArea instanceof AdministrativeArea);
+        $this->assertEquals($firstAdministrativeArea->getName(), 'Alabama');
+    }
+
+    public function testIfSomeBrazilianStatesMatch()
+    {
+        $country = $this->addressing->country('BR');
+        /** @var AdministrativeArea $firstAdministrativeArea */
+        $firstAdministrativeArea = $country->administrativeAreas()->first();
+        $this->assertEquals($firstAdministrativeArea->getName(), 'Acre');
+        $this->assertEquals($firstAdministrativeArea->getCode(), 'AC');
+        $this->assertEquals($firstAdministrativeArea->getCountryCode(), 'BR');
     }
 }
