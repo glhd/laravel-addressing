@@ -48,7 +48,6 @@ class AdministrativeAreaValidator extends Validator
     ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
         $this->setCustomMessages($this->messages);
-        $this->addressing = new LaravelAddressing();
     }
 
     /**
@@ -63,7 +62,7 @@ class AdministrativeAreaValidator extends Validator
     {
         $this->requireParameterCount(1, $parameters, 'administrative_area_code');
         $country = $this->getCountryInstance($parameters);
-        $admArea = $country->getAdministrativeAreas()->getByCode($value);
+        $admArea = $country->administrativeArea($value);
 
         return $admArea instanceof AdministrativeArea;
     }
@@ -80,7 +79,7 @@ class AdministrativeAreaValidator extends Validator
     {
         $this->requireParameterCount(1, $parameters, 'administrative_area_name');
         $country = $this->getCountryInstance($parameters);
-        $admArea = $country->getAdministrativeAreas()->getByName($value);
+        $admArea = $country->administrativeAreaByName($value);
 
         return $admArea instanceof AdministrativeArea;
     }
@@ -111,12 +110,24 @@ class AdministrativeAreaValidator extends Validator
      */
     private function getCountryInstance(array $parameters)
     {
-        $countryCode = $this->getValue($parameters[0]);
-        $country = $this->addressing->getCountryByCode($countryCode);
-        if (is_null($country)) {
-            $country = $this->addressing->getCountryByName($countryCode);
-            return $country;
-        }
-        return $country;
+        $countryCodeOrName = $this->getValue($parameters[0]);
+
+        return $this->addressing->findCountry($countryCodeOrName);
+    }
+
+    /**
+     * @return LaravelAddressing
+     */
+    public function getAddressing()
+    {
+        return $this->addressing;
+    }
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function setAddressing(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
     }
 }

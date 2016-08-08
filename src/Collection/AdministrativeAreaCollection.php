@@ -2,110 +2,98 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use CommerceGuys\Addressing\Repository\SubdivisionRepository;
+use Illuminate\Support\Collection;
 
 /**
  * Class AdministrativeAreaCollection
  *
- * @package Galahad\LaravelAddressing
+ * @package Galahad\LaravelAddressing\Collection
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class AdministrativeAreaCollection extends Collection implements CollectionInterface
+class AdministrativeAreaCollection extends Collection
 {
     /**
-     * Return all the items ready for a <select> HTML element
-     *
+     * @var array|mixed
+     */
+    protected $countryCode;
+
+    /**
+     * @var string
+     */
+    protected $parentId;
+
+    /**
+     * @var string|null
+     */
+    protected $locale = null;
+
+    /**
+     * @var SubdivisionRepository
+     */
+    protected $subdivisionRepository;
+
+    /**
+     * @return array|mixed
+     */
+    public function getCountryCode()
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * @param array|mixed $countryCode
+     */
+    public function setCountryCode($countryCode)
+    {
+        $this->countryCode = $countryCode;
+    }
+
+    /**
      * @return mixed
      */
-    public function toList()
+    public function getParentId()
     {
-        $items = [];
-        /** @var AdministrativeArea $area */
-        foreach ($this as $area) {
-            $items[$area->getCode()] = $area->getName();
-        }
-
-        return $items;
+        return $this->parentId;
     }
 
     /**
-     * Get an administrative are by code
-     *
-     * @param string $code
-     * @return AdministrativeArea
+     * @param mixed $parentId
      */
-    public function getByCode($code)
+    public function setParentId($parentId)
     {
-        /** @var AdministrativeArea $first */
-        $first = $this->getByKey(0);
-
-        return $first->getByCode($code);
+        $this->parentId = $parentId;
     }
 
     /**
-     * Shortcut for getByCode()
-     *
-     * @param $code
-     * @return AdministrativeArea
+     * @return null
      */
-    public function code($code)
+    public function getLocale()
     {
-        return $this->getByCode($code);
+        return $this->locale;
     }
 
     /**
-     * Get an administrative are by name
-     *
-     * @param string $name
-     * @return AdministrativeArea
+     * @param null $locale
      */
-    public function getByName($name)
+    public function setLocale($locale)
     {
-        $first = $this->getByKey(0);
-
-        return $first->getByName($name);
+        $this->locale = $locale;
     }
 
     /**
-     * Shortcut for getByName()
-     *
-     * @param $name
-     * @return AdministrativeArea
+     * @return mixed
      */
-    public function name($name)
+    public function getSubdivisionRepository()
     {
-        return $this->getByName($name);
+        return $this->subdivisionRepository;
     }
 
     /**
-     * @param int $key
-     * @return AdministrativeArea
+     * @param mixed $subdivisionRepository
      */
-    public function getByKey($key)
+    public function setSubdivisionRepository(SubdivisionRepository $subdivisionRepository)
     {
-        return parent::getByKey($key);
-    }
-
-    /**
-     * Get an administrative area by code or name
-     *
-     * @param string $value
-     * @return AdministrativeArea|null
-     */
-    public function getByCodeOrName($value)
-    {
-        return $this->getByKey(0)->getByCodeOrName($value);
-    }
-
-    /**
-     * Return the list as a json string
-     *
-     * @return string
-     */
-    public function toJson()
-    {
-        $list = $this->toList();
-
-        return json_encode($list);
+        $this->subdivisionRepository = $subdivisionRepository;
     }
 }

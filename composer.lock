@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "548bf5fbf6712d29e68e987b705f51f1",
-    "content-hash": "7b451c89935dbb8497333a4fd45d7ed2",
+    "hash": "1d78e824270159d8584e608ad4d01336",
+    "content-hash": "cbf3fed253efb56af1fd062c35eba351",
     "packages": [
         {
             "name": "commerceguys/addressing",
-            "version": "v0.8.2",
+            "version": "v0.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/addressing.git",
-                "reference": "93ddf176d7dd851edb0bb05694ed1614c5c67ef8"
+                "reference": "f8839e77aaf825fdc678182264be53e12bc9d3b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/93ddf176d7dd851edb0bb05694ed1614c5c67ef8",
-                "reference": "93ddf176d7dd851edb0bb05694ed1614c5c67ef8",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/f8839e77aaf825fdc678182264be53e12bc9d3b2",
+                "reference": "f8839e77aaf825fdc678182264be53e12bc9d3b2",
                 "shasum": ""
             },
             "require": {
@@ -29,6 +29,7 @@
             "require-dev": {
                 "mikey179/vfsstream": "1.*",
                 "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.*",
                 "symfony/intl": ">=2.3",
                 "symfony/validator": ">=2.3"
             },
@@ -68,7 +69,7 @@
                 "localization",
                 "postal"
             ],
-            "time": "2015-12-24 23:07:20"
+            "time": "2016-08-04 16:29:10"
         },
         {
             "name": "commerceguys/enum",
@@ -107,6 +108,51 @@
             ],
             "description": "A PHP 5.4+ enumeration library.",
             "time": "2015-02-27 21:36:56"
+        },
+        {
+            "name": "commerceguys/intl",
+            "version": "v0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/commerceguys/intl.git",
+                "reference": "94a1f8f9a452bbb2e1bc5fbb3712796beb1ed3dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/commerceguys/intl/zipball/94a1f8f9a452bbb2e1bc5fbb3712796beb1ed3dd",
+                "reference": "94a1f8f9a452bbb2e1bc5fbb3712796beb1ed3dd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CommerceGuys\\Intl\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bojan Zivanovic"
+                }
+            ],
+            "description": "Internationalization library powered by CLDR data.",
+            "time": "2016-04-07 12:40:00"
         },
         {
             "name": "doctrine/collections",
