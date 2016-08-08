@@ -23,22 +23,25 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $this->addressing = new LaravelAddressing();
     }
 
-    /**
-     * Testing the returning type of the country() method
-     */
-    public function testCountryMethodReturningType()
+    public function testTheReturningTypeOfCountryMethod()
     {
         $country = $this->addressing->country('US');
         $this->assertTrue($country instanceof Country);
     }
 
-    /**
-     * Testing if the country has the correct name
-     */
-    public function testCountryMethod()
+    public function testIfTheCountryHasTheCorrectName()
     {
         $country = $this->addressing->country('US');
         $this->assertEquals($country->getName(), 'United States');
         $this->assertEquals($country->getCountryCode(), 'US');
+    }
+
+    public function testIfTheCountryByNameMethodIsReturningTheCorrectCountry()
+    {
+        $country = $this->addressing->countryByName('United States');
+        $this->assertTrue($country instanceof Country);
+        $this->assertEquals($country->getCountryCode(), 'US');
+        $country = $this->addressing->countryByName('Brazil');
+        $this->assertEquals($country->getCountryCode(), 'BR');
     }
 }
