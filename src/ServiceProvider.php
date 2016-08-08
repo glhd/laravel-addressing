@@ -16,23 +16,24 @@ use Illuminate\Support\Facades\Validator;
  */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
+    /**
+     * Booting the Service Provider
+     */
     public function boot()
     {
-    	// TODO: Is this a way to make this configurable?
-        if (!$this->app->routesAreCached()) { // TODO: I'm actually not sure if this method exists. Can you check?
+        if (!$this->app->routesAreCached()) {
             require_once __DIR__ . '/routes.php';
         }
-
-        // Perhaps offer address views
-        // $this->loadViewsFrom(__DIR__.'/views', 'laravel-addressing');
-
         $this->registerValidators();
     }
 
+    /**
+     * Register the LaravelAddressing instance
+     */
     public function register()
     {
         $this->app->singleton(LaravelAddressing::class, function ($app) {
-            return new LaravelAddressing();
+            return LaravelAddressing::getInstance();
         });
     }
 
