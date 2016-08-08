@@ -44,4 +44,14 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $country = $this->addressing->countryByName('Brazil');
         $this->assertEquals($country->getCountryCode(), 'BR');
     }
+
+    public function testIfFindCountryMethodIsWorking()
+    {
+        $country = $this->addressing->findCountry('US');
+        $this->assertEquals($country->getName(), 'United States');
+        $country = $this->addressing->findCountry('United States');
+        $this->assertEquals($country->getCountryCode(), 'US');
+        $country = $this->addressing->findCountry('ZZZZZZZZZ');
+        $this->assertTrue(is_null($country));
+    }
 }
