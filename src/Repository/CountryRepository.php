@@ -4,6 +4,7 @@ namespace Galahad\LaravelAddressing\Repository;
 
 use Closure;
 use CommerceGuys\Intl\Country\CountryRepository as BaseCountryRepository;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
 
 /**
@@ -44,4 +45,23 @@ class CountryRepository extends BaseCountryRepository
         return $country;
     }
 
+    /**
+     * Returns a CountryCollection with Country instances
+     *
+     * @param null $locale
+     * @param null $fallbackLocale
+     * @return CountryCollection
+     */
+    public function getAll($locale = null, $fallbackLocale = null)
+    {
+        $locale = $this->resolveLocale($locale, $fallbackLocale);
+        $definitions = $this->loadDefinitions($locale);
+        $countries = new CountryCollection();
+        foreach ($definitions as $countryCode => $definition) {
+            $country = $this->createCountryFromDefinition($countryCode, $definition, $locale);
+            $countries->push($country);
+        }
+
+        return $countries;
+    }
 }
