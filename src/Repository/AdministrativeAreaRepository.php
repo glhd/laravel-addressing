@@ -91,18 +91,9 @@ class AdministrativeAreaRepository extends SubdivisionRepository
      */
     public function getAll($countryCode, $parentId = null, $locale = null)
     {
-        $definitions = $this->loadDefinitions($countryCode, $parentId);
-        if (empty($definitions)) {
-            return [];
-        }
-
-        $subdivisions = new AdministrativeAreaCollection();
-        foreach (array_keys($definitions['subdivisions']) as $id) {
-            $subdivision = $this->createSubdivisionFromDefinitions($id, $definitions, $locale);
-            $subdivisions->push($subdivision);
-        }
-
-        return $subdivisions;
+    	// TODO Defering the parent here means that we don't have to keep up with changes as much
+    	$subdivisions = parent::getAll($countryCode, $parentId, $locale);
+        return new AdministrativeAreaCollection($subdivisions);
     }
 
     /**

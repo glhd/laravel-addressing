@@ -40,6 +40,11 @@ class CountryRepository extends BaseCountryRepository
      */
     protected function createCountryFromDefinition($countryCode, array $definition, $locale)
     {
+    	// TODO See Country::__construct2()
+	    // TODO It might be nice to do return new Country(parent::createCountryFromDefinition(...))
+	    // TODO And that makes this a little more future-proof
+	    // TODO Not sure if it'd work, though, and if there are any particular performance bottlenecks
+    	
         $country = new Country($this->getAddressing());
         $setValues = Closure::bind(function ($countryCode, $definition, $locale) {
             $this->countryCode = $countryCode;
@@ -69,15 +74,8 @@ class CountryRepository extends BaseCountryRepository
      */
     public function getAll($locale = null, $fallbackLocale = null)
     {
-        $locale = $this->resolveLocale($locale, $fallbackLocale);
-        $definitions = $this->loadDefinitions($locale);
-        $countries = new CountryCollection();
-        foreach ($definitions as $countryCode => $definition) {
-            $country = $this->createCountryFromDefinition($countryCode, $definition, $locale);
-            $countries->push($country);
-        }
-
-        return $countries;
+    	$countries = parent::getAll($locale, $fallbackLocale);
+    	return new CountryCollection($countries);
     }
 
     /**

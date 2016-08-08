@@ -33,6 +33,17 @@ class Country extends BaseCountry
     {
         $this->addressing = $addressing;
     }
+	
+	/**
+	 * Maybe replace __construct() with this?
+	 */
+    public function __construct2(LaravelAddressing $addressing, BaseCountry $extend)
+    {
+    	$vars = get_object_vars($extend);
+	    foreach ($vars as $key => $value) {
+	    	$this->$key = $value;
+	    }
+    }
 
     /**
      * Get all country's administrative areas

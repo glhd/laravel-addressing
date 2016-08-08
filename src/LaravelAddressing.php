@@ -45,8 +45,6 @@ class LaravelAddressing
     public function __construct($locale = 'en')
     {
         $this->locale = $locale;
-        $this->countryRepository = new CountryRepository($this);
-        $this->administrativeAreaRepository = new AdministrativeAreaRepository();
     }
 
     /**
@@ -57,7 +55,8 @@ class LaravelAddressing
      */
     public function country($countryCode)
     {
-        return $this->countryRepository->get($countryCode, $this->locale);
+    	// TODO The advantage of using getCountryRepository() here is that we can lazy-load it, then
+        return $this->getCountryRepository()->get($countryCode, $this->locale);
     }
 
     /**
@@ -99,7 +98,7 @@ class LaravelAddressing
      */
     public function countries()
     {
-        return $this->countryRepository->getAll($this->locale);
+        return $this->getCountryRepository()->getAll($this->locale);
     }
 
     /**
@@ -120,7 +119,7 @@ class LaravelAddressing
     protected function getCountryList()
     {
         if (!$this->countryList) {
-            $this->countryList = $this->countryRepository->getList($this->locale);
+            $this->countryList = $this->getCountryRepository()->getList($this->locale);
         }
 
         return $this->countryList;
@@ -147,6 +146,10 @@ class LaravelAddressing
      */
     public function getCountryRepository()
     {
+    	if (!isset($this->countryRepository)) {
+		    $this->countryRepository = new CountryRepository($this);
+	    }
+	    
         return $this->countryRepository;
     }
 
@@ -155,6 +158,10 @@ class LaravelAddressing
      */
     public function getAdministrativeAreaRepository()
     {
+    	if (!isset($this->administrativeAreaRepository)) {
+    		$this->administrativeAreaRepository = new AdministrativeAreaRepository();
+	    }
+	    
         return $this->administrativeAreaRepository;
     }
 }
