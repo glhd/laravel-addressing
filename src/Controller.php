@@ -42,8 +42,8 @@ class Controller extends BaseController
     public function getAdministrativeAreas(Request $request, $countryCode)
     {
         $this->checkQueryParameters($request);
-        $country = $this->addressing->country($countryCode);
         try {
+            $country = $this->addressing->country($countryCode);
             return new JsonResponse([
                 'label' => 'State',
                 'expected_length' => 2,
