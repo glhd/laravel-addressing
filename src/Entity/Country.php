@@ -2,341 +2,121 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
-use ArrayObject;
-use CommerceGuys\Addressing\Repository\CountryRepository;
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
-use Galahad\LaravelAddressing\Address;
+use CommerceGuys\Intl\Country\Country as BaseCountry;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
-use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**
  * Class Country
  *
- * Usage:
- *
- * $country = new Country;
- * echo $country->findByName('brazil')->getCode();
- * echo $country->findByCode('br')->getName();
- * $allCountries = $country->getAll(); // Return an ArrayObject with Country objects
- *
- * @todo: This class seems to be doing the work of CountryRepository and Country. What's the point of it?
- * @todo: CommerceGuys\Intl\Country\CountryRepository already exists to load countries, and
- * @todo: CommerceGuys\Intl\Country\Country already exists to represent a country. I see some value in
- * @todo: subclassing these—specifically to add a function that lets you load a country by name—this seems
- * @todo: like odd additional work…
- *
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class Country extends Entity
+class Country extends BaseCountry
 {
-	/**
-	 * @var string|null
-	 */
-	protected $code;
-
-	/**
-	 * @var string
-	 */
-	protected $name;
-
-	/**
-	 * @var int
-	 */
-	protected $parentId;
-
-	/**
-	 * @var string
-	 */
-	protected $locale;
-
-	/**
-	 * @var null|ArrayObject
-	 */
-	protected $administrativeAreas = null;
-
-	/**
-	 * @var CountryRepository|null
-	 */
-	protected $countryRepository = null;
-
-	/**
-	 * @var SubdivisionRepository|null
-	 */
-	protected $subdivisionRepository = null;
-
-	/**
-	 * Construct method
-	 *
-	 * @param string|null $locale
-	 */
-	public function __construct($locale = null)
-	{
-		$this->setLocale($locale);
-		$this->countryRepository = new CountryRepository();
-		$this->subdivisionRepository = new SubdivisionRepository();
-	}
-
-	/**
-	 * Return the name field
-	 *
-	 * @return mixed
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
-
-	/**
-	 * Set the name field
-	 *
-	 * @param mixed $name
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-
-	/**
-	 * Get the code field
-	 *
-	 * @return null
-	 */
-	public function getCode()
-	{
-		return $this->code;
-	}
-
-	/**
-	 * Set the code field
-	 *
-	 * @param null $code
-	 */
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
-
-	/**
-	 * Get the parentId field
-	 *
-	 * @return int
-	 */
-	public function getParentId()
-	{
-		return $this->parentId;
-	}
-
-	/**
-	 * Set the parentId field
-	 *
-	 * @param int $parentId
-	 */
-	public function setParentId($parentId)
-	{
-		$this->parentId = $parentId;
-	}
-
-	/**
-	 * Get the locale field
-	 *
-	 * @return null|string
-	 */
-	public function getLocale()
-	{
-		return $this->locale;
-	}
-
-	/**
-	 * Set the locale field
-	 *
-	 * @param string $locale
-	 */
-	public function setLocale($locale)
-	{
-		$this->locale = $locale;
-	}
-
-	/**
-	 * Get the AddressFormatRepository instance
-	 *
-	 * @return Address|null
-	 */
-	public function getAddressFormatRepository()
-	{
-		return $this->addressFormatRepository;
-	}
-
-	/**
-	 * Get the CountryRepository instance
-	 *
-	 * @return CountryRepository|null
-	 */
-	public function getCountryRepository()
-	{
-		return $this->countryRepository;
-	}
-
-	/**
-	 * Get the SubdivisionRepository instance
-	 *
-	 * @return SubdivisionRepository|null
-	 */
-	public function getSubdivisionRepository()
-	{
-		return $this->subdivisionRepository;
-	}
-
-	/**
-	 * Get all countries
-	 *
-	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
-	 */
-	public function getAll()
-	{
-		$countries = $this->countryRepository->getList($this->locale);
-		$list = new CountryCollection();
-		foreach ($countries as $code => $name) {
-			$country = new static;
-			$country->setName($name);
-			$country->setCode($code);
-			$country->setLocale($this->locale);
-			$list->insert($country);
-		}
-
-		return $list;
-	}
-
-	/**
-	 * Get a country by any field
-	 *
-	 * @param $fieldName
-	 * @param $fieldValue
-	 * @return Country|null
-	 */
-	protected function getByField($fieldName, $fieldValue)
-	{
-		$fieldValue = strtolower($fieldValue);
-		$list = static::getAll();
-		/** @var Country $country */
-		foreach ($list as $country) {
-			$method = 'get'.ucfirst($fieldName);
-			$objectValue = strtolower($country->$method());
-			if ($objectValue == $fieldValue) {
-				return $country;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get a country instance by the code
-	 *
-	 * @param $code
-	 * @return Country|null
-	 */
-	public function getByCode($code)
-	{
-		return $this->getByField('code', $code); // TODO: I'm guessing that CountryRepository::get() will be significantly faster here
-	}
-
-	/**
-	 * Shortcut for the getByCode() method
-	 *
-	 * @param $code
-	 * @return Country|null
-	 */
-	public function code($code)
-	{
-		return $this->getByCode($code);
-	}
-
-	/**
-	 * Get a country instance by the name
-	 *
-	 * @param $name
-	 * @return Country|null
-	 */
-	public function getByName($name)
-	{
-		return $this->getByField('name', $name);
-	}
+    /**
+     * @var LaravelAddressing
+     */
+    protected $addressing;
 
     /**
-     * Get a country by code or name
-     *
-     * @param string $value
-     * @return Country|null
+     * @var array
      */
-    public function getByCodeOrName($value)
-	{
-		/*
-		 * TODO: Try to reduce nesting where possible. You should be able to refactor into:
-		 *
-		 *      if ($country = $this->getByCode($value)) {
-		 *      	return $country;
-		 *      }
-		 *
-		 *      if ($country = $this->getByName($value)) {
-		 *      	return $country;
-		 *      }
-		 *
-		 *      return null;
-		 *
-		 */
-		
-        $result = $this->getByCode($value);
-        if (! $result instanceof Country) {
-            $result = $this->getByName($value);
-            if (! $result instanceof Country) {
-                return null;
-            }
+    protected $administrativeAreasList = [];
+
+    /**
+     * The constructor method
+     *
+     * @param LaravelAddressing $addressing
+     */
+    public function __construct(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
+    }
+
+    /**
+     * Get all country's administrative areas
+     *
+     * @return AdministrativeAreaCollection
+     */
+    public function administrativeAreas()
+    {
+        return $this->addressing->getAdministrativeAreaRepository()->getAll(
+            $this->getCountryCode(),
+            0,
+            $this->getLocale()
+        );
+    }
+
+    /**
+     * Get an administrative area by code
+     *
+     * @param $code
+     * @return AdministrativeArea
+     */
+    public function administrativeArea($code)
+    {
+        if (strpos($code, '-') === false) {
+            $code = $this->getCountryCode().'-'.$code;
         }
 
-        return $result;
-	}
+        return $this->addressing->getAdministrativeAreaRepository()->get($code);
+    }
 
-	/**
-	 * Get all the administrative areas from a given country
-	 *
-	 * @return \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
-	 */
-	public function getAdministrativeAreas()
-	{
-		if (is_null($this->administrativeAreas)) {
-			$admArea = new AdministrativeArea($this);
-			$this->administrativeAreas = $admArea->getAll();
-		}
+    /**
+     * Get an administrative area by name
+     *
+     * @param string $administrativeAreaName
+     * @return AdministrativeArea
+     */
+    public function administrativeAreaByName($administrativeAreaName)
+    {
+        foreach ($this->getAdministrativeAreasList() as $code => $name) {
+            if ($name == $administrativeAreaName) {
+                return $this->administrativeArea($code);
+            }
+        }
+    }
 
-		return $this->administrativeAreas;
-	}
+    /**
+     * Find an administrative area by code or name
+     *
+     * @param string $codeOrName
+     * @return AdministrativeArea
+     */
+    public function findAdministrativeArea($codeOrName)
+    {
+        $administrativeArea = $this->administrativeArea($codeOrName);
+        if (! $administrativeArea instanceof AdministrativeArea) {
+            return $this->administrativeAreaByName($codeOrName);
+        }
 
-	/**
-	 * Shortcut for getAdministrativeAreas() method
-	 *
-	 * @return AdministrativeAreaCollection
-	 */
-	public function states()
-	{
-		return $this->getAdministrativeAreas();
-	}
+        return $administrativeArea;
+    }
 
-	/**
-	 * Shortcut to get a state from a country
-	 *
-	 * @param $code
-	 * @return AdministrativeArea
-	 */
-	public function state($code)
-	{
-		$state = $this->getAdministrativeAreas()->getByCode($code);
-		if ($state instanceof AdministrativeArea) {
-			return $state;
-		}
-		$state = $this->getAdministrativeAreas()->getByName($code);
-		if ($state instanceof AdministrativeArea) {
-			return $state;
-		}
-	}
+    /**
+     * Get all administrative areas as a array list
+     *
+     * @return array
+     */
+    public function getAdministrativeAreasList()
+    {
+        if (!$this->administrativeAreasList) {
+            $this->administrativeAreasList = $this->addressing->getAdministrativeAreaRepository()->getList(
+                $this->getCountryCode(), 0, $this->getLocale()
+            );
+        }
+
+        return $this->administrativeAreasList;
+    }
+
+    /**
+     * Get the locale according the LaravelAddressing class
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->addressing->getLocale();
+    }
 }

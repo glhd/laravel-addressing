@@ -16,19 +16,20 @@ use Illuminate\Support\Facades\Validator;
  */
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
+    /**
+     * Booting the Service Provider
+     */
     public function boot()
     {
-    	// TODO: Is this a way to make this configurable?
-        if (!$this->app->routesAreCached()) { // TODO: I'm actually not sure if this method exists. Can you check?
+        if (!$this->app->routesAreCached()) {
             require_once __DIR__ . '/routes.php';
         }
-
-        // Perhaps offer address views
-        // $this->loadViewsFrom(__DIR__.'/views', 'laravel-addressing');
-
         $this->registerValidators();
     }
 
+    /**
+     * Register the LaravelAddressing instance
+     */
     public function register()
     {
         $this->app->singleton(LaravelAddressing::class, function ($app) {
@@ -43,17 +44,23 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         // Country validators
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            return new CountryValidator($translator, $data, $rules, $messages, $attributes);
+            $validator = new CountryValidator($translator, $data, $rules, $messages, $attributes);
+            $validator->setAddressing($this->app->make(LaravelAddressing::class));
+            return $validator;
         });
 
         // AdministrativeArea validators
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            return new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
+            $validator = new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
+            $validator->setAddressing($this->app->make(LaravelAddressing::class));
+            return $validator;
         });
 
         // PostalCode validator
         $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            return new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
+            $validator = new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
+            $validator->setAddressing($this->app->make(LaravelAddressing::class));
+            return $validator;
         });
     }
 }

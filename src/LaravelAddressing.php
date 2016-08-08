@@ -2,40 +2,14 @@
 
 namespace Galahad\LaravelAddressing;
 
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
-use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
-use Galahad\LaravelAddressing\Collection\CountryCollection;
+use CommerceGuys\Intl\Country\CountryInterface;
+use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\Repository\AdministrativeAreaRepository;
+use Galahad\LaravelAddressing\Repository\CountryRepository;
 
 /**
  * Class LaravelAddressing
- *
- * @todo Get rid of all "city" code
- *
- * @todo Addressing::country($code)
- * @todo Addressing::countryByName($name)
- * @todo Addressing::findCountry($codeOrName)
- * @todo Addressing::countries()
- * @todo Addressing::setLocale()
- * @todo Addressing::getLocale()
- * @todo Addressing::country($code)->administrativeAreas()
- * @todo Addressing::country('US')->administrativeArea($code)
- *
- * @todo Galahad\Addressing\Repository\CountryRepository
- * @todo Galahad\Addressing\Repository\CountryRepository::setContainer()
- * @todo Galahad\Addressing\Repository\AdminsitrativeAreaRepository
- * @todo Galahad\Addressing\Repository\AdminsitrativeAreaRepository::setContainer()
- *
- * @todo See https://laravel.com/docs/5.2/collections
- * @todo Galahad\Addressing\Collection\CountryCollection
- * @todo Galahad\Addressing\Collection\CountryCollection::setContainer()
- * @todo Galahad\Addressing\Collection\AdminsitrativeAreaCollection
- * @todo Galahad\Addressing\Collection\AdminsitrativeAreaCollection::setContainer()
- *
- * @todo Galahad\Addressing\Country::setContainer() -> sets $this->app — or maybe do via constructor
- * @todo Galahad\Addressing\Country::administrativeArea($code) -> $this-app->addressing->getAdministrativeAreasRepository()->get($code, $code)
- * @todo Galahad\Addressing\Country::administrativeAreas()
- *
  *
  * @package Galahad\LaravelAddressing
  * @author Chris Morrell
@@ -43,114 +17,117 @@ use Galahad\LaravelAddressing\Entity\Country;
  */
 class LaravelAddressing
 {
-    const ARRAY_LIST = 1;
-
     /**
-     * @var SubdivisionRepository
-     */
-    protected $subdivisionRepository;
-
-    /**
-     * @var Country
-     */
-    protected $country;
-
-    /**
-     * @var null|string
+     * @var string
      */
     protected $locale;
 
     /**
-     * The construct method
-     *
-     * @param string|null $locale
+     * @var CountryRepository
      */
-    public function __construct($locale = null)
+    protected $countryRepository;
+
+    /**
+     * @var AdministrativeAreaRepository
+     */
+    protected $administrativeAreaRepository;
+
+    /**
+     * @var array
+     */
+    protected $countryList = null;
+
+    /**
+     * Constructor method
+     *
+     * @param string $locale
+     */
+    public function __construct($locale = 'en')
     {
         $this->locale = $locale;
-        $this->subdivisionRepository = new SubdivisionRepository(); // TODO: Why not lazy-load with getSubdivisionRepository()
-        $this->country = new Country($locale); // TODO: Seems like this should do the same, with a getCountryRepository() method
+        $this->countryRepository = new CountryRepository($this);
+        $this->administrativeAreaRepository = new AdministrativeAreaRepository();
     }
 
     /**
-     * Get the country by code
+     * Get a country by code
      *
-     * @param $code
-     * @return Country|null
+     * @param $countryCode
+     * @return Country|CountryInterface
      */
-    public function getCountryByCode($code)
+    public function country($countryCode)
     {
-        return $this->country->getByCode($code);
+        return $this->countryRepository->get($countryCode, $this->locale);
     }
 
     /**
-     * Get a country by its name
+     * Get a Country instance by name
      *
-     * @param $name
+     * @param $countryName
      * @return Country
      */
-    public function getCountryByName($name)
+    public function countryByName($countryName)
     {
-        return $this->country->getByName($name);
-    }
-
-    /**
-     * Get a country by code or by name
-     *
-     * @param string $value
-     * @return Country|null
-     */
-    public function getCountryByCodeOrName($value)
-    {
-        return $this->country->getByCodeOrName($value);
-    }
-
-    /**
-     * Shortcut to getCountryByCode() method
-     *
-     * @param $code
-     * @return Country|null
-     */
-    public function country($code)
-    {
-        return $this->getCountryByCode($code);
-    }
-
-    /**
-     * Get the countries list
-     *
-     * Example:
-     * $addressing = new LaravelAddressing;
-     * return $addressing->countries(LaravelAddressing::ARRAY_LIST);
-     *
-     * @param int $asArrayList
-     * @return CountryCollection|array
-     */
-    public function getCountries($asArrayList = 0)
-    {
-    	// TODO: I think this is unnecessary since we have the toList() (to be refactored as toArray()) method
-        if ($asArrayList === static::ARRAY_LIST) {
-            return $this->country->getAll()->toList();
+        $inverseCountryList = array_flip($this->getCountryList());
+        if (isset($inverseCountryList[$countryName])) {
+            $countryCode = $inverseCountryList[$countryName];
+            return $this->country($countryCode);
         }
 
-        return $this->country->getAll();
+        throw new UnknownCountryException;
     }
 
     /**
-     * Shortcut for getCountries() method
+     * Find a country by code or name
      *
-     * @param int $asArrayList
-     * @return array|CountryCollection
+     * @param $codeOrName
+     * @return CountryInterface|Country
      */
-    public function countries($asArrayList = 0)
+    public function findCountry($codeOrName)
     {
-        return $this->getCountries($asArrayList);
+        $countryList = $this->getCountryList();
+        if (isset($countryList[$codeOrName])) {
+            return $this->country($codeOrName);
+        }
+        return $this->countryByName($codeOrName);
     }
 
     /**
-     * Get the locale
+     * Return a country collection with all countries
      *
-     * @return null|string
+     * @return Collection\CountryCollection
+     */
+    public function countries()
+    {
+        return $this->countryRepository->getAll($this->locale);
+    }
+
+    /**
+     * Get a list of all countries as a array list
+     *
+     * @return array
+     */
+    public function countriesList()
+    {
+        return $this->getCountryList();
+    }
+
+    /**
+     * Get the country list if not loaded yet
+     *
+     * @return array
+     */
+    protected function getCountryList()
+    {
+        if (!$this->countryList) {
+            $this->countryList = $this->countryRepository->getList($this->locale);
+        }
+
+        return $this->countryList;
+    }
+
+    /**
+     * @return string
      */
     public function getLocale()
     {
@@ -158,46 +135,26 @@ class LaravelAddressing
     }
 
     /**
-     * Set the default locale
-     *
-     * @param null|string $locale
+     * @param string $locale
      */
     public function setLocale($locale)
     {
         $this->locale = $locale;
-        $this->country->setLocale($locale);
     }
 
     /**
-     * Get all the administrative areas by country code
-     *
-     * @param string $countryCode
-     * @return AdministrativeAreaCollection
+     * @return CountryRepository
      */
-    public function getAdministrativeAreas($countryCode)
+    public function getCountryRepository()
     {
-    	
+        return $this->countryRepository;
     }
 
     /**
-     * Get the SubdivisionRepository instance
-     *
-     * @return SubdivisionRepository
+     * @return AdministrativeAreaRepository
      */
-    protected function getSubdivisionRepository()
+    public function getAdministrativeAreaRepository()
     {
-        if (!isset($this->subdivisionRepository)) {
-            $this->subdivisionRepository = new SubdivisionRepository();
-        }
-
-        return $this->subdivisionRepository;
-    }
-
-    /**
-     * TODO
-     */
-    protected function getAddressFormatRepository()
-    {
-        // TODO
+        return $this->administrativeAreaRepository;
     }
 }
