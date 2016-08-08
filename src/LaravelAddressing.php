@@ -10,29 +10,6 @@ use Galahad\LaravelAddressing\Repository\CountryRepository;
 /**
  * Class LaravelAddressing
  *
- * @todo Get rid of all "city" code
- *
- * @todo Addressing::setLocale()
- * @todo Addressing::getLocale()
- * @todo Addressing::country($code)->administrativeAreas()
- * @todo Addressing::country('US')->administrativeArea($code)
- *
- * @todo Galahad\Addressing\Repository\CountryRepository
- * @todo Galahad\Addressing\Repository\CountryRepository::setContainer()
- * @todo Galahad\Addressing\Repository\AdminsitrativeAreaRepository
- * @todo Galahad\Addressing\Repository\AdminsitrativeAreaRepository::setContainer()
- *
- * @todo See https://laravel.com/docs/5.2/collections
- * @todo Galahad\Addressing\Collection\CountryCollection
- * @todo Galahad\Addressing\Collection\CountryCollection::setContainer()
- * @todo Galahad\Addressing\Collection\AdminsitrativeAreaCollection
- * @todo Galahad\Addressing\Collection\AdminsitrativeAreaCollection::setContainer()
- *
- * @todo Galahad\Addressing\Country::setContainer() -> sets $this->app — or maybe do via constructor
- * @todo Galahad\Addressing\Country::administrativeArea($code) -> $this-app->addressing->getAdministrativeAreasRepository()->get($code, $code)
- * @todo Galahad\Addressing\Country::administrativeAreas()
- *
- *
  * @package Galahad\LaravelAddressing
  * @author Chris Morrell
  * @author Junior Grossi <juniorgro@gmail.com>
