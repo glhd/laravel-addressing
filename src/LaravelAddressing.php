@@ -3,6 +3,7 @@
 namespace Galahad\LaravelAddressing;
 
 use CommerceGuys\Intl\Country\CountryInterface;
+use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Repository\AdministrativeAreaRepository;
 use Galahad\LaravelAddressing\Repository\CountryRepository;
@@ -97,6 +98,8 @@ class LaravelAddressing
             $countryCode = $inverseCountryList[$countryName];
             return $this->country($countryCode);
         }
+
+        throw new UnknownCountryException;
     }
 
     /**
