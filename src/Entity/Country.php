@@ -49,6 +49,10 @@ class Country extends BaseCountry
      */
     public function administrativeArea($code)
     {
+        if (strpos($code, '-') === false) {
+            $code = $this->getCountryCode().'-'.$code;
+        }
+
         return $this->addressing->getAdministrativeAreaRepository()->get($code);
     }
 
