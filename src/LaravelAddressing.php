@@ -123,6 +123,16 @@ class LaravelAddressing
     }
 
     /**
+     * Get a list of all countries as a array list
+     *
+     * @return array
+     */
+    public function countriesList()
+    {
+        return $this->getCountryList();
+    }
+
+    /**
      * Get the country list if not loaded yet
      *
      * @return array
