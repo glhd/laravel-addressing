@@ -1,5 +1,6 @@
 <?php
 
+use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**
@@ -9,38 +10,35 @@ use Galahad\LaravelAddressing\LaravelAddressing;
  */
 class LaravelAddressingTest extends PHPUnit_Framework_TestCase
 {
-    public function testGettingUS()
-    {
-        $addressing = new LaravelAddressing();
-        $usCode = $addressing->getCountryByCode('US');
-        $usName = $addressing->getCountryByName('United States');
+    /**
+     * @var LaravelAddressing
+     */
+    protected $addressing;
 
-        $this->assertEquals($usCode->getName(), 'United States');
-        $this->assertEquals($usName->getCode(), 'US');
+    /**
+     * Setup the LaravelAddressing instance
+     */
+    protected function setUp()
+    {
+        $this->addressing = new LaravelAddressing();
     }
 
-    public function testCountryList()
+    /**
+     * Testing the returning type of the country() method
+     */
+    public function testCountryMethodReturningType()
     {
-        $addressing = new LaravelAddressing();
-        $countries = $addressing->getCountries(LaravelAddressing::ARRAY_LIST);
-
-        $this->assertEquals($countries['US'], 'United States');
-        $this->assertEquals($countries['BR'], 'Brazil');
+        $country = $this->addressing->country('US');
+        $this->assertTrue($country instanceof Country);
     }
 
-    public function testCountryWithShortcuts()
+    /**
+     * Testing if the country has the correct name
+     */
+    public function testCountryMethod()
     {
-        $maker = new LaravelAddressing();
-
-        $this->assertEquals($maker->country('US')->name, 'United States');
-        $this->assertEquals($maker->country('CA')->name, 'Canada');
-    }
-
-    public function testLocale()
-    {
-        $maker = new LaravelAddressing('pt');
-
-        $this->assertEquals($maker->country('US')->name, 'Estados Unidos');
-        $this->assertEquals($maker->country('CA')->name, 'Canadá');
+        $country = $this->addressing->country('US');
+        $this->assertEquals($country->getName(), 'United States');
+        $this->assertEquals($country->getCountryCode(), 'US');
     }
 }
