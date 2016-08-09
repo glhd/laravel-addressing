@@ -2,7 +2,6 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
-use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 use CommerceGuys\Addressing\Model\Subdivision;
 
 /**
