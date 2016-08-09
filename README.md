@@ -136,3 +136,7 @@ You can get the countries list using a custom locale:
 ```
 GET /galahad/addressing/countries?locale=pt
 ```
+
+### Thanks!
+
+Special thanks to [Commerce Guys](https://github.com/commerceguys) for their amazing [addressing](https://github.com/commerceguys/addressing) and [intl](https://github.com/commerceguys/intl) packages, which this project relies heavily on.
