@@ -25,12 +25,12 @@ class LaravelAddressing
     /**
      * @var CountryRepository
      */
-    protected $countryRepository;
+    protected $countryRepository = null;
 
     /**
      * @var AdministrativeAreaRepository
      */
-    protected $administrativeAreaRepository;
+    protected $administrativeAreaRepository = null;
 
     /**
      * @var array
@@ -55,7 +55,6 @@ class LaravelAddressing
      */
     public function country($countryCode)
     {
-    	// TODO The advantage of using getCountryRepository() here is that we can lazy-load it, then
         return $this->getCountryRepository()->get($countryCode, $this->locale);
     }
 
@@ -146,7 +145,7 @@ class LaravelAddressing
      */
     public function getCountryRepository()
     {
-    	if (!isset($this->countryRepository)) {
+    	if (!$this->countryRepository) {
 		    $this->countryRepository = new CountryRepository($this);
 	    }
 	    
@@ -158,7 +157,7 @@ class LaravelAddressing
      */
     public function getAdministrativeAreaRepository()
     {
-    	if (!isset($this->administrativeAreaRepository)) {
+    	if (!$this->administrativeAreaRepository) {
     		$this->administrativeAreaRepository = new AdministrativeAreaRepository();
 	    }
 	    
