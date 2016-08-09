@@ -1,5 +1,7 @@
 # Laravel Addressing
 
+[![Build Status](https://travis-ci.org/glhd/laravel-addressing.svg)](https://travis-ci.org/glhd/laravel-addressing)
+
 > Laravel package providing addressing functionality
 
 ## Installation
