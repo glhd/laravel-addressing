@@ -25,13 +25,24 @@ class Country extends BaseCountry
     protected $administrativeAreasList = [];
 
     /**
-     * The constructor method
-     *
      * @param LaravelAddressing $addressing
+     * @param BaseCountry $baseCountry
      */
-    public function __construct(LaravelAddressing $addressing)
+    public function __construct(LaravelAddressing $addressing, BaseCountry $baseCountry)
     {
         $this->addressing = $addressing;
+    	$this->copyPropertiesFromBaseCountry($baseCountry);
+    }
+
+    /**
+     * @param BaseCountry $baseCountry
+     */
+    protected function copyPropertiesFromBaseCountry(BaseCountry $baseCountry)
+    {
+        $vars = get_object_vars($baseCountry);
+        foreach ($vars as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
     /**
