@@ -40,27 +40,8 @@ class CountryRepository extends BaseCountryRepository
      */
     protected function createCountryFromDefinition($countryCode, array $definition, $locale)
     {
-    	// TODO See Country::__construct2()
-	    // TODO It might be nice to do return new Country(parent::createCountryFromDefinition(...))
-	    // TODO And that makes this a little more future-proof
-	    // TODO Not sure if it'd work, though, and if there are any particular performance bottlenecks
-    	
-        $country = new Country($this->getAddressing());
-        $setValues = Closure::bind(function ($countryCode, $definition, $locale) {
-            $this->countryCode = $countryCode;
-            $this->name = $definition['name'];
-            $this->locale = $locale;
-            if (isset($definition['three_letter_code'])) {
-                $this->threeLetterCode = $definition['three_letter_code'];
-            }
-            if (isset($definition['numeric_code'])) {
-                $this->numericCode = $definition['numeric_code'];
-            }
-            if (isset($definition['currency_code'])) {
-                $this->currencyCode = $definition['currency_code'];
-            }
-        }, $country, '\Galahad\LaravelAddressing\Entity\Country');
-        $setValues($countryCode, $definition, $locale);
+        $parentCountry = parent::createCountryFromDefinition($countryCode, $definition, $locale);
+        $country = new Country($this->getAddressing(), $parentCountry);
 
         return $country;
     }
@@ -75,6 +56,7 @@ class CountryRepository extends BaseCountryRepository
     public function getAll($locale = null, $fallbackLocale = null)
     {
     	$countries = parent::getAll($locale, $fallbackLocale);
+
     	return new CountryCollection($countries);
     }
 
