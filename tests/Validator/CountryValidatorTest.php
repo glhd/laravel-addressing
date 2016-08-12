@@ -9,56 +9,47 @@ require __DIR__.'/BaseValidatorTestCase.php';
  */
 class CountryValidatorTest extends BaseValidatorTestCase
 {
-    public function performValidation(array $data)
-    {
-        $input = ['country' => $data['value']];
-        $rules = ['country' => $data['rule']];
-        $validator = $this->validator->make($input, $rules);
-
-        return $validator->passes();
-    }
-
     public function testCountryCodeWithDifferentSize()
     {
         $this->assertFalse($this->performValidation([
-            'value' => 'USA',
-            'rule' => 'country_code',
+            'data' => ['country' => 'USA'],
+            'rules' => ['country' => 'country_code'],
         ]));
     }
 
     public function testCountryCodeWithCorrectSizeButInvalid()
     {
         $this->assertFalse($this->performValidation([
-            'value' => 'ZZ',
-            'rule' => 'country_code',
+            'data' => ['country' => 'ZZ'],
+            'rules' => ['country' => 'country_code'],
         ]));
     }
 
     public function testCorrectCountryCode()
     {
         $this->assertTrue($this->performValidation([
-            'value' => 'BR',
-            'rule' => 'country_code',
+            'data' => ['country' => 'BR'],
+            'rules' => ['country' => 'country_code'],
         ]));
         $this->assertTrue($this->performValidation([
-            'value' => 'US',
-            'rule' => 'country_code',
+            'data' => ['country' => 'US'],
+            'rules' => ['country' => 'country_code'],
         ]));
     }
 
     public function testWrongCountryName()
     {
         $this->assertFalse($this->performValidation([
-            'value' => 'United Stattes',
-            'rule' => 'country_name',
+            'data' => ['country' => 'United Stattes'],
+            'rules' => ['country' => 'country_name'],
         ]));
     }
 
     public function testCorrectCountryName()
     {
         $this->assertTrue($this->performValidation([
-            'value' => 'United States',
-            'rule' => 'country_name',
+            'data' => ['country' => 'United States'],
+            'rules' => ['country' => 'country_name'],
         ]));
     }
 }
