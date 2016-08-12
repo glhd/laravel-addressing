@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'country_name' => 'The :attribute has not a valid country name.',
-    'country_code' => 'The :attribute has not a valid country code.',
-    'administrative_area' => 'The :attribute has not a valid administrative area name.',
-    'administrative_area_code' => 'The :attribute has not a valid administrative area code.',
-    'administrative_area_name' => 'The :attribute has not a valid administrative area name.',
-    'postal_code' => 'The :attribute seems do be a not valid postal code.',
+    'country_name' => 'The :attribute field is not a valid country name.',
+    'country_code' => 'The :attribute field is not a valid country code.',
+    'administrative_area' => 'The :attribute field is not a valid state/province.',
+    'administrative_area_code' => 'The :attribute field has not a valid state/province.',
+    'administrative_area_name' => 'The :attribute field has not a valid state/province.',
+    'postal_code' => 'The :attribute field does not seem to be a valid postal code.',
 ];
