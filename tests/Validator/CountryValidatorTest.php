@@ -1,74 +1,88 @@
 <?php
 
-use CommerceGuys\Intl\Exception\UnknownCountryException;
-use Galahad\LaravelAddressing\LaravelAddressing;
-use Galahad\LaravelAddressing\Validator\CountryValidator;
-use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\Translator;
+use Galahad\LaravelAddressing\ServiceProvider;
+use Illuminate\Validation\Factory;
+use Orchestra\Testbench\TestCase;
 
 /**
  * Class CountryValidatorTest
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class CountryValidatorTest extends PHPUnit_Framework_TestCase
+class CountryValidatorTest extends TestCase
 {
     /**
-     * @var array
-     */
-    protected $rules = [
-        'country_code' => 'country_code',
-        'country_name' => 'country_name',
-    ];
-
-    /**
-     * @var string
-     */
-    protected $locale = 'en';
-
-    /**
-     * @var Validator
+     * @var Factory
      */
     protected $validator;
 
-    protected function setUp()
+    public function setUp()
     {
-        $this->validator = new CountryValidator(new Translator($this->locale));
-        $this->validator->setRules($this->rules);
-        $this->validator->setAddressing(new LaravelAddressing($this->locale));
+        parent::setUp();
+        $this->validator = $this->app['validator'];
+    }
+
+    /**
+     * Load the custom Service Provider class
+     *
+     * @param \Illuminate\Foundation\Application $app
+     * @return array
+     */
+    protected function getPackageProviders($app)
+    {
+        return [ServiceProvider::class];
+    }
+
+    public function performValidation(array $data)
+    {
+        $input = ['country' => $data['value']];
+        $rules = ['country' => $data['rule']];
+        $validator = $this->validator->make($input, $rules);
+
+        return $validator->passes();
     }
 
     public function testCountryCodeWithDifferentSize()
     {
-        $this->validator->setData(['country_code' => 'ZZZ']);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'value' => 'USA',
+            'rule' => 'country_code',
+        ]));
     }
 
     public function testCountryCodeWithCorrectSizeButInvalid()
     {
-        $this->setExpectedException(UnknownCountryException::class);
-        $this->validator->setData(['country_code' => 'ZZ']);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'value' => 'ZZ',
+            'rule' => 'country_code',
+        ]));
     }
 
     public function testCorrectCountryCode()
     {
-        $this->validator->setData(['country_code' => 'BR']);
-        $this->assertTrue($this->validator->passes());
-        $this->validator->setData(['country_code' => 'US']);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'value' => 'BR',
+            'rule' => 'country_code',
+        ]));
+        $this->assertTrue($this->performValidation([
+            'value' => 'US',
+            'rule' => 'country_code',
+        ]));
     }
 
     public function testWrongCountryName()
     {
-        $this->setExpectedException(UnknownCountryException::class);
-        $this->validator->setData(['country_name' => 'United Stattes']);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'value' => 'United Stattes',
+            'rule' => 'country_name',
+        ]));
     }
 
     public function testCorrectCountryName()
     {
-        $this->validator->setData(['country_name' => 'United States']);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'value' => 'United States',
+            'rule' => 'country_name',
+        ]));
     }
 }
