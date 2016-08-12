@@ -9,7 +9,7 @@ use Orchestra\Testbench\TestCase;
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class BaseValidatorTestCase extends TestCase
+abstract class BaseValidatorTestCase extends TestCase
 {
     /**
      * @var Factory
@@ -33,12 +33,5 @@ class BaseValidatorTestCase extends TestCase
         return [ServiceProvider::class];
     }
 
-    public function performValidation(array $data)
-    {
-        $input = [$data['field'] => $data['value']];
-        $rules = [$data['field'] => $data['rule']];
-        $validator = $this->validator->make($input, $rules);
-
-        return $validator->passes();
-    }
+    public function performValidation(array $data) {}
 }

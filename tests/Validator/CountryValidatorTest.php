@@ -9,12 +9,20 @@ require __DIR__.'/BaseValidatorTestCase.php';
  */
 class CountryValidatorTest extends BaseValidatorTestCase
 {
+    public function performValidation(array $data)
+    {
+        $input = ['country' => $data['value']];
+        $rules = ['country' => $data['rule']];
+        $validator = $this->validator->make($input, $rules);
+
+        return $validator->passes();
+    }
+
     public function testCountryCodeWithDifferentSize()
     {
         $this->assertFalse($this->performValidation([
             'value' => 'USA',
             'rule' => 'country_code',
-            'field' => 'country',
         ]));
     }
 
@@ -23,7 +31,6 @@ class CountryValidatorTest extends BaseValidatorTestCase
         $this->assertFalse($this->performValidation([
             'value' => 'ZZ',
             'rule' => 'country_code',
-            'field' => 'country',
         ]));
     }
 
@@ -32,12 +39,10 @@ class CountryValidatorTest extends BaseValidatorTestCase
         $this->assertTrue($this->performValidation([
             'value' => 'BR',
             'rule' => 'country_code',
-            'field' => 'country',
         ]));
         $this->assertTrue($this->performValidation([
             'value' => 'US',
             'rule' => 'country_code',
-            'field' => 'country',
         ]));
     }
 
@@ -46,7 +51,6 @@ class CountryValidatorTest extends BaseValidatorTestCase
         $this->assertFalse($this->performValidation([
             'value' => 'United Stattes',
             'rule' => 'country_name',
-            'field' => 'country',
         ]));
     }
 
@@ -55,7 +59,6 @@ class CountryValidatorTest extends BaseValidatorTestCase
         $this->assertTrue($this->performValidation([
             'value' => 'United States',
             'rule' => 'country_name',
-            'field' => 'country',
         ]));
     }
 }
