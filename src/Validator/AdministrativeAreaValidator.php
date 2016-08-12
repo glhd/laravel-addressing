@@ -117,7 +117,7 @@ class AdministrativeAreaValidator
      * @param array $parameters
      * @param $rule
      */
-    public function validateParameterCount($count, array $parameters, $rule)
+    protected function validateParameterCount($count, array $parameters, $rule)
     {
         if (count($parameters) !== $count) {
             throw new InvalidArgumentException("Validation rule $rule requires at least $count parameter.");
