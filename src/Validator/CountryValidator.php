@@ -22,10 +22,7 @@ class CountryValidator
      *
      * @var array
      */
-    protected $messages = [
-        'country_name' => 'The :attribute has not a valid country name.',
-        'country_code' => 'The :attribute has not a valid country code.',
-    ];
+    protected $messages = [];
 
     /**
      * @var LaravelAddressing
@@ -39,6 +36,10 @@ class CountryValidator
      */
     public function __construct(LaravelAddressing $addressing) {
         $this->addressing = $addressing;
+        $this->messages = [
+            'country_name' => trans('laravel-addressing::validation.country_name'),
+            'country_code' => trans('laravel-addressing::validation.country_code'),
+        ];
     }
 
     /**

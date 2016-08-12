@@ -18,9 +18,7 @@ class PostalCodeValidator
     /**
      * @var array
      */
-    protected $messages = [
-        'postal_code' => 'The :attribute seems do be a not valid postal code',
-    ];
+    protected $messages = [];
 
     /**
      * @var LaravelAddressing
@@ -32,6 +30,9 @@ class PostalCodeValidator
      */
     public function __construct(LaravelAddressing $addressing) {
         $this->addressing = $addressing;
+        $this->messages = [
+            'postal_code' => trans('laravel-addressing::validation.postal_code'),
+        ];
     }
 
     /**
