@@ -25,6 +25,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             require_once __DIR__ . '/routes.php';
         }
         $this->registerValidators($this->app->validator);
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-addressing');
     }
 
     /**
