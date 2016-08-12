@@ -1,7 +1,5 @@
 <?php
 
-require __DIR__.'/BaseValidatorTestCase.php';
-
 /**
  * Class CountryValidatorTest
  *
