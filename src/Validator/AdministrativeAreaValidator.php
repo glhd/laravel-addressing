@@ -52,6 +52,7 @@ class AdministrativeAreaValidator
     public function validateAdministrativeAreaCode($attribute, $value, array $parameters, Validator $validator)
     {
         $this->validateParameterCount(1, $parameters, $attribute);
+        $validator->setCustomMessages($this->messages);
         $country = $this->getCountryInstance($parameters, $validator);
         $admArea = $country->administrativeArea($value);
 
@@ -70,6 +71,7 @@ class AdministrativeAreaValidator
     public function validateAdministrativeAreaName($attribute, $value, array $parameters, Validator $validator)
     {
         $this->validateParameterCount(1, $parameters, $attribute);
+        $validator->setCustomMessages($this->messages);
         $country = $this->getCountryInstance($parameters, $validator);
         $admArea = $country->administrativeAreaByName($value);
 
@@ -87,6 +89,7 @@ class AdministrativeAreaValidator
      */
     public function validateAdministrativeArea($attribute, $value, array $parameters, Validator $validator)
     {
+        $validator->setCustomMessages($this->messages);
         $codeValidation = $this->validateAdministrativeAreaCode($attribute, $value, $parameters, $validator);
         if (! $codeValidation) {
             return $this->validateAdministrativeAreaName($attribute, $value, $parameters, $validator);
