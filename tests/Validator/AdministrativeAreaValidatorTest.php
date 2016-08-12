@@ -1,127 +1,87 @@
 <?php
 
-use Galahad\LaravelAddressing\LaravelAddressing;
-use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
-use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\Translator;
+require __DIR__.'/BaseValidatorTestCase.php';
 
 /**
  * Class AdministrativeAreaValidatorTest
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class AdministrativeAreaValidatorTest extends PHPUnit_Framework_TestCase
+class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 {
-    /**
-     * @var array
-     */
-    protected $rules = [
-        'state_code' => 'administrative_area_code:country',
-        'state_name' => 'administrative_area_name:country',
-        'state' => 'administrative_area:country',
-    ];
-
-    /**
-     * @var string
-     */
-    protected $locale = 'en';
-
-    /**
-     * @var Validator
-     */
-    protected $validator;
-
-    protected function setUp()
-    {
-        $this->validator = new AdministrativeAreaValidator(new Translator($this->locale));
-        $this->validator->setRules($this->rules);
-        $this->validator->setAddressing(new LaravelAddressing($this->locale));
-    }
-
     public function testMGStateInBrazil()
     {
-        $this->validator->setData([
-            'country' => 'BR',
-            'state_code' => 'MG',
-        ]);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'rules' => ['state' => 'administrative_area_code:country'],
+            'data' => ['state' => 'MG', 'country' => 'BR'],
+        ]));
     }
 
     public function testInvalidStateInBrazil()
     {
-        $this->validator->setData([
-            'country' => 'BR',
-            'state_code' => 'ZZ',
-        ]);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'BR', 'state' => 'ZZ'],
+            'rules' => ['state' => 'administrative_area_code:country'],
+        ]));
     }
 
     public function testCOStateInUnitedStates()
     {
-        $this->validator->setData([
-            'country' => 'US',
-            'state_code' => 'CO',
-        ]);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'CO'],
+            'rules' => ['state' => 'administrative_area_code:country'],
+        ]));
     }
 
     public function testUSStateByName()
     {
         // Valid state in US
-        $this->validator->setData([
-            'country' => 'US',
-            'state_name' => 'Alabama',
-        ]);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'Alabama'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
         // Invalid state name in US
-        $this->validator->setData([
-            'country' => 'US',
-            'state_name' => 'Allabama',
-        ]);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'Allabama'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
     }
 
     public function testStateUsingCountryName()
     {
         // Valid US state
-        $this->validator->setData([
-            'country' => 'United States',
-            'state_name' => 'Colorado',
-        ]);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'United States', 'state' => 'Colorado'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
         // Invalid US state with wrong name
-        $this->validator->setData([
-            'country' => 'United States',
-            'state_name' => 'Collorado',
-        ]);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'United States', 'state' => 'Collorado'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
     }
 
     public function testGeneralAdministrativeAreaValidation()
     {
         // Valid US state
-        $this->validator->setData([
-            'country' => 'US',
-            'state' => 'AL',
-        ]);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'AL'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
         // Invalid US state
-        $this->validator->setData([
-            'country' => 'US',
-            'state' => 'ZZ',
-        ]);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'ZZ'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
         // Valid US state using its name
-        $this->validator->setData([
-            'country' => 'US',
-            'state' => 'Alabama',
-        ]);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'Alabama'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
         // Invalid US state using its name
-        $this->validator->setData([
-            'country' => 'US',
-            'state' => 'Allabama',
-        ]);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'Allabama'],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
     }
 }
