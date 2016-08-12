@@ -6,6 +6,7 @@ use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Factory;
 
 /**
  * Class ServiceProvider
@@ -24,7 +25,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if (!$this->app->routesAreCached()) {
             require_once __DIR__ . '/routes.php';
         }
-        $this->registerValidators();
+        $this->registerValidators($this->app->validator);
     }
 
     /**
@@ -39,28 +40,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     /**
      * Register all custom validators
+     *
+     * @param Factory $validatorFactory
      */
-    protected function registerValidators()
+    protected function registerValidators(Factory $validatorFactory)
     {
         // Country validators
-        $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            $validator = new CountryValidator($translator, $data, $rules, $messages, $attributes);
-            $validator->setAddressing($this->app->make(LaravelAddressing::class));
-            return $validator;
-        });
-
-        // AdministrativeArea validators
-        $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            $validator = new AdministrativeAreaValidator($translator, $data, $rules, $messages, $attributes);
-            $validator->setAddressing($this->app->make(LaravelAddressing::class));
-            return $validator;
-        });
-
-        // PostalCode validator
-        $this->app->validator->resolver(function ($translator, $data, $rules, $messages = [], $attributes = []) {
-            $validator = new PostalCodeValidator($translator, $data, $rules, $messages, $attributes);
-            $validator->setAddressing($this->app->make(LaravelAddressing::class));
-            return $validator;
-        });
+        $validatorFactory->extend('country_code', CountryValidator::class.'@validateCountryCode');
+        $validatorFactory->extend('country_name', CountryValidator::class.'@validateCountryName');
     }
 }
