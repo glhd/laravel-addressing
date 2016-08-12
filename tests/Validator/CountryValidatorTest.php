@@ -1,74 +1,53 @@
 <?php
 
-use CommerceGuys\Intl\Exception\UnknownCountryException;
-use Galahad\LaravelAddressing\LaravelAddressing;
-use Galahad\LaravelAddressing\Validator\CountryValidator;
-use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\Translator;
-
 /**
  * Class CountryValidatorTest
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class CountryValidatorTest extends PHPUnit_Framework_TestCase
+class CountryValidatorTest extends BaseValidatorTestCase
 {
-    /**
-     * @var array
-     */
-    protected $rules = [
-        'country_code' => 'country_code',
-        'country_name' => 'country_name',
-    ];
-
-    /**
-     * @var string
-     */
-    protected $locale = 'en';
-
-    /**
-     * @var Validator
-     */
-    protected $validator;
-
-    protected function setUp()
-    {
-        $this->validator = new CountryValidator(new Translator($this->locale));
-        $this->validator->setRules($this->rules);
-        $this->validator->setAddressing(new LaravelAddressing($this->locale));
-    }
-
     public function testCountryCodeWithDifferentSize()
     {
-        $this->validator->setData(['country_code' => 'ZZZ']);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'USA'],
+            'rules' => ['country' => 'country_code'],
+        ]));
     }
 
     public function testCountryCodeWithCorrectSizeButInvalid()
     {
-        $this->setExpectedException(UnknownCountryException::class);
-        $this->validator->setData(['country_code' => 'ZZ']);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'ZZ'],
+            'rules' => ['country' => 'country_code'],
+        ]));
     }
 
     public function testCorrectCountryCode()
     {
-        $this->validator->setData(['country_code' => 'BR']);
-        $this->assertTrue($this->validator->passes());
-        $this->validator->setData(['country_code' => 'US']);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'BR'],
+            'rules' => ['country' => 'country_code'],
+        ]));
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US'],
+            'rules' => ['country' => 'country_code'],
+        ]));
     }
 
     public function testWrongCountryName()
     {
-        $this->setExpectedException(UnknownCountryException::class);
-        $this->validator->setData(['country_name' => 'United Stattes']);
-        $this->assertFalse($this->validator->passes());
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'United Stattes'],
+            'rules' => ['country' => 'country_name'],
+        ]));
     }
 
     public function testCorrectCountryName()
     {
-        $this->validator->setData(['country_name' => 'United States']);
-        $this->assertTrue($this->validator->passes());
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'United States'],
+            'rules' => ['country' => 'country_name'],
+        ]));
     }
 }

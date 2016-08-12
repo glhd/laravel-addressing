@@ -7,7 +7,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="./vendor/autoload.php"
+         bootstrap="./tests/autoload.php"
 >
 	<testsuites>
 		<testsuite name="Laravel Addressing Test Suite">

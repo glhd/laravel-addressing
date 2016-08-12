@@ -6,7 +6,6 @@ use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class PostalCodeValidator
@@ -14,7 +13,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @package Galahad\LaravelAddressing\Validator
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class PostalCodeValidator extends Validator
+class PostalCodeValidator
 {
     /**
      * @var array
@@ -29,21 +28,10 @@ class PostalCodeValidator extends Validator
     protected $addressing;
 
     /**
-     * @param TranslatorInterface $translator
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
+     * @param LaravelAddressing $addressing
      */
-    public function __construct(
-        TranslatorInterface $translator,
-        array $data = [],
-        array $rules = [],
-        array $messages = [],
-        array $customAttributes = []
-    ) {
-        parent::__construct($translator, $data, $rules, $messages, $customAttributes);
-        $this->setCustomMessages($this->messages);
+    public function __construct(LaravelAddressing $addressing) {
+        $this->addressing = $addressing;
     }
 
     /**
@@ -52,14 +40,16 @@ class PostalCodeValidator extends Validator
      * @param string $attribute
      * @param mixed $value
      * @param array $parameters
+     * @param Validator $validator
      * @return bool|int
      */
-    protected function validatePostalCode($attribute, $value, $parameters)
+    public function validatePostalCode($attribute, $value, array $parameters, Validator $validator)
     {
-        $this->requireParameterCount(2, $parameters, 'postal_code');
-        $country = $this->addressing->findCountry($this->getValue($parameters[0]));
+        $this->validateParameterCount(2, $parameters, 'postal_code');
+        $validator->setCustomMessages($this->messages);
+        $country = $this->addressing->findCountry($this->getValue($parameters[0], $validator));
         if ($country instanceof Country) {
-            $admAreaValue = $this->getValue($parameters[1]);
+            $admAreaValue = $this->getValue($parameters[1], $validator);
             $admArea = $country->findAdministrativeArea($admAreaValue);
             if ($admArea instanceof AdministrativeArea) {
                 $postalCodePattern = $admArea->getPostalCodePattern();
@@ -69,6 +59,28 @@ class PostalCodeValidator extends Validator
         }
 
         return false;
+    }
+
+    /**
+     * @param string $field
+     * @param Validator $validator
+     * @return mixed
+     */
+    public function getValue($field, Validator $validator)
+    {
+        return array_get($validator->getData(), $field);
+    }
+
+    /**
+     * @param $count
+     * @param array $parameters
+     * @param $rule
+     */
+    protected function validateParameterCount($count, array $parameters, $rule)
+    {
+        if (count($parameters) !== $count) {
+            throw new InvalidArgumentException("Validation rule $rule requires at least $count parameter.");
+        }
     }
 
     /**
