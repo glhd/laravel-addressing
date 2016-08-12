@@ -46,7 +46,26 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     protected function registerValidators(Factory $validatorFactory)
     {
         // Country validators
-        $validatorFactory->extend('country_code', CountryValidator::class.'@validateCountryCode');
-        $validatorFactory->extend('country_name', CountryValidator::class.'@validateCountryName');
+        $validatorFactory->extend(
+            'country_code',
+            CountryValidator::class.'@validateCountryCode'
+        );
+        $validatorFactory->extend(
+            'country_name',
+            CountryValidator::class.'@validateCountryName'
+        );
+        // Administrative Area validators
+        $validatorFactory->extend(
+            'administrative_area_code',
+            AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode'
+        );
+        $validatorFactory->extend(
+            'administrative_area_name',
+            AdministrativeAreaValidator::class.'@validateAdministrativeAreaName'
+        );
+        $validatorFactory->extend(
+            'administrative_area',
+            AdministrativeAreaValidator::class.'@validateAdministrativeArea'
+        );
     }
 }
