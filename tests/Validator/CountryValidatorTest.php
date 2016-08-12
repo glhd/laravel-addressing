@@ -1,52 +1,20 @@
 <?php
 
-use Galahad\LaravelAddressing\ServiceProvider;
-use Illuminate\Validation\Factory;
-use Orchestra\Testbench\TestCase;
+require __DIR__.'/BaseValidatorTestCase.php';
 
 /**
  * Class CountryValidatorTest
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class CountryValidatorTest extends TestCase
+class CountryValidatorTest extends BaseValidatorTestCase
 {
-    /**
-     * @var Factory
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->validator = $this->app['validator'];
-    }
-
-    /**
-     * Load the custom Service Provider class
-     *
-     * @param \Illuminate\Foundation\Application $app
-     * @return array
-     */
-    protected function getPackageProviders($app)
-    {
-        return [ServiceProvider::class];
-    }
-
-    public function performValidation(array $data)
-    {
-        $input = ['country' => $data['value']];
-        $rules = ['country' => $data['rule']];
-        $validator = $this->validator->make($input, $rules);
-
-        return $validator->passes();
-    }
-
     public function testCountryCodeWithDifferentSize()
     {
         $this->assertFalse($this->performValidation([
             'value' => 'USA',
             'rule' => 'country_code',
+            'field' => 'country',
         ]));
     }
 
@@ -55,6 +23,7 @@ class CountryValidatorTest extends TestCase
         $this->assertFalse($this->performValidation([
             'value' => 'ZZ',
             'rule' => 'country_code',
+            'field' => 'country',
         ]));
     }
 
@@ -63,10 +32,12 @@ class CountryValidatorTest extends TestCase
         $this->assertTrue($this->performValidation([
             'value' => 'BR',
             'rule' => 'country_code',
+            'field' => 'country',
         ]));
         $this->assertTrue($this->performValidation([
             'value' => 'US',
             'rule' => 'country_code',
+            'field' => 'country',
         ]));
     }
 
@@ -75,6 +46,7 @@ class CountryValidatorTest extends TestCase
         $this->assertFalse($this->performValidation([
             'value' => 'United Stattes',
             'rule' => 'country_name',
+            'field' => 'country',
         ]));
     }
 
@@ -83,6 +55,7 @@ class CountryValidatorTest extends TestCase
         $this->assertTrue($this->performValidation([
             'value' => 'United States',
             'rule' => 'country_name',
+            'field' => 'country',
         ]));
     }
 }
