@@ -22,11 +22,7 @@ class AdministrativeAreaValidator
      *
      * @var array
      */
-    protected $messages = [
-        'administrative_area' => 'The :attribute has not a valid administrative area name.',
-        'administrative_area_code' => 'The :attribute has not a valid administrative area code.',
-        'administrative_area_name' => 'The :attribute has not a valid administrative area name.',
-    ];
+    protected $messages = [];
 
     /**
      * @var LaravelAddressing
@@ -38,6 +34,11 @@ class AdministrativeAreaValidator
      */
     public function __construct(LaravelAddressing $addressing) {
         $this->addressing = $addressing;
+        $this->messages = [
+            'administrative_area' => trans('laravel-addressing::validation.administrative_area'),
+            'administrative_area_code' => trans('laravel-addressing::validation.administrative_area_code'),
+            'administrative_area_name' => trans('laravel-addressing::validation.administrative_area_name'),
+        ];
     }
 
     /**
