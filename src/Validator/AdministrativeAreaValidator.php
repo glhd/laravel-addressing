@@ -6,6 +6,7 @@ use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
+use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -14,7 +15,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @package Galahad\LaravelAddressing\Validator
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class AdministrativeAreaValidator extends Validator
+class AdministrativeAreaValidator
 {
     /**
      * The validator messages
@@ -33,21 +34,10 @@ class AdministrativeAreaValidator extends Validator
     protected $addressing;
 
     /**
-     * @param TranslatorInterface $translator
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
+     * @param LaravelAddressing $addressing
      */
-    public function __construct(
-        TranslatorInterface $translator,
-        array $data = [],
-        array $rules = [],
-        array $messages = [],
-        array $customAttributes = []
-    ) {
-        parent::__construct($translator, $data, $rules, $messages, $customAttributes);
-        $this->setCustomMessages($this->messages);
+    public function __construct(LaravelAddressing $addressing) {
+        $this->addressing = $addressing;
     }
 
     /**
@@ -56,12 +46,13 @@ class AdministrativeAreaValidator extends Validator
      * @param string $attribute
      * @param mixed $value
      * @param array $parameters
+     * @param Validator $validator
      * @return bool
      */
-    protected function validateAdministrativeAreaCode($attribute, $value, $parameters)
+    public function validateAdministrativeAreaCode($attribute, $value, array $parameters, Validator $validator)
     {
-        $this->requireParameterCount(1, $parameters, 'administrative_area_code');
-        $country = $this->getCountryInstance($parameters);
+        $this->validateParameterCount(1, $parameters, $attribute);
+        $country = $this->getCountryInstance($parameters, $validator);
         $admArea = $country->administrativeArea($value);
 
         return $admArea instanceof AdministrativeArea;
@@ -72,13 +63,14 @@ class AdministrativeAreaValidator extends Validator
      *
      * @param $attribute
      * @param $value
-     * @param $parameters
+     * @param array $parameters
+     * @param Validator $validator
      * @return bool
      */
-    protected function validateAdministrativeAreaName($attribute, $value, $parameters)
+    public function validateAdministrativeAreaName($attribute, $value, array $parameters, Validator $validator)
     {
-        $this->requireParameterCount(1, $parameters, 'administrative_area_name');
-        $country = $this->getCountryInstance($parameters);
+        $this->validateParameterCount(1, $parameters, $attribute);
+        $country = $this->getCountryInstance($parameters, $validator);
         $admArea = $country->administrativeAreaByName($value);
 
         return $admArea instanceof AdministrativeArea;
@@ -90,13 +82,14 @@ class AdministrativeAreaValidator extends Validator
      * @param string $attribute
      * @param mixed $value
      * @param array $parameters
+     * @param Validator $validator
      * @return bool
      */
-    public function validateAdministrativeArea($attribute, $value, $parameters)
+    public function validateAdministrativeArea($attribute, $value, array $parameters, Validator $validator)
     {
-        $codeValidation = $this->validateAdministrativeAreaCode($attribute, $value, $parameters);
+        $codeValidation = $this->validateAdministrativeAreaCode($attribute, $value, $parameters, $validator);
         if (! $codeValidation) {
-            return $this->validateAdministrativeAreaName($attribute, $value, $parameters);
+            return $this->validateAdministrativeAreaName($attribute, $value, $parameters, $validator);
         }
 
         return true;
@@ -106,13 +99,26 @@ class AdministrativeAreaValidator extends Validator
      * Get the country instance according the parameters and values
      *
      * @param array $parameters
+     * @param Validator $validator
      * @return Country|null
      */
-    private function getCountryInstance(array $parameters)
+    private function getCountryInstance(array $parameters, Validator $validator)
     {
-        $countryCodeOrName = $this->getValue($parameters[0]);
+        $countryCodeOrName = array_get($validator->getData(), $parameters[0]);
 
         return $this->addressing->findCountry($countryCodeOrName);
+    }
+
+    /**
+     * @param $count
+     * @param array $parameters
+     * @param $rule
+     */
+    public function validateParameterCount($count, array $parameters, $rule)
+    {
+        if (count($parameters) !== $count) {
+            throw new InvalidArgumentException("Validation rule $rule requires at least $count parameter.");
+        }
     }
 
     /**
