@@ -5,7 +5,6 @@ namespace Galahad\LaravelAddressing;
 use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Factory;
 
 /**
@@ -66,6 +65,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $validatorFactory->extend(
             'administrative_area',
             AdministrativeAreaValidator::class.'@validateAdministrativeArea'
+        );
+        // Postal Code validator
+        $validatorFactory->extend(
+            'postal_code',
+            PostalCodeValidator::class.'@validatePostalCode'
         );
     }
 }
