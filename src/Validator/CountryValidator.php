@@ -2,6 +2,8 @@
 
 namespace Galahad\LaravelAddressing\Validator;
 
+use CommerceGuys\Intl\Exception\UnknownCountryException;
+use Exception;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
@@ -13,7 +15,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @package Galahad\LaravelAddressing\Validator
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class CountryValidator extends Validator
+class CountryValidator
 {
     /**
      * The validator messages
@@ -33,21 +35,10 @@ class CountryValidator extends Validator
     /**
      * The constructor method
      *
-     * @param TranslatorInterface $translator
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
+     * @param LaravelAddressing $addressing
      */
-    public function __construct(
-        TranslatorInterface $translator,
-        array $data = [],
-        array $rules = [],
-        array $messages = [],
-        array $customAttributes = []
-    ) {
-        parent::__construct($translator, $data, $rules, $messages, $customAttributes);
-        $this->setCustomMessages($this->messages);
+    public function __construct(LaravelAddressing $addressing) {
+        $this->addressing = $addressing;
     }
 
     /**
@@ -55,13 +46,19 @@ class CountryValidator extends Validator
      *
      * @param string $attribute
      * @param mixed $value
+     * @param array $parameters
+     * @param Validator $validator
      * @return bool
      */
-    protected function validateCountryName($attribute, $value)
+    public function validateCountryName($attribute, $value, array $parameters, Validator $validator)
     {
-        $country = $this->addressing->countryByName($value);
-
-        return $country instanceof Country;
+        $validator->setCustomMessages($this->messages);
+        try {
+            $country = $this->addressing->countryByName($value);
+            return $country instanceof Country;
+        } catch (UnknownCountryException $exception) {
+            return false;
+        }
     }
 
     /**
@@ -69,17 +66,19 @@ class CountryValidator extends Validator
      *
      * @param string $attribute
      * @param mixed $value
+     * @param array $parameters
+     * @param Validator $validator
      * @return bool
      */
-    protected function validateCountryCode($attribute, $value)
+    public function validateCountryCode($attribute, $value, array $parameters, Validator $validator)
     {
-        if ($this->getSize($attribute, $value) == 2) {
+        $validator->setCustomMessages($this->messages);
+        try {
             $country = $this->addressing->country($value);
-
             return $country instanceof Country;
+        } catch (UnknownCountryException $exception) {
+            return false;
         }
-
-        return false;
     }
 
     /**
