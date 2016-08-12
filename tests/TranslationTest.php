@@ -37,7 +37,7 @@ class TranslationTest extends TestCase
         if ($validator->fails()) {
             $messages = $validator->errors()->get('country');
             $first = array_shift($messages);
-            $this->assertEquals($first, 'The country has not a valid country code.');
+            $this->assertEquals($first, 'The country field is not a valid country code.');
         }
     }
 
@@ -65,7 +65,7 @@ class TranslationTest extends TestCase
         if ($validator->fails()) {
             $messages = $validator->errors()->get('state');
             $first = array_shift($messages);
-            $this->assertEquals($first, 'The state has not a valid administrative area name.');
+            $this->assertEquals($first, 'The state field is not a valid state/province.');
         }
     }
 }
