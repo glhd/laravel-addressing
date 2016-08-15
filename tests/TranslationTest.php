@@ -16,15 +16,31 @@ class TranslationTest extends TestCase
      */
     protected $validator;
 
+    /**
+     * @var string
+     */
+    protected $translationDirectory;
+
     public function setUp()
     {
         parent::setUp();
         $this->validator = $this->app['validator'];
+        $this->translationDirectory = __DIR__.'/../lang';
     }
 
     protected function getPackageProviders($app)
     {
         return [ServiceProvider::class];
+    }
+
+    protected function getMessage($locale, $filename, $key, $field)
+    {
+        $filePath = sprintf('%s/%s/%s.php', $this->translationDirectory, $locale, $filename);
+        $arrayContent = include $filePath;
+
+        if (isset($arrayContent[$key])) {
+            return str_replace(':attribute', $field, $arrayContent[$key]);
+        }
     }
 
     public function testENMessages()
@@ -37,7 +53,8 @@ class TranslationTest extends TestCase
         if ($validator->fails()) {
             $messages = $validator->errors()->get('country');
             $first = array_shift($messages);
-            $this->assertEquals($first, 'The country field is not a valid country code.');
+            $expectedMessage = $this->getMessage('en', 'validation', 'country_code', 'country');
+            $this->assertEquals($first, $expectedMessage);
         }
     }
 
@@ -51,7 +68,8 @@ class TranslationTest extends TestCase
         if ($validator->fails()) {
             $messages = $validator->errors()->get('country');
             $first = array_shift($messages);
-            $this->assertEquals($first, 'O campo country não possui um código de país válido.');
+            $expectedMessage = $this->getMessage('pt-br', 'validation', 'country_code', 'country');
+            $this->assertEquals($first, $expectedMessage);
         }
     }
 
@@ -65,7 +83,8 @@ class TranslationTest extends TestCase
         if ($validator->fails()) {
             $messages = $validator->errors()->get('state');
             $first = array_shift($messages);
-            $this->assertEquals($first, 'The state field is not a valid state/province.');
+            $expectedMessage = $this->getMessage('en', 'validation', 'administrative_area', 'state');
+            $this->assertEquals($first, $expectedMessage);
         }
     }
 }
