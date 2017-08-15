@@ -53,9 +53,9 @@ class CountryValidator
 	public function validateCountryName($attribute, $value, array $parameters, Validator $validator)
 	{
 		$validator->setCustomMessages($this->messages);
+		
 		try {
-			$country = $this->addressing->countryByName($value);
-			return $country instanceof Country;
+			return $this->addressing->countryByName($value) instanceof Country;
 		} catch (UnknownCountryException $exception) {
 			return false;
 		}
@@ -73,27 +73,11 @@ class CountryValidator
 	public function validateCountryCode($attribute, $value, array $parameters, Validator $validator)
 	{
 		$validator->setCustomMessages($this->messages);
+		
 		try {
-			$country = $this->addressing->country($value);
-			return $country instanceof Country;
+			return $this->addressing->country($value) instanceof Country;
 		} catch (UnknownCountryException $exception) {
 			return false;
 		}
-	}
-	
-	/**
-	 * @return LaravelAddressing
-	 */
-	public function getAddressing()
-	{
-		return $this->addressing;
-	}
-	
-	/**
-	 * @param LaravelAddressing $addressing
-	 */
-	public function setAddressing(LaravelAddressing $addressing)
-	{
-		$this->addressing = $addressing;
 	}
 }

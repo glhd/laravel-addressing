@@ -52,12 +52,10 @@ class AdministrativeAreaValidator
 	 */
 	public function validateAdministrativeAreaCode($attribute, $value, array $parameters, Validator $validator)
 	{
-		$this->validateParameterCount(1, $parameters, $attribute);
 		$validator->setCustomMessages($this->messages);
 		$country = $this->getCountryInstance($parameters, $validator);
-		$admArea = $country->administrativeArea($value);
 		
-		return $admArea instanceof AdministrativeArea;
+		return $country->administrativeArea($value) instanceof AdministrativeArea;
 	}
 	
 	/**
@@ -71,12 +69,10 @@ class AdministrativeAreaValidator
 	 */
 	public function validateAdministrativeAreaName($attribute, $value, array $parameters, Validator $validator)
 	{
-		$this->validateParameterCount(1, $parameters, $attribute);
 		$validator->setCustomMessages($this->messages);
 		$country = $this->getCountryInstance($parameters, $validator);
-		$admArea = $country->administrativeAreaByName($value);
 		
-		return $admArea instanceof AdministrativeArea;
+		return $country->administrativeAreaByName($value) instanceof AdministrativeArea;
 	}
 	
 	/**
@@ -90,41 +86,8 @@ class AdministrativeAreaValidator
 	 */
 	public function validateAdministrativeArea($attribute, $value, array $parameters, Validator $validator)
 	{
-		$validator->setCustomMessages($this->messages);
-		$codeValidation = $this->validateAdministrativeAreaCode($attribute, $value, $parameters, $validator);
-		if (!$codeValidation) {
-			return $this->validateAdministrativeAreaName($attribute, $value, $parameters, $validator);
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * @return LaravelAddressing
-	 */
-	public function getAddressing()
-	{
-		return $this->addressing;
-	}
-	
-	/**
-	 * @param LaravelAddressing $addressing
-	 */
-	public function setAddressing(LaravelAddressing $addressing)
-	{
-		$this->addressing = $addressing;
-	}
-	
-	/**
-	 * @param $count
-	 * @param array $parameters
-	 * @param $rule
-	 */
-	protected function validateParameterCount($count, array $parameters, $rule)
-	{
-		if (count($parameters) !== $count) {
-			throw new InvalidArgumentException("Validation rule $rule requires at least $count parameter.");
-		}
+		return $this->validateAdministrativeAreaCode($attribute, $value, $parameters, $validator)
+			|| $this->validateAdministrativeAreaName($attribute, $value, $parameters, $validator);
 	}
 	
 	/**
@@ -136,7 +99,8 @@ class AdministrativeAreaValidator
 	 */
 	private function getCountryInstance(array $parameters, Validator $validator)
 	{
-		$countryCodeOrName = array_get($validator->getData(), $parameters[0]);
+		$key = isset($parameters[0]) ? $parameters[0] : 'country';
+		$countryCodeOrName = array_get($validator->getData(), $key);
 		
 		return $this->addressing->findCountry($countryCodeOrName);
 	}

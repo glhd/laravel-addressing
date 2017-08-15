@@ -30,6 +30,14 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
             'rules' => ['state' => 'administrative_area_code:country'],
         ]));
     }
+	
+	public function testCountryAndStateAreLowerCase()
+	{
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'us', 'state' => 'co'],
+			'rules' => ['state' => 'administrative_area_code:country'],
+		]));
+	}
 
     public function testUSStateByName()
     {

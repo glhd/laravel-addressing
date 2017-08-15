@@ -62,7 +62,11 @@ class LaravelAddressing
 	 */
 	public function country($countryCode)
 	{
-		return $this->getCountryRepository()->get($countryCode, $this->locale);
+		return $this->getCountryRepository()->get(
+			$countryCode,
+			$this->locale,
+			$this->fallbackLocale
+		);
 	}
 	
 	/**
@@ -73,9 +77,14 @@ class LaravelAddressing
 	 */
 	public function countryByName($countryName)
 	{
-		$inverseCountryList = array_flip($this->getCountryList());
-		if (isset($inverseCountryList[$countryName])) {
-			$countryCode = $inverseCountryList[$countryName];
+		$key = strtolower($countryName);
+		$inverseCountryList = array_change_key_case(
+			array_flip($this->getCountryList()),
+			CASE_LOWER
+		);
+		
+		if (isset($inverseCountryList[$key])) {
+			$countryCode = $inverseCountryList[$key];
 			return $this->country($countryCode);
 		}
 		
@@ -91,9 +100,10 @@ class LaravelAddressing
 	public function findCountry($codeOrName)
 	{
 		$countryList = $this->getCountryList();
-		if (isset($countryList[$codeOrName])) {
+		if (isset($countryList[strtoupper($codeOrName)])) {
 			return $this->country($codeOrName);
 		}
+		
 		return $this->countryByName($codeOrName);
 	}
 	
