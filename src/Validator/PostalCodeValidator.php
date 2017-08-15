@@ -47,16 +47,14 @@ class PostalCodeValidator
 	 */
 	public function validatePostalCode($attribute, $value, array $parameters, Validator $validator)
 	{
-		$this->validateParameterCount(2, $parameters, 'postal_code');
 		$validator->setCustomMessages($this->messages);
-		$country = $this->addressing->findCountry($this->getValue($parameters[0], $validator));
+		$country = $this->getCountryInstance($parameters, $validator);
+		
 		if ($country instanceof Country) {
-			$admAreaValue = $this->getValue($parameters[1], $validator);
-			$admArea = $country->findAdministrativeArea($admAreaValue);
-			if ($admArea instanceof AdministrativeArea) {
-				$postalCodePattern = $admArea->getPostalCodePattern();
-				
-				return preg_match("/^$postalCodePattern/", $value) === 1;
+			$area = $this->getAdministrativeAreaInstance($country, $parameters, $validator);
+			if ($area instanceof AdministrativeArea) {
+				$postalCodePattern = $area->getPostalCodePattern();
+				return 1 === preg_match("/^$postalCodePattern/", $value);
 			}
 		}
 		
@@ -64,40 +62,39 @@ class PostalCodeValidator
 	}
 	
 	/**
-	 * @param string $field
-	 * @param Validator $validator
-	 * @return mixed
-	 */
-	public function getValue($field, Validator $validator)
-	{
-		return array_get($validator->getData(), $field);
-	}
-	
-	/**
-	 * @return LaravelAddressing
-	 */
-	public function getAddressing()
-	{
-		return $this->addressing;
-	}
-	
-	/**
-	 * @param LaravelAddressing $addressing
-	 */
-	public function setAddressing(LaravelAddressing $addressing)
-	{
-		$this->addressing = $addressing;
-	}
-	
-	/**
-	 * @param $count
+	 * Get the country instance according the parameters and values
+	 *
 	 * @param array $parameters
-	 * @param $rule
+	 * @param Validator $validator
+	 * @return Country|null
 	 */
-	protected function validateParameterCount($count, array $parameters, $rule)
+	protected function getCountryInstance(array $parameters, Validator $validator)
 	{
-		if (count($parameters) !== $count) {
-			throw new InvalidArgumentException("Validation rule $rule requires at least $count parameter.");
+		$key = isset($parameters[0]) ? $parameters[0] : 'country';
+		$countryCodeOrName = array_get($validator->getData(), $key);
+		
+		return $this->addressing->findCountry($countryCodeOrName);
+	}
+	
+	/**
+	 * Get the administrative area instance according the parameters and values
+	 *
+	 * @param Country $country
+	 * @param array $parameters
+	 * @param Validator $validator
+	 * @return AdministrativeArea|null
+	 */
+	protected function getAdministrativeAreaInstance(Country $country, array $parameters, Validator $validator)
+	{
+		$keys = ['administrative_area', 'state'];
+		if (isset($parameters[1])) {
+			array_unshift($keys, $parameters[1]);
+		}
+		
+		foreach ($keys as $key) {
+			if ($value = array_get($validator->getData(), $key)) {
+				return $country->findAdministrativeArea($value);
+			}
 		}
 	}
 }

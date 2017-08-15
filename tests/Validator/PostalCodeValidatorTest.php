@@ -38,4 +38,16 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
             'rules' => ['code' => 'postal_code:country,state'],
         ]));
     }
+	
+	public function testUsesDefaultFieldNames()
+	{
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'US', 'administrative_area' => 'CO', 'code' => '80301'],
+			'rules' => ['code' => 'postal_code'],
+		]));
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'US', 'state' => 'CO', 'code' => '80301'],
+			'rules' => ['code' => 'postal_code'],
+		]));
+	}
 }

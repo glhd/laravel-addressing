@@ -90,4 +90,27 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
             'rules' => ['state' => 'administrative_area:country'],
         ]));
     }
+	
+	public function testUsesDefaultFieldNames()
+	{
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'US', 'state' => 'CO'],
+			'rules' => ['state' => 'administrative_area_code'],
+		]));
+		
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'US', 'state' => 'Colorado'],
+			'rules' => ['state' => 'administrative_area_name'],
+		]));
+		
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'US', 'state' => 'CO'],
+			'rules' => ['state' => 'administrative_area'],
+		]));
+		
+		$this->assertTrue($this->performValidation([
+			'data' => ['country' => 'US', 'state' => 'Colorado'],
+			'rules' => ['state' => 'administrative_area'],
+		]));
+	}
 }
