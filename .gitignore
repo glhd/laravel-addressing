@@ -9,5 +9,6 @@ composer.phar
 .idea/vagrant.xml
 .idea/remote-mappings.xml
 .idea/runConfigurations/Build_Templates_Command.xml
+.idea/composerJson.xml
 */.iws
 npm-debug.log
