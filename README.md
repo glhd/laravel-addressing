@@ -12,6 +12,8 @@ First, install the composer package:
 composer require galahad/laravel-addressing
 ```
 
+### Prior to Laravel 5.5:
+
 In `config/app.php` add the Service Provider:
 
 ```php
@@ -88,6 +90,9 @@ $this->validate($request, [
 ]);
 ```
 
+The validator will look for fields called "country" so the validator arguments are only necessary 
+if you're using a different field name.
+
 ### Postal Code
 
 You can check if the postal code starts with the correct pattern using `postal_code` validator:
@@ -97,6 +102,9 @@ $this->validate($request, [
     'postal_code' => 'required|postal_code:country_field,administrative_area_field',
 ]);
 ```
+
+The validator will look for fields called "country", "state" and "administrative_area" so the validator
+arguments are only necessary if you're using a different field name.
 
 ## API
 
@@ -142,3 +150,14 @@ GET /galahad/addressing/countries?locale=pt
 ### Thanks!
 
 Special thanks to [Commerce Guys](https://github.com/commerceguys) for their amazing [addressing](https://github.com/commerceguys/addressing) and [intl](https://github.com/commerceguys/intl) packages, which this project relies heavily on.
+
+### Change Log
+
+#### 0.5
+
+- Made most methods case insensitive (so "co" or "colorado" work)
+- Optimized service provider so that validators are not loaded until needed
+- Removed some dependencies—will gracefully skip routing and validation if packages are missiong
+- Updated dependencies
+- Laravel 5.5 ready
+- Validators now use default field names (no need to specify "country" as the country field name)
