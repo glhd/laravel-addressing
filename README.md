@@ -157,7 +157,8 @@ Special thanks to [Commerce Guys](https://github.com/commerceguys) for their ama
 
 - Made most methods case insensitive (so "co" or "colorado" work)
 - Optimized service provider so that validators are not loaded until needed
-- Removed some dependencies—will gracefully skip routing and validation if packages are missiong
+- Removed some dependencies—will gracefully skip routing and validation if packages are missing
 - Updated dependencies
 - Laravel 5.5 ready
 - Validators now use default field names (no need to specify "country" as the country field name)
+- Dropped PHP 5.5 and Laravel 5.2 support
