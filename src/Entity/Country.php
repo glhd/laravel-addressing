@@ -67,6 +67,7 @@ class Country extends BaseCountry
      */
     public function administrativeArea($code)
     {
+    	$code = strtoupper($code);
         if (strpos($code, '-') === false) {
             $code = $this->getCountryCode().'-'.$code;
         }
@@ -83,7 +84,7 @@ class Country extends BaseCountry
     public function administrativeAreaByName($administrativeAreaName)
     {
         foreach ($this->getAdministrativeAreasList() as $code => $name) {
-            if ($name == $administrativeAreaName) {
+            if (0 === strcasecmp($name, $administrativeAreaName)) {
                 return $this->administrativeArea($code);
             }
         }
@@ -97,12 +98,11 @@ class Country extends BaseCountry
      */
     public function findAdministrativeArea($codeOrName)
     {
-        $administrativeArea = $this->administrativeArea($codeOrName);
-        if (! $administrativeArea instanceof AdministrativeArea) {
-            return $this->administrativeAreaByName($codeOrName);
+        if ($administrativeArea = $this->administrativeArea($codeOrName)) {
+        	return $administrativeArea;
         }
-
-        return $administrativeArea;
+	
+	    return $this->administrativeAreaByName($codeOrName);
     }
 
     /**

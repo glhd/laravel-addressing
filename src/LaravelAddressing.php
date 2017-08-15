@@ -55,6 +55,7 @@ class LaravelAddressing
      */
     public function country($countryCode)
     {
+    	$countryCode = strtoupper($countryCode);
         return $this->getCountryRepository()->get($countryCode, $this->locale);
     }
 
@@ -83,10 +84,13 @@ class LaravelAddressing
      */
     public function findCountry($codeOrName)
     {
+    	$code = strtoupper($codeOrName);
         $countryList = $this->getCountryList();
-        if (isset($countryList[$codeOrName])) {
-            return $this->country($codeOrName);
+        
+        if (isset($countryList[$code])) {
+            return $this->country($code);
         }
+        
         return $this->countryByName($codeOrName);
     }
 
