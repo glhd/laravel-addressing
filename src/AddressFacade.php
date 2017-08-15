@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class AddressFacade extends Facade
 {
-    protected static function getFacadeAccessor()
-    {
-        return LaravelAddressing::class;
-    }
+	protected static function getFacadeAccessor()
+	{
+		return LaravelAddressing::class;
+	}
 }
