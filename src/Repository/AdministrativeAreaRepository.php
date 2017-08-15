@@ -50,6 +50,7 @@ class AdministrativeAreaRepository extends SubdivisionRepository
      */
     public function getAll($countryCode, $parentId = null, $locale = null)
     {
+    	$countryCode = strtoupper($countryCode);
         $subdivisions = parent::getAll($countryCode, $parentId, $locale);
 
         return new AdministrativeAreaCollection($subdivisions);

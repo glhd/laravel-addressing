@@ -130,4 +130,13 @@ class LaravelAddressingTest extends PHPUnit_Framework_TestCase
         $alabama = $country->findAdministrativeArea('Alabama');
         $this->assertEquals($alabama->getCode(), 'AL');
     }
+	
+	public function testIsCaseInsensitive()
+	{
+		$country = $this->addressing->country('us');
+		$alabama = $country->findAdministrativeArea('al');
+		$this->assertEquals($alabama->getName(), 'Alabama');
+		$alabama = $country->findAdministrativeArea('alabama');
+		$this->assertEquals($alabama->getCode(), 'AL');
+	}
 }
