@@ -20,8 +20,8 @@
     }
   ],
   "require": {
-    "php": ">=5.5.9",
-    "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*",
+    "php": ">=5.6",
+    "illuminate/support": "5.3.*|5.4.*|5.5.*",
     "commerceguys/addressing": "^1.0",
     "symfony/intl": "^3.3.6",
     "commerceguys/intl": "^0.7.4"
