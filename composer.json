@@ -42,7 +42,7 @@
         "Galahad\\LaravelAddressing\\ServiceProvider"
       ],
       "aliases": {
-        "Addressing": "Galahad\\LaravelAddressing\\AddressFacade"
+        "Addressing": "Galahad\\LaravelAddressing\\Facades\\Addressing"
       }
     }
   }
