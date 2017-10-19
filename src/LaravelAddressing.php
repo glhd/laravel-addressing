@@ -5,6 +5,7 @@ namespace Galahad\LaravelAddressing;
 use CommerceGuys\Intl\Country\CountryInterface;
 use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\Repository\AddressFormatRepository;
 use Galahad\LaravelAddressing\Repository\AdministrativeAreaRepository;
 use Galahad\LaravelAddressing\Repository\CountryRepository;
 
@@ -36,6 +37,11 @@ class LaravelAddressing
 	 * @var AdministrativeAreaRepository
 	 */
 	protected $administrativeAreaRepository = null;
+
+    /**
+     * @var AddressFormatRepository
+     */
+	protected $addressFormatRepository;
 	
 	/**
 	 * @var array
@@ -182,6 +188,18 @@ class LaravelAddressing
 		
 		return $this->administrativeAreaRepository;
 	}
+
+    /**
+     * @return \Galahad\LaravelAddressing\Repository\AddressFormatRepository
+     */
+	public function getAddressFormatRepository()
+    {
+        if (!$this->addressFormatRepository) {
+            $this->addressFormatRepository = new AddressFormatRepository($this);
+        }
+
+        return $this->addressFormatRepository;
+    }
 	
 	/**
 	 * Get the country list if not loaded yet

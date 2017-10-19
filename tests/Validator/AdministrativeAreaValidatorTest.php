@@ -39,6 +39,14 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
+    public function testPassesIfCountryHasNoAdminAreas()
+    {
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'GB', 'state' => ''],
+            'rules' => ['state' => 'administrative_area_code:country'],
+        ]));
+    }
+
     public function testUSStateByName()
     {
         // Valid state in US

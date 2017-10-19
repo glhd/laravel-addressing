@@ -48,17 +48,22 @@ class PostalCodeValidator
 	public function validatePostalCode($attribute, $value, array $parameters, Validator $validator)
 	{
 		$validator->setCustomMessages($this->messages);
-		$country = $this->getCountryInstance($parameters, $validator);
-		
-		if ($country instanceof Country) {
-			$area = $this->getAdministrativeAreaInstance($country, $parameters, $validator);
-			if ($area instanceof AdministrativeArea) {
-				$postalCodePattern = $area->getPostalCodePattern();
-				return 1 === preg_match("/^$postalCodePattern/", $value);
-			}
-		}
-		
-		return false;
+
+		if (!$country = $this->getCountryInstance($parameters, $validator)) {
+		    return true;
+        }
+
+        $postalCodePattern = $country->getPostalCodePattern();
+
+        if ($area = $this->getAdministrativeAreaInstance($country, $parameters, $validator)) {
+            $postalCodePattern = $area->getPostalCodePattern();
+        }
+
+        if (!$postalCodePattern) {
+		    return true;
+        }
+
+        return 1 === preg_match("/^$postalCodePattern/", $value);
 	}
 	
 	/**

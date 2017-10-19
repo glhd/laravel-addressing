@@ -119,6 +119,16 @@ class Country extends BaseCountry
 	{
 		return $this->addressing->getLocale();
 	}
+
+    /**
+     * @return null|string
+     */
+	public function getPostalCodePattern()
+    {
+        return $this->addressing->getAddressFormatRepository()
+            ->get($this->getCountryCode())
+            ->getPostalCodePattern();
+    }
 	
 	/**
 	 * @param BaseCountry $baseCountry

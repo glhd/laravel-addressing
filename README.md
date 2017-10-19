@@ -155,6 +155,7 @@ Special thanks to [Commerce Guys](https://github.com/commerceguys) for their ama
 
 #### 0.5
 
+- **BREAKING:** Validators now return true if data is not available
 - Made most methods case insensitive (so "co" or "colorado" work)
 - Optimized service provider so that validators are not loaded until needed
 - Removed some dependencies—will gracefully skip routing and validation if packages are missing
