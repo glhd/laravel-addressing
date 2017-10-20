@@ -25,6 +25,7 @@ class Controller extends BaseController
 
     /**
      * The construct method
+     *
      * @param LaravelAddressing $addressing
      */
     public function __construct(LaravelAddressing $addressing)
@@ -44,6 +45,7 @@ class Controller extends BaseController
         $this->checkQueryParameters($request);
         try {
             $country = $this->addressing->country($countryCode);
+
             return new JsonResponse([
                 'label' => 'State',
                 'expected_length' => 2,
@@ -89,7 +91,7 @@ class Controller extends BaseController
      */
     public function validateAjaxRequest(Request $request)
     {
-        if (!$request->isXmlHttpRequest()) {
+        if (! $request->isXmlHttpRequest()) {
             throw new Exception('This URL only accepts AJAX requests');
         }
     }

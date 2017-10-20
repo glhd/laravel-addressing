@@ -13,5 +13,4 @@ use Galahad\LaravelAddressing\Facades\Addressing;
  */
 class AddressFacade extends Addressing
 {
-
 }

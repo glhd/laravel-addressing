@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * Addressing Facade
+ *
  * @mixin \Galahad\LaravelAddressing\LaravelAddressing
  */
 class Addressing extends Facade

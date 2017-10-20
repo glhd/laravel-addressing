@@ -40,11 +40,7 @@ class AdministrativeAreaRepository extends SubdivisionRepository
      */
     public function getAll($countryCode, $parentId = null, $locale = null)
     {
-        $subdivisions = parent::getAll(
-            strtoupper($countryCode),
-            $parentId,
-            $locale ?: $this->addressing->getLocale()
-        );
+        $subdivisions = parent::getAll(strtoupper($countryCode), $parentId, $locale ?: $this->addressing->getLocale());
 
         return new AdministrativeAreaCollection($subdivisions);
     }
@@ -72,9 +68,9 @@ class AdministrativeAreaRepository extends SubdivisionRepository
     protected function createSubdivisionFromDefinitions($id, array $definitions, $locale)
     {
         $subdivision = parent::createSubdivisionFromDefinitions($id, $definitions, $locale);
-        if (!is_null($subdivision)) {
+        if (! is_null($subdivision)) {
             $administrativeArea = new AdministrativeArea($subdivision);
-            if (!empty($definition['has_children'])) {
+            if (! empty($definition['has_children'])) {
                 $children = new LazySubdivisionCollection($definition['country_code'], $id, $definition['locale']);
                 $children->setRepository($this);
                 $administrativeArea->setChildren($children);

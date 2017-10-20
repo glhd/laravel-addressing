@@ -3,11 +3,9 @@
 namespace Galahad\LaravelAddressing\Validator;
 
 use CommerceGuys\Intl\Exception\UnknownCountryException;
-use Exception;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class CountryValidator
@@ -34,7 +32,8 @@ class CountryValidator
      *
      * @param LaravelAddressing $addressing
      */
-    public function __construct(LaravelAddressing $addressing) {
+    public function __construct(LaravelAddressing $addressing)
+    {
         $this->addressing = $addressing;
         $this->messages = [
             'country_name' => trans('laravel-addressing::validation.country_name'),
@@ -56,6 +55,7 @@ class CountryValidator
         $validator->setCustomMessages($this->messages);
         try {
             $country = $this->addressing->countryByName($value);
+
             return $country instanceof Country;
         } catch (UnknownCountryException $exception) {
             return false;
@@ -76,6 +76,7 @@ class CountryValidator
         $validator->setCustomMessages($this->messages);
         try {
             $country = $this->addressing->country($value);
+
             return $country instanceof Country;
         } catch (UnknownCountryException $exception) {
             return false;

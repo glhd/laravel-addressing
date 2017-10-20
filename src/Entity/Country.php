@@ -41,12 +41,8 @@ class Country extends BaseCountry
      */
     public function administrativeAreas()
     {
-        return $this->addressing->getAdministrativeAreaRepository()
-            ->getAll(
-                $this->getCountryCode(),
-                0,
-                $this->getLocale()
-            );
+        return $this->addressing->getAdministrativeAreaRepository()->getAll($this->getCountryCode(), 0,
+            $this->getLocale());
     }
 
     /**
@@ -125,9 +121,7 @@ class Country extends BaseCountry
      */
     public function getPostalCodePattern()
     {
-        return $this->addressing->getAddressFormatRepository()
-            ->get($this->getCountryCode())
-            ->getPostalCodePattern();
+        return $this->addressing->getAddressFormatRepository()->get($this->getCountryCode())->getPostalCodePattern();
     }
 
     /**

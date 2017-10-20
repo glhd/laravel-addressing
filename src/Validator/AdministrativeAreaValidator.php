@@ -7,7 +7,6 @@ use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class AdministrativeAreaValidator
@@ -32,7 +31,8 @@ class AdministrativeAreaValidator
     /**
      * @param LaravelAddressing $addressing
      */
-    public function __construct(LaravelAddressing $addressing) {
+    public function __construct(LaravelAddressing $addressing)
+    {
         $this->addressing = $addressing;
         $this->messages = [
             'administrative_area' => trans('laravel-addressing::validation.administrative_area'),

@@ -40,11 +40,8 @@ class CountryRepository extends BaseCountryRepository
      */
     public function get($countryCode, $locale = null, $fallbackLocale = null)
     {
-        return parent::get(
-            strtoupper($countryCode),
-            $locale ?: $this->addressing->getLocale(),
-            $fallbackLocale ?: $this->addressing->getFallbackLocale()
-        );
+        return parent::get(strtoupper($countryCode), $locale ?: $this->addressing->getLocale(),
+            $fallbackLocale ?: $this->addressing->getFallbackLocale());
     }
 
     /**
@@ -56,10 +53,8 @@ class CountryRepository extends BaseCountryRepository
      */
     public function getList($locale = null, $fallbackLocale = null)
     {
-        return parent::getList(
-            $locale ?: $this->addressing->getLocale(),
-            $fallbackLocale ?: $this->addressing->getFallbackLocale()
-        );
+        return parent::getList($locale ?: $this->addressing->getLocale(),
+            $fallbackLocale ?: $this->addressing->getFallbackLocale());
     }
 
     /**
@@ -71,9 +66,9 @@ class CountryRepository extends BaseCountryRepository
      */
     public function getAll($locale = null, $fallbackLocale = null)
     {
-    	$countries = parent::getAll($locale, $fallbackLocale);
+        $countries = parent::getAll($locale, $fallbackLocale);
 
-    	return new CountryCollection($countries);
+        return new CountryCollection($countries);
     }
 
     /**
@@ -105,6 +100,7 @@ class CountryRepository extends BaseCountryRepository
     protected function createCountryFromDefinition($countryCode, array $definition, $locale)
     {
         $parentCountry = parent::createCountryFromDefinition($countryCode, $definition, $locale);
+
         return new Country($this->getAddressing(), $parentCountry);
     }
 }

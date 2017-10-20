@@ -3,8 +3,6 @@
 namespace Galahad\LaravelAddressing\Validator;
 
 use CommerceGuys\Intl\Exception\UnknownCountryException;
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
-use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
 
@@ -29,7 +27,8 @@ class PostalCodeValidator
     /**
      * @param LaravelAddressing $addressing
      */
-    public function __construct(LaravelAddressing $addressing) {
+    public function __construct(LaravelAddressing $addressing)
+    {
         $this->addressing = $addressing;
         $this->messages = [
             'postal_code' => trans('laravel-addressing::validation.postal_code'),

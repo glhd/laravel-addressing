@@ -46,10 +46,7 @@ class TranslationTest extends TestCase
     public function testENMessages()
     {
         $this->app->setLocale('en');
-        $validator = $this->validator->make(
-            ['country' => 'ZZ'],
-            ['country' => 'country_code']
-        );
+        $validator = $this->validator->make(['country' => 'ZZ'], ['country' => 'country_code']);
         if ($validator->fails()) {
             $messages = $validator->errors()->get('country');
             $first = array_shift($messages);
@@ -61,10 +58,7 @@ class TranslationTest extends TestCase
     public function testPT_BRMessages()
     {
         $this->app->setLocale('pt-br');
-        $validator = $this->validator->make(
-            ['country' => 'ZZ'],
-            ['country' => 'country_code']
-        );
+        $validator = $this->validator->make(['country' => 'ZZ'], ['country' => 'country_code']);
         if ($validator->fails()) {
             $messages = $validator->errors()->get('country');
             $first = array_shift($messages);
@@ -76,10 +70,8 @@ class TranslationTest extends TestCase
     public function testENMessagesForAdministrativeAreaValidator()
     {
         $this->app->setLocale('en');
-        $validator = $this->validator->make(
-            ['country' => 'US', 'state' => 'COO'],
-            ['country' => 'country_code', 'state' => 'administrative_area:country']
-        );
+        $validator = $this->validator->make(['country' => 'US', 'state' => 'COO'],
+            ['country' => 'country_code', 'state' => 'administrative_area:country']);
         if ($validator->fails()) {
             $messages = $validator->errors()->get('state');
             $first = array_shift($messages);

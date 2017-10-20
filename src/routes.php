@@ -16,5 +16,4 @@ Route::group(['prefix' => 'galahad/addressing'], function () {
         'as' => 'galahad.addressing.countries',
         'uses' => '\\Galahad\\LaravelAddressing\\Controller@getCountries',
     ]);
-
 });
