@@ -2,18 +2,16 @@
 
 namespace Galahad\LaravelAddressing;
 
-use Illuminate\Support\Facades\Facade;
+use Galahad\LaravelAddressing\Facades\Addressing;
 
 /**
  * Class AddressFacade
  *
  * @package Galahad\LaravelAddressing
  * @author Junior Grossi <juniorgro@gmail.com>
+ * @deprecated
  */
-class AddressFacade extends Facade
+class AddressFacade extends Addressing
 {
-    protected static function getFacadeAccessor()
-    {
-        return LaravelAddressing::class;
-    }
+
 }

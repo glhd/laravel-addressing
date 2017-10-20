@@ -2,7 +2,7 @@
 
 namespace Galahad\LaravelAddressing\Repository;
 
-use Closure;
+use CommerceGuys\Intl\Country\CountryInterface;
 use CommerceGuys\Intl\Country\CountryRepository as BaseCountryRepository;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
@@ -31,19 +31,35 @@ class CountryRepository extends BaseCountryRepository
     }
 
     /**
-     * Create Country class for LaravelAddressing package
+     * Get a country by code
      *
      * @param string $countryCode
-     * @param array $definition
-     * @param string $locale
-     * @return Country
+     * @param null $locale
+     * @param null $fallbackLocale
+     * @return CountryInterface|Country
      */
-    protected function createCountryFromDefinition($countryCode, array $definition, $locale)
+    public function get($countryCode, $locale = null, $fallbackLocale = null)
     {
-        $parentCountry = parent::createCountryFromDefinition($countryCode, $definition, $locale);
-        $country = new Country($this->getAddressing(), $parentCountry);
+        return parent::get(
+            strtoupper($countryCode),
+            $locale ?: $this->addressing->getLocale(),
+            $fallbackLocale ?: $this->addressing->getFallbackLocale()
+        );
+    }
 
-        return $country;
+    /**
+     * Get country list, keyed by code
+     *
+     * @param null $locale
+     * @param null $fallbackLocale
+     * @return array
+     */
+    public function getList($locale = null, $fallbackLocale = null)
+    {
+        return parent::getList(
+            $locale ?: $this->addressing->getLocale(),
+            $fallbackLocale ?: $this->addressing->getFallbackLocale()
+        );
     }
 
     /**
@@ -76,5 +92,19 @@ class CountryRepository extends BaseCountryRepository
     public function setAddressing(LaravelAddressing $addressing)
     {
         $this->addressing = $addressing;
+    }
+
+    /**
+     * Create Country class for LaravelAddressing package
+     *
+     * @param string $countryCode
+     * @param array $definition
+     * @param string $locale
+     * @return Country
+     */
+    protected function createCountryFromDefinition($countryCode, array $definition, $locale)
+    {
+        $parentCountry = parent::createCountryFromDefinition($countryCode, $definition, $locale);
+        return new Country($this->getAddressing(), $parentCountry);
     }
 }

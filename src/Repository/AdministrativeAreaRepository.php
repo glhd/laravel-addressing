@@ -6,6 +6,7 @@ use CommerceGuys\Addressing\Collection\LazySubdivisionCollection;
 use CommerceGuys\Addressing\Repository\SubdivisionRepository;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\LaravelAddressing;
 
 /**
  * Class AdministrativeAreaRepository
@@ -15,6 +16,51 @@ use Galahad\LaravelAddressing\Entity\AdministrativeArea;
  */
 class AdministrativeAreaRepository extends SubdivisionRepository
 {
+    /**
+     * @var LaravelAddressing
+     */
+    protected $addressing;
+
+    /**
+     * @param LaravelAddressing $addressing
+     */
+    public function __construct(LaravelAddressing $addressing)
+    {
+        $this->addressing = $addressing;
+        parent::__construct();
+    }
+
+    /**
+     * Get all administrative areas as a collection instance
+     *
+     * @param string $countryCode
+     * @param null $parentId
+     * @param null $locale
+     * @return AdministrativeAreaCollection
+     */
+    public function getAll($countryCode, $parentId = null, $locale = null)
+    {
+        $subdivisions = parent::getAll(
+            strtoupper($countryCode),
+            $parentId,
+            $locale ?: $this->addressing->getLocale()
+        );
+
+        return new AdministrativeAreaCollection($subdivisions);
+    }
+
+    /**
+     * Overriding method just for autocompletion purposes
+     *
+     * @param string $id
+     * @param null $locale
+     * @return AdministrativeArea
+     */
+    public function get($id, $locale = null)
+    {
+        return parent::get($id, $locale ?: $this->addressing->getLocale());
+    }
+
     /**
      * Create Subdivisions using the custom AdministrativeArea class
      *
@@ -38,33 +84,5 @@ class AdministrativeAreaRepository extends SubdivisionRepository
         }
 
         return $subdivision;
-    }
-
-    /**
-     * Get all administrative areas as a collection instance
-     *
-     * @param string $countryCode
-     * @param null $parentId
-     * @param null $locale
-     * @return AdministrativeAreaCollection
-     */
-    public function getAll($countryCode, $parentId = null, $locale = null)
-    {
-    	$countryCode = strtoupper($countryCode);
-        $subdivisions = parent::getAll($countryCode, $parentId, $locale);
-
-        return new AdministrativeAreaCollection($subdivisions);
-    }
-
-    /**
-     * Overriding method just for autocompletion purposes
-     *
-     * @param string $id
-     * @param null $locale
-     * @return AdministrativeArea
-     */
-    public function get($id, $locale = null)
-    {
-        return parent::get($id, $locale);
     }
 }

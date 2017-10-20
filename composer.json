@@ -38,5 +38,15 @@
       "Galahad\\LaravelAddressing\\": "src/"
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Galahad\\LaravelAddressing\\ServiceProvider"
+      ],
+      "aliases": {
+        "Addressing": "Galahad\\LaravelAddressing\\Facades\\Addressing"
+      }
+    }
+  }
 }

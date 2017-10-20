@@ -31,18 +31,7 @@ class Country extends BaseCountry
     public function __construct(LaravelAddressing $addressing, BaseCountry $baseCountry)
     {
         $this->addressing = $addressing;
-    	$this->copyPropertiesFromBaseCountry($baseCountry);
-    }
-
-    /**
-     * @param BaseCountry $baseCountry
-     */
-    protected function copyPropertiesFromBaseCountry(BaseCountry $baseCountry)
-    {
-        $vars = get_object_vars($baseCountry);
-        foreach ($vars as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->copyPropertiesFromBaseCountry($baseCountry);
     }
 
     /**
@@ -52,11 +41,12 @@ class Country extends BaseCountry
      */
     public function administrativeAreas()
     {
-        return $this->addressing->getAdministrativeAreaRepository()->getAll(
-            $this->getCountryCode(),
-            0,
-            $this->getLocale()
-        );
+        return $this->addressing->getAdministrativeAreaRepository()
+            ->getAll(
+                $this->getCountryCode(),
+                0,
+                $this->getLocale()
+            );
     }
 
     /**
@@ -67,7 +57,7 @@ class Country extends BaseCountry
      */
     public function administrativeArea($code)
     {
-    	$code = strtoupper($code);
+        $code = strtoupper($code);
         if (strpos($code, '-') === false) {
             $code = $this->getCountryCode().'-'.$code;
         }
@@ -99,10 +89,10 @@ class Country extends BaseCountry
     public function findAdministrativeArea($codeOrName)
     {
         if ($administrativeArea = $this->administrativeArea($codeOrName)) {
-        	return $administrativeArea;
+            return $administrativeArea;
         }
-	
-	    return $this->administrativeAreaByName($codeOrName);
+
+        return $this->administrativeAreaByName($codeOrName);
     }
 
     /**
@@ -112,10 +102,9 @@ class Country extends BaseCountry
      */
     public function getAdministrativeAreasList()
     {
-        if (!$this->administrativeAreasList) {
-            $this->administrativeAreasList = $this->addressing->getAdministrativeAreaRepository()->getList(
-                $this->getCountryCode(), 0, $this->getLocale()
-            );
+        if (! $this->administrativeAreasList) {
+            $this->administrativeAreasList = $this->addressing->getAdministrativeAreaRepository()->getList($this->getCountryCode(),
+                0, $this->getLocale());
         }
 
         return $this->administrativeAreasList;
@@ -129,5 +118,26 @@ class Country extends BaseCountry
     public function getLocale()
     {
         return $this->addressing->getLocale();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPostalCodePattern()
+    {
+        return $this->addressing->getAddressFormatRepository()
+            ->get($this->getCountryCode())
+            ->getPostalCodePattern();
+    }
+
+    /**
+     * @param BaseCountry $baseCountry
+     */
+    protected function copyPropertiesFromBaseCountry(BaseCountry $baseCountry)
+    {
+        $vars = get_object_vars($baseCountry);
+        foreach ($vars as $key => $value) {
+            $this->$key = $value;
+        }
     }
 }
