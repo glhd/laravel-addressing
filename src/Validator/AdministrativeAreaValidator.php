@@ -52,12 +52,14 @@ class AdministrativeAreaValidator
      */
     public function validateAdministrativeAreaCode($attribute, $value, array $parameters, Validator $validator)
     {
-        $this->validateParameterCount(1, $parameters, $attribute);
         $validator->setCustomMessages($this->messages);
         $country = $this->getCountryInstance($parameters, $validator);
-        $admArea = $country->administrativeArea($value);
 
-        return $admArea instanceof AdministrativeArea;
+        if (! $country->administrativeAreas()->count()) {
+            return true;
+        }
+
+        return $country->administrativeArea($value) instanceof AdministrativeArea;
     }
 
     /**
@@ -71,12 +73,14 @@ class AdministrativeAreaValidator
      */
     public function validateAdministrativeAreaName($attribute, $value, array $parameters, Validator $validator)
     {
-        $this->validateParameterCount(1, $parameters, $attribute);
         $validator->setCustomMessages($this->messages);
         $country = $this->getCountryInstance($parameters, $validator);
-        $admArea = $country->administrativeAreaByName($value);
 
-        return $admArea instanceof AdministrativeArea;
+        if (! $country->administrativeAreas()->count()) {
+            return true;
+        }
+
+        return $country->administrativeAreaByName($value) instanceof AdministrativeArea;
     }
 
     /**
@@ -108,7 +112,8 @@ class AdministrativeAreaValidator
      */
     private function getCountryInstance(array $parameters, Validator $validator)
     {
-        $countryCodeOrName = array_get($validator->getData(), $parameters[0]);
+        $key = isset($parameters[0]) ? $parameters[0] : 'country';
+        $countryCodeOrName = array_get($validator->getData(), $key);
 
         return $this->addressing->findCountry($countryCodeOrName);
     }
