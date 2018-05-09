@@ -50,8 +50,8 @@ class ServiceProvider extends RootServiceProvider
 
         try {
             $route = $this->app->make('router');
-            $prefix = config('addressing.route.prefix', 'galahad');
-            $route->group(['prefix' => $prefix.'/addressing'], function ($route) use ($prefix) {
+            $prefix = config('addressing.route.prefix', 'galahad/addressing');
+            $route->group(['prefix' => $prefix], function ($route) use ($prefix) {
                 $route->get('/{country}/administrative-areas', [
                     'as' => $prefix.'.addressing.administrative-areas',
                     'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas',
