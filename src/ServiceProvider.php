@@ -9,16 +9,15 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider as RootServiceProvider;
 
 /**
- * Class ServiceProvider
+ * Class ServiceProvider.
  *
- * @package Galahad\LaravelAddressing
  * @author Chris Morrell
  * @author Junior Grossi <juniorgro@gmail.com>
  */
 class ServiceProvider extends RootServiceProvider
 {
     /**
-     * Booting the Service Provider
+     * Booting the Service Provider.
      */
     public function boot()
     {
@@ -27,7 +26,7 @@ class ServiceProvider extends RootServiceProvider
     }
 
     /**
-     * Register the LaravelAddressing instance
+     * Register the LaravelAddressing instance.
      */
     public function register()
     {
@@ -41,7 +40,7 @@ class ServiceProvider extends RootServiceProvider
     }
 
     /**
-     * Boot routes if routing is supported
+     * Boot routes if routing is supported.
      */
     protected function bootRoutes()
     {
@@ -51,17 +50,18 @@ class ServiceProvider extends RootServiceProvider
 
         try {
             $route = $this->app->make('router');
-            $route->group(['prefix' => 'galahad/addressing'], function ($route) {
+            $prefix = config('addressing.route.prefix', 'galahad');
+            $route->group(['prefix' => $prefix.'/addressing'], function ($route) use ($prefix) {
                 $route->get('/{country}/administrative-areas', [
-                    'as' => 'galahad.addressing.administrative-areas',
+                    'as' => $prefix.'.addressing.administrative-areas',
                     'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas',
                 ]);
                 $route->get('/{country}/{administrativeArea}/cities', [
-                    'as' => 'galahad.addressing.cities',
+                    'as' => $prefix.'.addressing.cities',
                     'uses' => '\\Galahad\\LaravelAddressing\\Controller@getCities',
                 ]);
                 $route->get('/countries', [
-                    'as' => 'galahad.addressing.countries',
+                    'as' => $prefix.'.addressing.countries',
                     'uses' => '\\Galahad\\LaravelAddressing\\Controller@getCountries',
                 ]);
             });
@@ -71,7 +71,7 @@ class ServiceProvider extends RootServiceProvider
     }
 
     /**
-     * Register all custom validators
+     * Register all custom validators.
      */
     protected function registerValidators()
     {
@@ -81,10 +81,14 @@ class ServiceProvider extends RootServiceProvider
             $validator->extend('country_name', CountryValidator::class.'@validateCountryName');
 
             // Administrative Area validators
-            $validator->extend('administrative_area_code',
-                AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode');
-            $validator->extend('administrative_area_name',
-                AdministrativeAreaValidator::class.'@validateAdministrativeAreaName');
+            $validator->extend(
+                'administrative_area_code',
+                AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode'
+            );
+            $validator->extend(
+                'administrative_area_name',
+                AdministrativeAreaValidator::class.'@validateAdministrativeAreaName'
+            );
             $validator->extend('administrative_area', AdministrativeAreaValidator::class.'@validateAdministrativeArea');
 
             // Postal Code validator
