@@ -23,6 +23,9 @@ class ServiceProvider extends RootServiceProvider
     {
         $this->bootRoutes();
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-addressing');
+        $this->publishes([
+            __DIR__.'/../config/addressing.php' => config_path('addressing.php'),
+        ]);
     }
 
     /**
