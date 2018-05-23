@@ -11,7 +11,6 @@ use Illuminate\Support\ServiceProvider as RootServiceProvider;
 /**
  * Class ServiceProvider
  *
- * @package Galahad\LaravelAddressing
  * @author Chris Morrell
  * @author Junior Grossi <juniorgro@gmail.com>
  */
@@ -24,6 +23,9 @@ class ServiceProvider extends RootServiceProvider
     {
         $this->bootRoutes();
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-addressing');
+        $this->publishes([
+            __DIR__.'/../config/addressing.php' => config_path('addressing.php'),
+        ]);
     }
 
     /**
@@ -51,7 +53,8 @@ class ServiceProvider extends RootServiceProvider
 
         try {
             $route = $this->app->make('router');
-            $route->group(['prefix' => 'galahad/addressing'], function ($route) {
+            $prefix = config('addressing.route.prefix', 'galahad/addressing');
+            $route->group(['prefix' => $prefix], function ($route) use ($prefix) {
                 $route->get('/{country}/administrative-areas', [
                     'as' => 'galahad.addressing.administrative-areas',
                     'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas',
@@ -81,10 +84,14 @@ class ServiceProvider extends RootServiceProvider
             $validator->extend('country_name', CountryValidator::class.'@validateCountryName');
 
             // Administrative Area validators
-            $validator->extend('administrative_area_code',
-                AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode');
-            $validator->extend('administrative_area_name',
-                AdministrativeAreaValidator::class.'@validateAdministrativeAreaName');
+            $validator->extend(
+                'administrative_area_code',
+                AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode'
+            );
+            $validator->extend(
+                'administrative_area_name',
+                AdministrativeAreaValidator::class.'@validateAdministrativeAreaName'
+            );
             $validator->extend('administrative_area', AdministrativeAreaValidator::class.'@validateAdministrativeArea');
 
             // Postal Code validator

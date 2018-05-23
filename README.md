@@ -139,6 +139,21 @@ You can get the countries list using a custom locale:
 GET /galahad/addressing/countries?locale=pt
 ```
 
+### Changing the route group prefix
+
+By default the routes returning the JSON responses are prefixed with `galahad/addressing`. If you would like to change this, you need to publish the configuration file using `php artisan vendor:publish --provider="Galahad\LaravelAddressing\ServiceProvider"`. This will create a config file (`addressing.php`) in your `config` directory with:
+
+```php 
+<?php
+
+return [
+    'route' => [
+        'prefix' => 'countries' // change this to whatever you'd like
+    ],
+];
+```
+
+
 ### Thanks!
 
 Special thanks to [Commerce Guys](https://github.com/commerceguys) for their amazing [addressing](https://github.com/commerceguys/addressing) and [intl](https://github.com/commerceguys/intl) packages, which this project relies heavily on.
