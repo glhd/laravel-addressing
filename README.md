@@ -141,7 +141,7 @@ GET /galahad/addressing/countries?locale=pt
 
 ### Changing the route group prefix
 
-By default the routes returning the JSON responses are prefixed with `galahad/addressing`. To do this you need to publish the configuration file `php artisan vendor:publish --provider="Galahad\LaravelAddressing\ServiceProvider"`. Alternatively you can create a config file (`addressing.php`) in your `config` directory with these contents.
+By default the routes returning the JSON responses are prefixed with `galahad/addressing`. If you would like to change this, you need to publish the configuration file using `php artisan vendor:publish --provider="Galahad\LaravelAddressing\ServiceProvider"`. This will create a config file (`addressing.php`) in your `config` directory with:
 
 ```php 
 <?php
