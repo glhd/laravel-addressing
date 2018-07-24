@@ -6,6 +6,7 @@ use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\ServiceProvider as RootServiceProvider;
 
 /**
@@ -26,6 +27,8 @@ class ServiceProvider extends RootServiceProvider
         $this->publishes([
             __DIR__.'/../config/addressing.php' => config_path('addressing.php'),
         ]);
+
+        $this->registerValidators($this->app['validator']);
     }
 
     /**
@@ -38,8 +41,6 @@ class ServiceProvider extends RootServiceProvider
 
             return new LaravelAddressing($config->get('app.locale', 'en'), $config->get('app.fallback_locale', 'en'));
         });
-
-        $this->registerValidators();
     }
 
     /**
@@ -76,26 +77,27 @@ class ServiceProvider extends RootServiceProvider
     /**
      * Register all custom validators
      */
-    protected function registerValidators()
+    protected function registerValidators(Factory $validator)
     {
-        $this->app->resolving('validator', function ($validator, $app) {
-            // Country validators
-            $validator->extend('country_code', CountryValidator::class.'@validateCountryCode');
-            $validator->extend('country_name', CountryValidator::class.'@validateCountryName');
+        // Country validators
+        $validator->extend('country_code', CountryValidator::class.'@validateCountryCode');
+        $validator->extend('country_name', CountryValidator::class.'@validateCountryName');
 
-            // Administrative Area validators
-            $validator->extend(
-                'administrative_area_code',
-                AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode'
-            );
-            $validator->extend(
-                'administrative_area_name',
-                AdministrativeAreaValidator::class.'@validateAdministrativeAreaName'
-            );
-            $validator->extend('administrative_area', AdministrativeAreaValidator::class.'@validateAdministrativeArea');
+        // Administrative Area validators
+        $validator->extend(
+            'administrative_area_code',
+            AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode'
+        );
+        $validator->extend(
+            'administrative_area_name',
+            AdministrativeAreaValidator::class.'@validateAdministrativeAreaName'
+        );
+        $validator->extend(
+            'administrative_area',
+            AdministrativeAreaValidator::class.'@validateAdministrativeArea'
+        );
 
-            // Postal Code validator
-            $validator->extend('postal_code', PostalCodeValidator::class.'@validatePostalCode');
-        });
+        // Postal Code validator
+        $validator->extend('postal_code', PostalCodeValidator::class.'@validatePostalCode');
     }
 }
