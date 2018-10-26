@@ -9,7 +9,7 @@ use Orchestra\Testbench\TestCase;
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
-class TranslationTest extends TestCase
+abstract class TranslationTest extends TestCase
 {
     /**
      * @var Factory
@@ -41,6 +41,8 @@ class TranslationTest extends TestCase
         if (isset($arrayContent[$key])) {
             return str_replace(':attribute', $field, $arrayContent[$key]);
         }
+
+        return null;
     }
 
     public function testENMessages()
@@ -70,8 +72,12 @@ class TranslationTest extends TestCase
     public function testENMessagesForAdministrativeAreaValidator()
     {
         $this->app->setLocale('en');
-        $validator = $this->validator->make(['country' => 'US', 'state' => 'COO'],
-            ['country' => 'country_code', 'state' => 'administrative_area:country']);
+
+        $validator = $this->validator->make(
+            ['country' => 'US', 'state' => 'COO'],
+            ['country' => 'country_code', 'state' => 'administrative_area:country']
+        );
+
         if ($validator->fails()) {
             $messages = $validator->errors()->get('state');
             $first = array_shift($messages);
