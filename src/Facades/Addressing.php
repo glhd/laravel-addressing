@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Facade;
  */
 class Addressing extends Facade
 {
-    /**
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return LaravelAddressing::class;
-    }
+	/**
+	 * @return string
+	 */
+	protected static function getFacadeAccessor()
+	{
+		return LaravelAddressing::class;
+	}
 }

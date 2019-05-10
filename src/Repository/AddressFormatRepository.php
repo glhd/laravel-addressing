@@ -10,17 +10,17 @@ use Galahad\LaravelAddressing\LaravelAddressing;
  */
 class AddressFormatRepository extends BaseRepository
 {
-    /**
-     * @var LaravelAddressing
-     */
-    protected $addressing;
-
-    /**
-     * @param LaravelAddressing $addressing
-     */
-    public function __construct(LaravelAddressing $addressing)
-    {
-        $this->addressing = $addressing;
-        parent::__construct();
-    }
+	/**
+	 * @var LaravelAddressing
+	 */
+	protected $addressing;
+	
+	/**
+	 * @param LaravelAddressing $addressing
+	 */
+	public function __construct(LaravelAddressing $addressing)
+	{
+		$this->addressing = $addressing;
+		parent::__construct();
+	}
 }
