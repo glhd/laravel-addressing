@@ -12,25 +12,13 @@ First, install the composer package:
 composer require galahad/laravel-addressing
 ```
 
-In `config/app.php` add the Service Provider:
-
-```php
-'providers' => [
-    // ... 
-    Galahad\LaravelAddressing\ServiceProvider::class
-],
-```
-
-And add the `Addressing` alias in the same file:
-
-```php
-'aliases' => [
-    // ...
-    'Addressing' => Galahad\LaravelAddressing\AddressFacade::class
-],
-```
-
 ## Basic Usage
+
+## 1.0 Breaking Changes
+ - AdministrativeArea has been re-named Subdivision
+ - getAdministrativeArea/etc as well
+ - Things have been moved around
+ - findAdministrativeArea is removed
 
 ### Country
 

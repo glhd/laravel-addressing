@@ -28,6 +28,11 @@ class LaravelAddressingTest extends TestCase
 		    $this->assertInstanceOf(Country::class, $this->addressing->country($country_code));
 	    }
     }
+	
+	public function test_it_returns_null_when_an_unknown_country_code_is_provided() : void
+	{
+		$this->assertNull($this->addressing->country('XX'));
+	}
 
     // public function test_IfTheCountryHasTheCorrectName() : void
     // {

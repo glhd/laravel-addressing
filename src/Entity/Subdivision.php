@@ -2,7 +2,7 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
-use CommerceGuys\Addressing\Subdivision\Subdivision;
+use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
 
 /**
  * @method getParent()
@@ -18,14 +18,14 @@ use CommerceGuys\Addressing\Subdivision\Subdivision;
  * @method getChildren()
  * @method bool hasChildren()
  */
-class AdministrativeArea
+class Subdivision
 {
 	/**
 	 * @var \CommerceGuys\Addressing\Subdivision\Subdivision
 	 */
 	protected $subdivision;
 	
-	public function __construct(Subdivision $subdivision)
+	public function __construct(BaseSubdivision $subdivision)
 	{
 		$this->subdivision = $subdivision;
 	}

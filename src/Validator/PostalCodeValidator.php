@@ -3,7 +3,7 @@
 namespace Galahad\LaravelAddressing\Validator;
 
 use CommerceGuys\Intl\Exception\UnknownCountryException;
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Subdivision;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
@@ -112,7 +112,7 @@ class PostalCodeValidator
 	 * @param Country $country
 	 * @param array $parameters
 	 * @param Validator $validator
-	 * @return AdministrativeArea|null
+	 * @return Subdivision|null
 	 */
 	protected function getAdministrativeAreaInstance(Country $country, array $parameters, Validator $validator)
 	{

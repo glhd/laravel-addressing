@@ -2,20 +2,19 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-// use CommerceGuys\Addressing\Repository\SubdivisionRepository;
-use CommerceGuys\Addressing\Subdivision\Subdivision;
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
+use Galahad\LaravelAddressing\Entity\Subdivision;
 use Illuminate\Support\Collection;
 
-class AdministrativeAreaCollection extends Collection
+class SubdivisionCollection extends Collection
 {
 	public function __construct($items = [])
 	{
 		parent::__construct($items);
 		
 		foreach ($this->items as $key => $item) {
-			if ($item instanceof Subdivision) {
-				$this->items[$key] = new AdministrativeArea($item);
+			if ($item instanceof BaseSubdivision) {
+				$this->items[$key] = new Subdivision($item);
 			}
 		}
 	}

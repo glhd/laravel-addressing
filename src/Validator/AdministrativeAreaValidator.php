@@ -2,7 +2,7 @@
 
 namespace Galahad\LaravelAddressing\Validator;
 
-use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Subdivision;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Validation\Validator;
@@ -59,7 +59,7 @@ class AdministrativeAreaValidator
 			return true;
 		}
 		
-		return $country->administrativeArea($value) instanceof AdministrativeArea;
+		return $country->administrativeArea($value) instanceof Subdivision;
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class AdministrativeAreaValidator
 			return true;
 		}
 		
-		return $country->administrativeAreaByName($value) instanceof AdministrativeArea;
+		return $country->administrativeAreaByName($value) instanceof Subdivision;
 	}
 	
 	/**

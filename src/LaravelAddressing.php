@@ -4,6 +4,7 @@ namespace Galahad\LaravelAddressing;
 
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
+use CommerceGuys\Addressing\Exception\UnknownCountryException;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Galahad\LaravelAddressing\Entity\Country;
 
@@ -60,11 +61,17 @@ class LaravelAddressing
 	 * @param string|null $locale
 	 * @return \Galahad\LaravelAddressing\Entity\Country
 	 */
-	public function country($iso_alpha2_code, $locale = null) : Country
+	public function country($iso_alpha2_code, $locale = null) : ?Country
 	{
-		$base_country = $this->country_repository->get($iso_alpha2_code, $locale ?? $this->locale);
-		
-		return new Country($base_country, $this->subdivision_repository);
+		try {
+			return new Country(
+				$this->country_repository->get($iso_alpha2_code, $locale ?? $this->locale),
+				$this->subdivision_repository,
+				$this->address_format_repository
+			);
+		} catch (UnknownCountryException $exception) {
+			return null;
+		}
 	}
 	//
 	// /**
