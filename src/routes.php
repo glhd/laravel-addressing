@@ -1,5 +1,6 @@
 <?php
 
+// FIXME: Configurable
 Route::group(['prefix' => 'galahad/addressing'], function() {
 	
 	Route::get('/{country}/administrative-areas', [

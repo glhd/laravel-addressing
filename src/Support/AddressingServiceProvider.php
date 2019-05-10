@@ -1,25 +1,21 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Support;
 
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
+use CommerceGuys\Addressing\Country\CountryRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\ServiceProvider as RootServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 
-/**
- * Class ServiceProvider
- *
- * @author Chris Morrell
- * @author Junior Grossi <juniorgro@gmail.com>
- */
-class ServiceProvider extends RootServiceProvider
+class AddressingServiceProvider extends ServiceProvider
 {
-	/**
-	 * Booting the Service Provider
-	 */
-	public function boot()
+	public function boot() : void
 	{
 		$this->bootRoutes();
 		$this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-addressing');
@@ -28,18 +24,24 @@ class ServiceProvider extends RootServiceProvider
 		]);
 	}
 	
-	/**
-	 * Register the LaravelAddressing instance
-	 */
-	public function register()
+	public function register() : void
 	{
-		$this->app->singleton(LaravelAddressing::class, function($app) {
-			$config = $app->make('config');
+		$this->app->singleton('galahad.laravel-addressing', function(Application $app) {
+			$locale = $app['config']->get('app.locale', 'en');
+			$fallback_locale = $app['config']->get('app.fallback_locale', 'en');
 			
-			return new LaravelAddressing($config->get('app.locale', 'en'), $config->get('app.fallback_locale', 'en'));
+			$address_format_repo = new AddressFormatRepository();
+			
+			return new LaravelAddressing(
+				new CountryRepository($locale, $fallback_locale),
+				new SubdivisionRepository($address_format_repo),
+				$address_format_repo,
+				$locale,
+				$fallback_locale
+			);
 		});
 		
-		$this->registerValidators();
+		$this->app->alias('galahad.laravel-addressing', LaravelAddressing::class);
 	}
 	
 	/**

@@ -1,10 +1,11 @@
 <?php
 
-namespace Galahad\LaravelAddressing;
+namespace Galahad\LaravelAddressing\Support\Http;
 
 use CommerceGuys\Intl\Exception\UnknownCountryException;
 use Exception;
 use Galahad\LaravelAddressing\Collection\LocalityCollection;
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;

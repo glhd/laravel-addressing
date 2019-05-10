@@ -32,6 +32,7 @@
 		"commerceguys/intl": "^1.0"
 	},
 	"require-dev": {
+		"ext-json": "*",
 		"phpunit/phpunit": "^7",
 		"orchestra/testbench": "~3.7.0|~3.8.0|~3.9.0"
 	},

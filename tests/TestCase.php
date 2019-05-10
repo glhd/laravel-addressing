@@ -2,8 +2,8 @@
 
 namespace Galahad\LaravelAddressing\Tests;
 
-use Galahad\LaravelAddressing\Facades\Addressing;
-use Galahad\LaravelAddressing\ServiceProvider;
+use Galahad\LaravelAddressing\Support\AddressingServiceProvider;
+use Galahad\LaravelAddressing\Support\Facades\Addressing;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -24,7 +24,7 @@ abstract class TestCase extends Orchestra
 	protected function getPackageProviders($app) : array
 	{
 		return [
-			ServiceProvider::class,
+			AddressingServiceProvider::class,
 		];
 	}
 	
