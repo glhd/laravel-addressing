@@ -1,8 +1,9 @@
 <?php
 
-use Galahad\LaravelAddressing\ServiceProvider;
+namespace Galahad\LaravelAddressing\Tests\Validator;
+
+use Galahad\LaravelAddressing\Tests\TestCase;
 use Illuminate\Validation\Factory;
-use Orchestra\Testbench\TestCase;
 
 /**
  * Class BaseValidatorTestCase
@@ -16,21 +17,11 @@ class BaseValidatorTestCase extends TestCase
      */
     protected $validator;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
+        
         $this->validator = $this->app['validator'];
-    }
-
-    /**
-     * Load the custom Service Provider class
-     *
-     * @param \Illuminate\Foundation\Application $app
-     * @return array
-     */
-    protected function getPackageProviders($app)
-    {
-        return [ServiceProvider::class];
     }
 
     /**
