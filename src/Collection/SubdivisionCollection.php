@@ -2,93 +2,112 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
+use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
 use Illuminate\Support\Collection;
 
 class SubdivisionCollection extends Collection
 {
-	// /**
-	//  * @var array|mixed
-	//  */
-	// protected $countryCode;
-	//
-	// /**
-	//  * @var string
-	//  */
-	// protected $parentId;
-	//
-	// /**
-	//  * @var string|null
-	//  */
-	// protected $locale = null;
-	//
-	// /**
-	//  * @var SubdivisionRepository
-	//  */
-	// protected $subdivisionRepository;
-	//
-	// /**
-	//  * @return array|mixed
-	//  */
-	// public function getCountryCode()
-	// {
-	// 	return $this->countryCode;
-	// }
-	//
-	// /**
-	//  * @param array|mixed $countryCode
-	//  */
-	// public function setCountryCode($countryCode)
-	// {
-	// 	$this->countryCode = $countryCode;
-	// }
-	//
-	// /**
-	//  * @return mixed
-	//  */
-	// public function getParentId()
-	// {
-	// 	return $this->parentId;
-	// }
-	//
-	// /**
-	//  * @param mixed $parentId
-	//  */
-	// public function setParentId($parentId)
-	// {
-	// 	$this->parentId = $parentId;
-	// }
-	//
-	// /**
-	//  * @return null
-	//  */
-	// public function getLocale()
-	// {
-	// 	return $this->locale;
-	// }
-	//
-	// /**
-	//  * @param null $locale
-	//  */
-	// public function setLocale($locale)
-	// {
-	// 	$this->locale = $locale;
-	// }
-	//
-	// /**
-	//  * @return mixed
-	//  */
-	// public function getSubdivisionRepository()
-	// {
-	// 	return $this->subdivisionRepository;
-	// }
-	//
-	// /**
-	//  * @param mixed $subdivisionRepository
-	//  */
-	// public function setSubdivisionRepository(SubdivisionRepository $subdivisionRepository)
-	// {
-	// 	$this->subdivisionRepository = $subdivisionRepository;
-	// }
+	/**
+	 * @var \Galahad\LaravelAddressing\Entity\Country
+	 */
+	protected $country;
+	
+	/**
+	 * @var \Galahad\LaravelAddressing\Entity\Subdivision
+	 */
+	protected $parent;
+	
+	public function __construct(Country $country, Subdivision $parent = null, $items = [])
+	{
+		parent::__construct($items);
+		
+		$this->country = $country;
+		$this->parent = $parent;
+	}
+	
+	public function getParent() : ?Subdivision
+	{
+		return $this->parent;
+	}
+	
+	public function getCountry() : Country
+	{
+		return $this->country;
+	}
+	
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\Subdivision[]
+	 */
+	public function all() : array
+	{
+		return parent::all();
+	}
+	
+	public function get($key, $default = null) : ?Subdivision
+	{
+		return parent::get($key, $default);
+	}
+	
+	public function keys() : Collection
+	{
+		return new Collection(array_keys($this->items));
+	}
+	
+	public function last(callable $callback = null, $default = null) : ?Subdivision
+	{
+		return parent::last($callback, $default);
+	}
+	
+	public function pop() : ?Subdivision
+	{
+		return parent::pop();
+	}
+	
+	/**
+	 * @param \Galahad\LaravelAddressing\Entity\Subdivision $value
+	 * @param null $key
+	 * @return \Galahad\LaravelAddressing\Collection\SubdivisionCollection
+	 */
+	public function prepend($value, $key = null) : self
+	{
+		return parent::prepend($value, $key);
+	}
+	
+	public function pull($key, $default = null) : ?Subdivision
+	{
+		return parent::pull($key, $default);
+	}
+	
+	/**
+	 * @param mixed $key
+	 * @param Subdivision $value
+	 * @return \Galahad\LaravelAddressing\Collection\SubdivisionCollection
+	 */
+	public function put($key, $value) : self
+	{
+		return parent::put($key, $value);
+	}
+	
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\Subdivision[]
+	 */
+	public function toArray() : array
+	{
+		return parent::toArray();
+	}
+	
+	public function offsetGet($key) : ?Subdivision
+	{
+		return parent::offsetGet($key);
+	}
+	
+	/**
+	 * @param mixed $key
+	 * @param \Galahad\LaravelAddressing\Entity\Subdivision $value
+	 */
+	public function offsetSet($key, $value) : void
+	{
+		parent::offsetSet($key, $value);
+	}
 }

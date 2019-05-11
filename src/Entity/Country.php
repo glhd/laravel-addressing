@@ -65,7 +65,7 @@ class Country
 		return $this->addressFormat()->getAdministrativeAreaType();
 	}
 	
-	public function getLocalityLabel() : string
+	public function getLocalityLabel() : ?string
 	{
 		return $this->addressFormat()->getLocalityType();
 	}
@@ -73,7 +73,7 @@ class Country
 	public function administrativeAreas() : SubdivisionCollection
 	{
 		if (null === $this->administrative_areas) {
-			$this->administrative_areas = new SubdivisionCollection();
+			$this->administrative_areas = new SubdivisionCollection($this);
 			
 			$subdivisions = $this->subdivision_repository->getAll([$this->country->getCountryCode()]);
 			foreach ($subdivisions as $code => $subdivision) {

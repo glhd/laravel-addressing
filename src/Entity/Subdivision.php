@@ -99,13 +99,34 @@ class Subdivision
 	public function getChildren() : SubdivisionCollection
 	{
 		if (null === $this->children) {
-			$this->children = new SubdivisionCollection();
+			$this->children = new SubdivisionCollection($this->country, $this);
 			foreach ($this->subdivision->getChildren() as $child) {
 				$this->children->put($child->getCode(), new Subdivision($this->country, $child, $this));
 			}
 		}
 		
 		return $this->children;
+	}
+	
+	public function is(Subdivision $subdivision = null) : bool
+	{
+		if (null === $subdivision) {
+			return false;
+		}
+		
+		if (!$this->getCode() === $subdivision->getCode()) {
+			return false;
+		}
+		
+		if (!$this->getCountry()->is($subdivision->getCountry())) {
+			return false;
+		}
+		
+		if ($parent = $this->getParent()) {
+			return $parent->is($subdivision->getParent());
+		}
+		
+		return $parent === $subdivision->getParent();
 	}
 	
 	public function __call($name, $arguments)

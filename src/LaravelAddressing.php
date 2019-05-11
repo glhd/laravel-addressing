@@ -8,7 +8,6 @@ use CommerceGuys\Addressing\Exception\UnknownCountryException;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
-use Illuminate\Support\Collection;
 
 class LaravelAddressing
 {
