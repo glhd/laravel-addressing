@@ -2,10 +2,6 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
-// use CommerceGuys\Addressing\Country\Country as BaseCountry;
-// use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
-// use Galahad\LaravelAddressing\LaravelAddressing;
-
 // TODO: decide on ->getX() or just ->x()
 
 use CommerceGuys\Addressing\AddressFormat\AddressFormat;
@@ -32,6 +28,16 @@ class Country
 	protected $address_format_repository;
 	
 	/**
+	 * @var \Galahad\LaravelAddressing\Collection\SubdivisionCollection
+	 */
+	protected $administrative_areas;
+	
+	/**
+	 * @var \CommerceGuys\Addressing\AddressFormat\AddressFormat
+	 */
+	protected $address_format;
+	
+	/**
 	 * Country constructor.
 	 *
 	 * @param \CommerceGuys\Addressing\Country\Country $country
@@ -47,7 +53,11 @@ class Country
 	
 	public function addressFormat() : AddressFormat
 	{
-		return $this->address_format_repository->get($this->country->getCountryCode());
+		if (null === $this->address_format) {
+			$this->address_format = $this->address_format_repository->get($this->country->getCountryCode());
+		}
+		
+		return $this->address_format;
 	}
 	
 	public function getAdministrativeAreaLabel() : ?string
@@ -60,11 +70,18 @@ class Country
 		return $this->addressFormat()->getLocalityType();
 	}
 	
-	public function subdivisions() : SubdivisionCollection
+	public function administrativeAreas() : SubdivisionCollection
 	{
-		return new SubdivisionCollection(
-			$this->subdivision_repository->getAll([$this->country->getCountryCode()])
-		);
+		if (null === $this->administrative_areas) {
+			$this->administrative_areas = new SubdivisionCollection();
+			
+			$subdivisions = $this->subdivision_repository->getAll([$this->country->getCountryCode()]);
+			foreach ($subdivisions as $code => $subdivision) {
+				$this->administrative_areas->put($code, new Subdivision($this, $subdivision));
+			}
+		}
+		
+		return $this->administrative_areas;
 	}
 	
 	/**
@@ -72,35 +89,27 @@ class Country
 	 *
 	 * @return array
 	 */
-	public function subdivisionList() : array
+	public function administrativeAreaList() : array
 	{
-		return $this->subdivisions()
-			->mapWithKeys(static function(Subdivision $subdivision) {
-				return [$subdivision->getCode() => $subdivision];
-			})
-			->toArray();
+		return $this->administrativeAreas()->toArray();
 	}
 	
 	/**
 	 * @param string $code
 	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
 	 */
-	public function subdivision($code) : ?Subdivision
+	public function administrativeArea($code) : ?Subdivision
 	{
-		if ($base = $this->subdivision_repository->get($code, [$this->country->getCountryCode()])) {
-			return new Subdivision($base);
-		}
-		
-		return null;
+		return $this->administrativeAreas()->get($code);
 	}
 	
 	/**
 	 * @param string $name
 	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
 	 */
-	public function subdivisionByName($name) : ?Subdivision
+	public function administrativeAreaByName($name) : ?Subdivision
 	{
-		return $this->subdivisions()
+		return $this->administrativeAreas()
 			->first(static function(Subdivision $subdivision) use ($name) {
 				return 0 === strcasecmp($subdivision->getName(), $name);
 			});

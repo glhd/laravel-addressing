@@ -77,30 +77,30 @@ class CountryEntityTest extends TestCase
 		$this->assertEquals('en', $this->country->getLocale());
 	}
 	
-	public function test_it_should_be_able_to_list_its_subdivisions() : void
+	public function test_it_should_be_able_to_list_its_administrative_areas() : void
 	{
-		foreach ($this->country->subdivisions() as $administrative_area) {
+		foreach ($this->country->administrativeAreas() as $administrative_area) {
 			/** @var Subdivision $administrative_area */
 			$this->assertInstanceOf(Subdivision::class, $administrative_area);
 			$this->assertContains($administrative_area->getCode(), $this->test_state_codes);
 		}
 	}
 	
-	public function test_it_should_be_able_to_load_a_specific_subdivision() : void
+	public function test_it_should_be_able_to_load_a_specific_administrative_area() : void
 	{
 		foreach ($this->test_state_codes as $code) {
-			$this->assertInstanceOf(Subdivision::class, $this->country->subdivision($code));
+			$this->assertInstanceOf(Subdivision::class, $this->country->administrativeArea($code));
 		}
 	}
 	
-	public function test_it_returns_null_on_invalid_subdivisions() : void
+	public function test_it_returns_null_on_invalid_administrative_areas() : void
 	{
-		$this->assertNull($this->country->subdivision('XX'));
+		$this->assertNull($this->country->administrativeArea('XX'));
 	}
 	
-	public function test_a_subdivision_can_be_loaded_by_name() : void
+	public function test_a_administrative_area_can_be_loaded_by_name() : void
 	{
-		$this->assertInstanceOf(Subdivision::class, $this->country->subdivisionByName('Pennsylvania'));
+		$this->assertInstanceOf(Subdivision::class, $this->country->administrativeAreaByName('Pennsylvania'));
 	}
 	
 	public function test_it_identifies_the_administrative_area_and_locality_names() : void

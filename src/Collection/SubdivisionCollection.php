@@ -8,16 +8,6 @@ use Illuminate\Support\Collection;
 
 class SubdivisionCollection extends Collection
 {
-	public function __construct($items = [])
-	{
-		parent::__construct($items);
-		
-		foreach ($this->items as $key => $item) {
-			if ($item instanceof BaseSubdivision) {
-				$this->items[$key] = new Subdivision($item);
-			}
-		}
-	}
 	// /**
 	//  * @var array|mixed
 	//  */

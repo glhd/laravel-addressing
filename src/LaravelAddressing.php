@@ -114,11 +114,7 @@ class LaravelAddressing
 	
 	public function countryList() : array
 	{
-		return $this->countries()
-			->mapWithKeys(static function(Country $country) {
-				return [$country->getCountryCode() => $country];
-			})
-			->toArray();
+		return $this->countries()->toArray();
 	}
 	
 	public function countryByName($name) : ?Country
