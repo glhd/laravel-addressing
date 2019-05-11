@@ -40,6 +40,8 @@ class AddressingServiceProvider extends ServiceProvider
 				$fallback_locale
 			);
 		});
+		
+		$this->registerValidators();
 	}
 	
 	/**

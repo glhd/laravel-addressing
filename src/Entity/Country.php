@@ -100,7 +100,13 @@ class Country
 	 */
 	public function administrativeArea($code) : ?Subdivision
 	{
-		return $this->administrativeAreas()->get($code);
+		// First try on the assumption that it's a 2-letter upper case code.
+		// If that doesn't work, do a case-insensitive lookup.
+		
+		return $this->administrativeAreas()->get(strtoupper($code))
+			?? $this->administrativeAreas()->first(static function(Subdivision $subdivision) use ($code) {
+				return 0 === strcasecmp($subdivision->getCode(), $code);
+			});
 	}
 	
 	/**
