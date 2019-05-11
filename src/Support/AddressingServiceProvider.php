@@ -26,7 +26,7 @@ class AddressingServiceProvider extends ServiceProvider
 	
 	public function register() : void
 	{
-		$this->app->singleton('galahad.laravel-addressing', function(Application $app) {
+		$this->app->singleton(LaravelAddressing::class, function(Application $app) {
 			$locale = $app['config']->get('app.locale', 'en');
 			$fallback_locale = $app['config']->get('app.fallback_locale', 'en');
 			
@@ -40,8 +40,6 @@ class AddressingServiceProvider extends ServiceProvider
 				$fallback_locale
 			);
 		});
-		
-		$this->app->alias('galahad.laravel-addressing', LaravelAddressing::class);
 	}
 	
 	/**

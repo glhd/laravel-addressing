@@ -6,7 +6,9 @@ use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
 use CommerceGuys\Addressing\Exception\UnknownCountryException;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
+use Illuminate\Support\Collection;
 
 class LaravelAddressing
 {
@@ -36,6 +38,16 @@ class LaravelAddressing
 	protected $address_format_repository;
 	
 	/**
+	 * @var \Galahad\LaravelAddressing\Collection\CountryCollection
+	 */
+	protected $countries;
+	
+	/**
+	 * @var bool
+	 */
+	protected $all_countries_loaded = false;
+	
+	/**
 	 * Constructor method
 	 *
 	 * @param \CommerceGuys\Addressing\Country\CountryRepositoryInterface $country_repository
@@ -52,164 +64,73 @@ class LaravelAddressing
 		
 		$this->locale = $locale;
 		$this->fallback_locale = $fallback_locale;
+		
+		$this->countries = new CountryCollection();
 	}
 	
 	/**
 	 * Get a country by code
 	 *
-	 * @param string $iso_alpha2_code
+	 * @param string $country_code
 	 * @param string|null $locale
 	 * @return \Galahad\LaravelAddressing\Entity\Country
 	 */
-	public function country($iso_alpha2_code, $locale = null) : ?Country
+	public function country($country_code, $locale = null) : ?Country
 	{
-		try {
-			return new Country(
-				$this->country_repository->get($iso_alpha2_code, $locale ?? $this->locale),
-				$this->subdivision_repository,
-				$this->address_format_repository
-			);
-		} catch (UnknownCountryException $exception) {
-			return null;
+		$country_code = strtoupper($country_code);
+		
+		if (!$this->countries->has($country_code)) {
+			try {
+				$this->countries->put($country_code, new Country(
+					$this->country_repository->get($country_code, $locale ?? $this->locale),
+					$this->subdivision_repository,
+					$this->address_format_repository
+				));
+			} catch (UnknownCountryException $exception) {
+				//
+			}
 		}
+		
+		return $this->countries->get($country_code, null);
 	}
-	//
-	// /**
-	//  * Get a Country instance by name
-	//  *
-	//  * @param string $countryName
-	//  * @return Country
-	//  * @throws UnknownCountryException
-	//  */
-	// public function countryByName($countryName)
-	// {
-	// 	$key = strtolower($countryName);
-	// 	$inverseCountryList = array_change_key_case(array_flip($this->getCountryList()), CASE_LOWER);
-	//
-	// 	if (isset($inverseCountryList[$key])) {
-	// 		$countryCode = $inverseCountryList[$key];
-	//
-	// 		return $this->country($countryCode);
-	// 	}
-	//
-	// 	throw new UnknownCountryException();
-	// }
-	//
-	// /**
-	//  * Find a country by code or name
-	//  *
-	//  * @param string $codeOrName
-	//  * @return CountryInterface|Country
-	//  * @throws UnknownCountryException
-	//  */
-	// public function findCountry($codeOrName)
-	// {
-	// 	try {
-	// 		return $this->country($codeOrName);
-	// 	} catch (UnknownCountryException $exception) {
-	// 		return $this->countryByName($codeOrName);
-	// 	}
-	// }
-	//
-	// /**
-	//  * Return a country collection with all countries
-	//  *
-	//  * @return Collection\CountryCollection
-	//  */
-	// public function countries()
-	// {
-	// 	return $this->getCountryRepository()->getAll($this->locale, $this->fallback_locale);
-	// }
-	//
-	// /**
-	//  * Get a list of all countries as a array list
-	//  *
-	//  * @return array
-	//  */
-	// public function countriesList()
-	// {
-	// 	return $this->getCountryList();
-	// }
-	//
-	// /**
-	//  * @return string
-	//  */
-	// public function getLocale()
-	// {
-	// 	return $this->locale;
-	// }
-	//
-	// /**
-	//  * @param string $locale
-	//  */
-	// public function setLocale($locale)
-	// {
-	// 	$this->locale = $locale;
-	// }
-	//
-	// /**
-	//  * @return string
-	//  */
-	// public function getFallbackLocale()
-	// {
-	// 	return $this->fallback_locale;
-	// }
-	//
-	// /**
-	//  * @param string $locale
-	//  */
-	// public function setFallbackLocale($locale)
-	// {
-	// 	$this->fallback_locale = $locale;
-	// }
-	//
-	// /**
-	//  * @return CountryRepository
-	//  */
-	// public function getCountryRepository()
-	// {
-	// 	if (!$this->country_repository) {
-	// 		$this->country_repository = new CountryRepository($this);
-	// 	}
-	//
-	// 	return $this->country_repository;
-	// }
-	//
-	// /**
-	//  * @return AdministrativeAreaRepository
-	//  */
-	// public function getAdministrativeAreaRepository()
-	// {
-	// 	if (!$this->administrative_area_repository) {
-	// 		$this->administrative_area_repository = new AdministrativeAreaRepository($this);
-	// 	}
-	//
-	// 	return $this->administrative_area_repository;
-	// }
-	//
-	// /**
-	//  * @return \Galahad\LaravelAddressing\Repository\AddressFormatRepository
-	//  */
-	// public function getAddressFormatRepository()
-	// {
-	// 	if (!$this->address_format_repository) {
-	// 		$this->address_format_repository = new AddressFormatRepository($this);
-	// 	}
-	//
-	// 	return $this->address_format_repository;
-	// }
-	//
-	// /**
-	//  * Get the country list if not loaded yet
-	//  *
-	//  * @return array
-	//  */
-	// protected function getCountryList()
-	// {
-	// 	if (!$this->country_list) {
-	// 		$this->country_list = $this->getCountryRepository()->getList($this->locale, $this->fallback_locale);
-	// 	}
-	//
-	// 	return $this->country_list;
-	// }
+	
+	public function countries($locale = null) : CountryCollection
+	{
+		if (!$this->all_countries_loaded) {
+			$all_countries = $this->country_repository->getAll($locale ?? $this->locale);
+			foreach ($all_countries as $country_code => $base_country) {
+				$this->countries->put($country_code, new Country(
+					$base_country,
+					$this->subdivision_repository,
+					$this->address_format_repository
+				));
+			}
+			
+			$this->all_countries_loaded = true;
+		}
+		
+		return $this->countries;
+	}
+	
+	public function countryList() : array
+	{
+		return $this->countries()
+			->mapWithKeys(static function(Country $country) {
+				return [$country->getCountryCode() => $country];
+			})
+			->toArray();
+	}
+	
+	public function countryByName($name) : ?Country
+	{
+		return $this->countries()
+			->first(static function(Country $country) use ($name) {
+				return 0 === strcasecmp($country->getName(), $name);
+			});
+	}
+	
+	public function findCountry($input) : ?Country
+	{
+		return $this->country($input) ?? $this->countryByName($input);
+	}
 }

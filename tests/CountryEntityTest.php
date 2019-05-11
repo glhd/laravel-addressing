@@ -105,7 +105,7 @@ class CountryEntityTest extends TestCase
 	
 	public function test_it_identifies_the_administrative_area_and_locality_names() : void
 	{
-		$this->assertEquals('state', $this->country->getAdministrativeAreaType());
-		$this->assertEquals('city', $this->country->getLocalityType());
+		$this->assertEquals('state', $this->country->getAdministrativeAreaLabel());
+		$this->assertEquals('city', $this->country->getLocalityLabel());
 	}
 }

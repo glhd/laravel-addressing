@@ -19,6 +19,7 @@ composer require galahad/laravel-addressing
  - getAdministrativeArea/etc as well
  - Things have been moved around
  - findAdministrativeArea is removed
+ - Country::getPostalCodePattern -> Country::addressFormat::getPostalCodePattern
 
 ### Country
 

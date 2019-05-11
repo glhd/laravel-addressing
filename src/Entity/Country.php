@@ -6,6 +6,8 @@ namespace Galahad\LaravelAddressing\Entity;
 // use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 // use Galahad\LaravelAddressing\LaravelAddressing;
 
+// TODO: decide on ->getX() or just ->x()
+
 use CommerceGuys\Addressing\AddressFormat\AddressFormat;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\Country as BaseCountry;
@@ -48,12 +50,12 @@ class Country
 		return $this->address_format_repository->get($this->country->getCountryCode());
 	}
 	
-	public function getAdministrativeAreaType() : string
+	public function getAdministrativeAreaLabel() : ?string
 	{
 		return $this->addressFormat()->getAdministrativeAreaType();
 	}
 	
-	public function getLocalityType() : string
+	public function getLocalityLabel() : string
 	{
 		return $this->addressFormat()->getLocalityType();
 	}
@@ -79,6 +81,10 @@ class Country
 			->toArray();
 	}
 	
+	/**
+	 * @param string $code
+	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
+	 */
 	public function subdivision($code) : ?Subdivision
 	{
 		if ($base = $this->subdivision_repository->get($code, [$this->country->getCountryCode()])) {
@@ -88,12 +94,25 @@ class Country
 		return null;
 	}
 	
+	/**
+	 * @param string $name
+	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
+	 */
 	public function subdivisionByName($name) : ?Subdivision
 	{
 		return $this->subdivisions()
 			->first(static function(Subdivision $subdivision) use ($name) {
 				return 0 === strcasecmp($subdivision->getName(), $name);
 			});
+	}
+	
+	public function is(Country $country = null) : bool
+	{
+		if (null === $country) {
+			return false;
+		}
+		
+		return $this->getCountryCode() === $country->getCountryCode();
 	}
 	
 	public function getCountryCode() : string
@@ -138,23 +157,4 @@ class Country
 	{
 		return $this->country->$name(...$arguments);
 	}
-	
-	// /**
-	//  * @return null|string
-	//  */
-	// public function getPostalCodePattern()
-	// {
-	// 	return $this->addressing->getAddressFormatRepository()->get($this->getCountryCode())->getPostalCodePattern();
-	// }
-	//
-	// /**
-	//  * @param BaseCountry $baseCountry
-	//  */
-	// protected function copyPropertiesFromBaseCountry(BaseCountry $baseCountry)
-	// {
-	// 	$vars = get_object_vars($baseCountry);
-	// 	foreach ($vars as $key => $value) {
-	// 		$this->$key = $value;
-	// 	}
-	// }
 }
