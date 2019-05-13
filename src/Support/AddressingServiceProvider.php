@@ -10,8 +10,6 @@ use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Support\Http\AdministrativeAreasController;
 use Galahad\LaravelAddressing\Support\Http\Controller;
 use Galahad\LaravelAddressing\Support\Http\CountriesController;
-use Galahad\LaravelAddressing\Support\Validation\Rules\CountryCodeRule;
-use Galahad\LaravelAddressing\Support\Validation\Rules\CountryNameRule;
 use Galahad\LaravelAddressing\Support\Validation\Validator;
 use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;

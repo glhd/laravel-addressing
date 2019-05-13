@@ -12,8 +12,8 @@ use Galahad\LaravelAddressing\Support\Validation\Rules\CountryNameRule;
 use Galahad\LaravelAddressing\Support\Validation\Rules\LooseAdministrativeAreaRule;
 use Galahad\LaravelAddressing\Support\Validation\Rules\LooseCountryRule;
 use Galahad\LaravelAddressing\Support\Validation\Rules\PostalCodeRule;
-use Illuminate\Validation\Validator as BaseValidator;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Validator as BaseValidator;
 
 class Validator
 {

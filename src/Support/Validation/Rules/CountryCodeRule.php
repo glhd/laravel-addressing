@@ -2,7 +2,6 @@
 
 namespace Galahad\LaravelAddressing\Support\Validation\Rules;
 
-use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -26,7 +25,7 @@ class CountryCodeRule implements Rule
 	/**
 	 * @inheritDoc
 	 */
-	public function passes($attribute, $value) :  bool
+	public function passes($attribute, $value) : bool
 	{
 		return null !== $this->addressing->country($value);
 	}

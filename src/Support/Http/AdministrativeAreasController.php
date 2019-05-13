@@ -2,7 +2,6 @@
 
 namespace Galahad\LaravelAddressing\Support\Http;
 
-use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
 use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Config\Repository;

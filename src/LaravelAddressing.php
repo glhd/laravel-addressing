@@ -70,6 +70,8 @@ class LaravelAddressing
 	/**
 	 * Get a country by 2-letter ISO code
 	 *
+	 * @todo The locale parameter isn't always applied
+	 *
 	 * @param string $country_code
 	 * @param string|null $locale
 	 * @return \Galahad\LaravelAddressing\Entity\Country
@@ -95,6 +97,8 @@ class LaravelAddressing
 	
 	/**
 	 * Get all countries as a collection
+	 *
+	 * @todo The locale parameter is only applied the first time
 	 *
 	 * @param string|null $locale
 	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
