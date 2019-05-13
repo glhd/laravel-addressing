@@ -83,16 +83,6 @@ class Country
 	}
 	
 	/**
-	 * Get an array of subdivisions in code => Entity form
-	 *
-	 * @return array
-	 */
-	public function administrativeAreaList() : array
-	{
-		return $this->administrativeAreas()->toArray();
-	}
-	
-	/**
 	 * @param string $code
 	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
 	 */

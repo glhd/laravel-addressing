@@ -68,6 +68,13 @@ class CountryCollection extends Collection
 		return parent::toArray();
 	}
 	
+	public function toOptionsList() : array
+	{
+		return $this->mapWithKeys(static function(Country $country) {
+			return [$country->getCountryCode() => $country->getName()];
+		})->toArray();
+	}
+	
 	public function offsetGet($key) : ?Country
 	{
 		return parent::offsetGet($key);

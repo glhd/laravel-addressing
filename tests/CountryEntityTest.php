@@ -5,6 +5,7 @@ namespace Galahad\LaravelAddressing\Tests;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
 use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
+use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
 
@@ -81,7 +82,7 @@ class CountryEntityTest extends TestCase
 	{
 		foreach ($this->country->administrativeAreas() as $administrative_area) {
 			/** @var Subdivision $administrative_area */
-			$this->assertInstanceOf(Subdivision::class, $administrative_area);
+			$this->assertInstanceOf(AdministrativeArea::class, $administrative_area);
 			$this->assertContains($administrative_area->getCode(), $this->test_state_codes);
 		}
 	}
@@ -89,7 +90,7 @@ class CountryEntityTest extends TestCase
 	public function test_it_should_be_able_to_load_a_specific_administrative_area() : void
 	{
 		foreach ($this->test_state_codes as $code) {
-			$this->assertInstanceOf(Subdivision::class, $this->country->administrativeArea($code));
+			$this->assertInstanceOf(AdministrativeArea::class, $this->country->administrativeArea($code));
 		}
 	}
 	
@@ -100,7 +101,7 @@ class CountryEntityTest extends TestCase
 	
 	public function test_a_administrative_area_can_be_loaded_by_name() : void
 	{
-		$this->assertInstanceOf(Subdivision::class, $this->country->administrativeAreaByName('Pennsylvania'));
+		$this->assertInstanceOf(AdministrativeArea::class, $this->country->administrativeAreaByName('Pennsylvania'));
 	}
 	
 	public function test_it_identifies_the_administrative_area_and_locality_names() : void
