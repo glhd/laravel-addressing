@@ -2,6 +2,7 @@
 
 namespace Galahad\LaravelAddressing\Support;
 
+use Closure;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
 use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
@@ -9,13 +10,17 @@ use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Support\Http\AdministrativeAreasController;
 use Galahad\LaravelAddressing\Support\Http\Controller;
 use Galahad\LaravelAddressing\Support\Http\CountriesController;
+use Galahad\LaravelAddressing\Support\Validation\Rules\CountryCodeRule;
+use Galahad\LaravelAddressing\Support\Validation\Rules\CountryNameRule;
+use Galahad\LaravelAddressing\Support\Validation\Validator;
 use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\Registrar;
-use Illuminate\Routing\Route;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\ServiceProvider;
 
 class AddressingServiceProvider extends ServiceProvider
@@ -86,28 +91,22 @@ class AddressingServiceProvider extends ServiceProvider
 	}
 	
 	/**
-	 * Register all custom validators
+	 * Register our custom validators
 	 */
-	protected function registerValidators()
+	protected function registerValidators() : void
 	{
-		$this->app->resolving('validator', function($validator, $app) {
-			// Country validators
-			$validator->extend('country_code', CountryValidator::class.'@validateCountryCode');
-			$validator->extend('country_name', CountryValidator::class.'@validateCountryName');
+		$this->app->resolving(Factory::class, static function(Factory $validation_factory, Container $app) {
+			$validator = new Validator($app->make(LaravelAddressing::class));
 			
-			// Administrative Area validators
-			$validator->extend(
-				'administrative_area_code',
-				AdministrativeAreaValidator::class.'@validateAdministrativeAreaCode'
-			);
-			$validator->extend(
-				'administrative_area_name',
-				AdministrativeAreaValidator::class.'@validateAdministrativeAreaName'
-			);
-			$validator->extend('administrative_area', AdministrativeAreaValidator::class.'@validateAdministrativeArea');
+			$validation_factory->extend('country', Closure::fromCallable([$validator, 'looseCountry']));
+			$validation_factory->extend('country_code', Closure::fromCallable([$validator, 'countryCode']));
+			$validation_factory->extend('country_name', Closure::fromCallable([$validator, 'countryName']));
 			
-			// Postal Code validator
-			$validator->extend('postal_code', PostalCodeValidator::class.'@validatePostalCode');
+			$validation_factory->extend('administrative_area', Closure::fromCallable([$validator, 'looseAdministrativeArea']));
+			$validation_factory->extend('administrative_area_code', Closure::fromCallable([$validator, 'administrativeArea']));
+			$validation_factory->extend('administrative_area_name', Closure::fromCallable([$validator, 'administrativeAreaName']));
+			
+			$validation_factory->extend('postal_code', Closure::fromCallable([$validator, 'postalCode']));
 		});
 	}
 }

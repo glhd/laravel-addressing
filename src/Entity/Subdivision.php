@@ -2,6 +2,7 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
+use CommerceGuys\Addressing\Subdivision\PatternType;
 use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
 use Galahad\LaravelAddressing\Collection\SubdivisionCollection;
 
@@ -81,9 +82,10 @@ class Subdivision
 			?? $this->country->addressFormat()->getPostalCodePattern();
 	}
 	
-	public function getPostalCodePatternType() : ?string
+	public function getPostalCodePatternType() : string
 	{
-		return $this->subdivision->getPostalCodePatternType();
+		return $this->subdivision->getPostalCodePatternType()
+			?? PatternType::FULL;
 	}
 	
 	public function getLocale() : string
