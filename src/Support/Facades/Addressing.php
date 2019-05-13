@@ -1,7 +1,6 @@
 <?php
 
 /** @noinspection SenselessProxyMethodInspection */
-
 /** @noinspection ReturnTypeCanBeDeclaredInspection */
 
 namespace Galahad\LaravelAddressing\Support\Facades;

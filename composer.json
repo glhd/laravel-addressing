@@ -53,10 +53,10 @@
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Galahad\\LaravelAddressing\\ServiceProvider"
+				"Galahad\\LaravelAddressing\\Support\\AddressingServiceProvider"
 			],
 			"aliases": {
-				"Addressing": "Galahad\\LaravelAddressing\\Facades\\Addressing"
+				"Addressing": "Galahad\\LaravelAddressing\\Support\\Facades\\Addressing"
 			}
 		}
 	}
