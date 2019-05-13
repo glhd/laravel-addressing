@@ -4,6 +4,7 @@ namespace Galahad\LaravelAddressing\Collection;
 
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class SubdivisionCollection extends Collection
@@ -18,22 +19,28 @@ class SubdivisionCollection extends Collection
 	 */
 	protected $parent;
 	
-	public function __construct(Country $country, Subdivision $parent = null, $items = [])
+	public function setCountry(Country $country) : self
 	{
-		parent::__construct($items);
-		
 		$this->country = $country;
-		$this->parent = $parent;
-	}
-	
-	public function getParent() : ?Subdivision
-	{
-		return $this->parent;
+		
+		return $this;
 	}
 	
 	public function getCountry() : Country
 	{
 		return $this->country;
+	}
+	
+	public function setParent(Subdivision $parent) : self
+	{
+		$this->parent = $parent;
+		
+		return $this;
+	}
+	
+	public function getParent() : ?Subdivision
+	{
+		return $this->parent;
 	}
 	
 	/**

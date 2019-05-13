@@ -73,7 +73,7 @@ class Country
 	public function administrativeAreas() : SubdivisionCollection
 	{
 		if (null === $this->administrative_areas) {
-			$this->administrative_areas = new SubdivisionCollection($this);
+			$this->administrative_areas = SubdivisionCollection::make()->setCountry($this);
 			
 			$subdivisions = $this->subdivision_repository->getAll([$this->country->getCountryCode()]);
 			foreach ($subdivisions as $code => $subdivision) {

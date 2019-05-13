@@ -47,7 +47,7 @@ class LaravelAddressing
 	protected $all_countries_loaded = false;
 	
 	/**
-	 * Constructor method
+	 * Constructor
 	 *
 	 * @param \CommerceGuys\Addressing\Country\CountryRepositoryInterface $country_repository
 	 * @param \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface $subdivision_repository
@@ -68,7 +68,7 @@ class LaravelAddressing
 	}
 	
 	/**
-	 * Get a country by code
+	 * Get a country by 2-letter ISO code
 	 *
 	 * @param string $country_code
 	 * @param string|null $locale
@@ -93,6 +93,12 @@ class LaravelAddressing
 		return $this->countries->get($country_code, null);
 	}
 	
+	/**
+	 * Get all countries as a collection
+	 *
+	 * @param string|null $locale
+	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
+	 */
 	public function countries($locale = null) : CountryCollection
 	{
 		if (!$this->all_countries_loaded) {
@@ -111,11 +117,12 @@ class LaravelAddressing
 		return $this->countries;
 	}
 	
-	public function countryList() : array
-	{
-		return $this->countries()->toArray();
-	}
-	
+	/**
+	 * Load a country by its full name
+	 *
+	 * @param string $name
+	 * @return \Galahad\LaravelAddressing\Entity\Country|null
+	 */
 	public function countryByName($name) : ?Country
 	{
 		return $this->countries()
@@ -124,6 +131,12 @@ class LaravelAddressing
 			});
 	}
 	
+	/**
+	 * Find a country, either by code or by name
+	 *
+	 * @param string $input
+	 * @return \Galahad\LaravelAddressing\Entity\Country|null
+	 */
 	public function findCountry($input) : ?Country
 	{
 		return $this->country($input) ?? $this->countryByName($input);

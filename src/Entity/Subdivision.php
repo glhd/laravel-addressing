@@ -99,7 +99,7 @@ class Subdivision
 	public function getChildren() : SubdivisionCollection
 	{
 		if (null === $this->children) {
-			$this->children = new SubdivisionCollection($this->country, $this);
+			$this->children = SubdivisionCollection::make()->setCountry($this->country)->setParent($this);
 			foreach ($this->subdivision->getChildren() as $child) {
 				$this->children->put($child->getCode(), new Subdivision($this->country, $child, $this));
 			}

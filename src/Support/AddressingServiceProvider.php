@@ -6,11 +6,16 @@ use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
 use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 use Galahad\LaravelAddressing\LaravelAddressing;
+use Galahad\LaravelAddressing\Support\Http\AdministrativeAreasController;
+use Galahad\LaravelAddressing\Support\Http\Controller;
+use Galahad\LaravelAddressing\Support\Http\CountriesController;
 use Galahad\LaravelAddressing\Validator\AdministrativeAreaValidator;
 use Galahad\LaravelAddressing\Validator\CountryValidator;
 use Galahad\LaravelAddressing\Validator\PostalCodeValidator;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AddressingServiceProvider extends ServiceProvider
@@ -18,15 +23,21 @@ class AddressingServiceProvider extends ServiceProvider
 	public function boot() : void
 	{
 		$this->bootRoutes();
-		$this->loadTranslationsFrom(__DIR__.'/../lang', 'laravel-addressing');
-		$this->publishes([
-			__DIR__.'/../config/addressing.php' => config_path('addressing.php'),
-		]);
+		
+		$this->loadTranslationsFrom(__DIR__.'/../../lang', 'laravel-addressing');
+		
+		if ($this->app->runningInConsole()) {
+			$this->publishes([
+				__DIR__.'/../../config/addressing.php' => $this->app->configPath('addressing.php'),
+			]);
+		}
 	}
 	
 	public function register() : void
 	{
-		$this->app->singleton(LaravelAddressing::class, function(Application $app) {
+		$this->mergeConfigFrom(__DIR__.'/../../config/addressing.php', 'addressing');
+		
+		$this->app->singleton(LaravelAddressing::class, static function(Application $app) {
 			$locale = $app['config']->get('app.locale', 'en');
 			$fallback_locale = $app['config']->get('app.fallback_locale', 'en');
 			
@@ -47,28 +58,27 @@ class AddressingServiceProvider extends ServiceProvider
 	/**
 	 * Boot routes if routing is supported
 	 */
-	protected function bootRoutes()
+	protected function bootRoutes() : void
 	{
-		if (method_exists($this->app, 'routesAreCached') && $this->app->routesAreCached()) {
+		if ($this->app->routesAreCached()) {
 			return;
 		}
 		
 		try {
-			$route = $this->app->make('router');
-			$prefix = config('addressing.route.prefix', 'galahad/addressing');
-			$route->group(['prefix' => $prefix], function($route) use ($prefix) {
-				$route->get('/{country}/administrative-areas', [
-					'as' => 'galahad.addressing.administrative-areas',
-					'uses' => '\\Galahad\\LaravelAddressing\\Controller@getAdministrativeAreas',
-				]);
-				$route->get('/{country}/{administrativeArea}/cities', [
-					'as' => 'galahad.addressing.cities',
-					'uses' => '\\Galahad\\LaravelAddressing\\Controller@getCities',
-				]);
-				$route->get('/countries', [
-					'as' => 'galahad.addressing.countries',
-					'uses' => '\\Galahad\\LaravelAddressing\\Controller@getCountries',
-				]);
+			/** @var \Illuminate\Contracts\Routing\Registrar $router */
+			$router = $this->app->make('router');
+			
+			/** @var \Illuminate\Contracts\Config\Repository $config */
+			$config = $this->app->make('config');
+			
+			$prefix = $config->get('addressing.route.prefix', 'galahad/addressing');
+			
+			$router->group(compact('prefix'), static function(Registrar $route) {
+				$route->get('/countries', CountriesController::class)
+					->name('galahad.addressing.countries');
+				
+				$route->get('/countries/{country_code}/administrative-areas', AdministrativeAreasController::class)
+					->name('galahad.addressing.administrative-areas');
 			});
 		} catch (BindingResolutionException $exception) {
 			// Skip routes if no router exists

@@ -15,11 +15,10 @@ composer require galahad/laravel-addressing
 ## Basic Usage
 
 ## 1.0 Breaking Changes
- - AdministrativeArea has been re-named Subdivision
- - getAdministrativeArea/etc as well
  - Things have been moved around
  - findAdministrativeArea is removed
  - Country::getPostalCodePattern -> Country::addressFormat::getPostalCodePattern
+ - *List has been removed
 
 ### Country
 
