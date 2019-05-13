@@ -7,6 +7,6 @@ return [
 	|--------------------------------------------------------------------------
 	*/
 	'route' => [
-		'prefix' => 'countries', // change this to whatever you'd like
+		'prefix' => 'galahad/addressing', // change this to whatever you'd like
 	],
 ];

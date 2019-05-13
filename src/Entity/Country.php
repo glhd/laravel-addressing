@@ -2,13 +2,11 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
-// TODO: decide on ->getX() or just ->x()
-
 use CommerceGuys\Addressing\AddressFormat\AddressFormat;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\Country as BaseCountry;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
-use Galahad\LaravelAddressing\Collection\SubdivisionCollection;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 
 class Country
 {
@@ -28,7 +26,7 @@ class Country
 	protected $address_format_repository;
 	
 	/**
-	 * @var \Galahad\LaravelAddressing\Collection\SubdivisionCollection
+	 * @var \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
 	 */
 	protected $administrative_areas;
 	
@@ -70,14 +68,14 @@ class Country
 		return $this->addressFormat()->getLocalityType();
 	}
 	
-	public function administrativeAreas() : SubdivisionCollection
+	public function administrativeAreas() : AdministrativeAreaCollection
 	{
 		if (null === $this->administrative_areas) {
-			$this->administrative_areas = SubdivisionCollection::make()->setCountry($this);
+			$this->administrative_areas = AdministrativeAreaCollection::make()->setCountry($this);
 			
 			$subdivisions = $this->subdivision_repository->getAll([$this->country->getCountryCode()]);
 			foreach ($subdivisions as $code => $subdivision) {
-				$this->administrative_areas->put($code, new Subdivision($this, $subdivision));
+				$this->administrative_areas->put($code, new AdministrativeArea($this, $subdivision));
 			}
 		}
 		
@@ -96,27 +94,27 @@ class Country
 	
 	/**
 	 * @param string $code
-	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
 	 */
-	public function administrativeArea($code) : ?Subdivision
+	public function administrativeArea($code) : ?AdministrativeArea
 	{
 		// First try on the assumption that it's a 2-letter upper case code.
 		// If that doesn't work, do a case-insensitive lookup.
 		
 		return $this->administrativeAreas()->get(strtoupper($code))
-			?? $this->administrativeAreas()->first(static function(Subdivision $subdivision) use ($code) {
+			?? $this->administrativeAreas()->first(static function(AdministrativeArea $subdivision) use ($code) {
 				return 0 === strcasecmp($subdivision->getCode(), $code);
 			});
 	}
 	
 	/**
 	 * @param string $name
-	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
 	 */
-	public function administrativeAreaByName($name) : ?Subdivision
+	public function administrativeAreaByName($name) : ?AdministrativeArea
 	{
 		return $this->administrativeAreas()
-			->first(static function(Subdivision $subdivision) use ($name) {
+			->first(static function(AdministrativeArea $subdivision) use ($name) {
 				return 0 === strcasecmp($subdivision->getName(), $name);
 			});
 	}
@@ -125,9 +123,9 @@ class Country
 	 * Find an administrative area, either by code or by name
 	 *
 	 * @param string $input
-	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
 	 */
-	public function findAdministrativeArea($input) : ?Subdivision
+	public function findAdministrativeArea($input) : ?AdministrativeArea
 	{
 		return $this->administrativeArea($input) ?? $this->administrativeAreaByName($input);
 	}

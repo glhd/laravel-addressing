@@ -15,8 +15,11 @@ composer require galahad/laravel-addressing
 ## Basic Usage
 
 ## 1.0 Breaking Changes
+ - Minimum supported Laravel version is now `5.7` and the minimum supported PHP version is now `7.1.3`
+ - `Galahad\LaravelAddressing\ServiceProvider` has been moved to `Galahad\LaravelAddressing\Support\AddressingServiceProvider`, so if you were manually registering the service provider, please update your `app.php` config file. 
+ - `Galahad\LaravelAddressing\Facades\Addressing` has been moved to `Galahad\LaravelAddressing\Support\Facades\Addressing`, so if you were manually registering the service provider, please update your `app.php` config file.
+ - The previously-deprecated `Galahad\LaravelAddressing\AddressFacade` has been removed 
  - Things have been moved around
- - findAdministrativeArea is removed
  - Country::getPostalCodePattern -> Country::addressFormat::getPostalCodePattern
  - *List has been removed
 
