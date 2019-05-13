@@ -21,13 +21,13 @@ composer require galahad/laravel-addressing
  - The previously-deprecated `Galahad\LaravelAddressing\AddressFacade` has been removed 
  - All custom repository classes have been removed. Instead, countries are accessed via the facade or `LaravelAddressing` class, and everything else is loaded via its parent.
  - Most custom methods have been removed from `CountryCollection` and `AdministrativeAreaCollection` (`getCountryCode()`, etc) in favor of just calling `getCountry()` on the collection and then accessing the Country entity directly.
- - `LaravelAddressing::getCountryList()` has been removed in favor of `countries()->toOptionsList()`
- - `Country::getAdministrativeAreasList()` has been removed in favor of `administrativeAreas()->toOptionsList()`
+ - `LaravelAddressing::getCountryList()` has been removed in favor of `countries()->toSelectArray()`
+ - `Country::getAdministrativeAreasList()` has been removed in favor of `administrativeAreas()->toSelectArray()`
  - `Entity\Country` no longer extends `CommerceGuys\Addressing\Country` (which is now a `final` class), and instead provides a similar/decorated API
  - `Entity\AdministrativeArea` no longer extends `CommerceGuys\Addressing\Subdivision\Subdivision`, and instead extends `Entity\Subdivision` and provides a similar/decorated API
- - Administrative areas are no longer keyed by compound codes (i.e. `US-PA`) and instead by their country-specific codes (i.e. `PA`) 
- - Country::getPostalCodePattern -> Country::addressFormat::getPostalCodePattern
- - *List has been removed
+ - Administrative areas are no longer keyed by compound codes (i.e. `US-PA`) and instead by their country-specific codes (i.e. `PA`)
+ - `Galahad\LaravelAddressing\Controller` has been split up into separate controllers. If you're extending this, please see the `Support/Http/` directory.
+ - `$country->getPostalCodePattern()` has been removed in favor of `$country->addressFormat()->getPostalCodePattern()`
 
 ### Country
 

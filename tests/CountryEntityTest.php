@@ -109,4 +109,11 @@ class CountryEntityTest extends TestCase
 		$this->assertEquals('state', $this->country->getAdministrativeAreaLabel());
 		$this->assertEquals('city', $this->country->getLocalityLabel());
 	}
+	
+	public function test_the_administrative_areas_can_be_converted_to_a_list_for_form_generation() : void
+	{
+		$list = $this->country->administrativeAreas()->toSelectArray();
+		
+		$this->assertEquals('Pennsylvania', $list['PA']);
+	}
 }

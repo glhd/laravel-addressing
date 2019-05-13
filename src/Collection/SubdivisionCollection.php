@@ -103,7 +103,7 @@ class SubdivisionCollection extends Collection
 		return parent::toArray();
 	}
 	
-	public function toOptionsList() : array
+	public function toSelectArray() : array
 	{
 		return $this->mapWithKeys(static function(Subdivision $subdivision) {
 			return [$subdivision->getCode() => $subdivision->getName()];
