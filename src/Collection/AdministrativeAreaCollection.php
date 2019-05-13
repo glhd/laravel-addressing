@@ -2,98 +2,99 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use CommerceGuys\Addressing\Repository\SubdivisionRepository;
-use Illuminate\Support\Collection;
+use Galahad\LaravelAddressing\Entity\Subdivision;
 
-/**
- * Class AdministrativeAreaCollection
- *
- * @package Galahad\LaravelAddressing\Collection
- * @author Junior Grossi <juniorgro@gmail.com>
- */
-class AdministrativeAreaCollection extends Collection
+class AdministrativeAreaCollection extends SubdivisionCollection
 {
-    /**
-     * @var array|mixed
-     */
-    protected $countryCode;
-
-    /**
-     * @var string
-     */
-    protected $parentId;
-
-    /**
-     * @var string|null
-     */
-    protected $locale = null;
-
-    /**
-     * @var SubdivisionRepository
-     */
-    protected $subdivisionRepository;
-
-    /**
-     * @return array|mixed
-     */
-    public function getCountryCode()
-    {
-        return $this->countryCode;
-    }
-
-    /**
-     * @param array|mixed $countryCode
-     */
-    public function setCountryCode($countryCode)
-    {
-        $this->countryCode = $countryCode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
-    }
-
-    /**
-     * @param mixed $parentId
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-    }
-
-    /**
-     * @return null
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    /**
-     * @param null $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSubdivisionRepository()
-    {
-        return $this->subdivisionRepository;
-    }
-
-    /**
-     * @param mixed $subdivisionRepository
-     */
-    public function setSubdivisionRepository(SubdivisionRepository $subdivisionRepository)
-    {
-        $this->subdivisionRepository = $subdivisionRepository;
-    }
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea[]
+	 */
+	public function all() : array
+	{
+		return parent::all();
+	}
+	
+	/**
+	 * @param string $key
+	 * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea|null $default
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
+	 */
+	public function get($key, $default = null) : ?Subdivision
+	{
+		return parent::get($key, $default);
+	}
+	
+	/**
+	 * @param callable|null $callback
+	 * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $default
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
+	 */
+	public function last(callable $callback = null, $default = null) : ?Subdivision
+	{
+		return parent::last($callback, $default);
+	}
+	
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
+	 */
+	public function pop() : ?Subdivision
+	{
+		return parent::pop();
+	}
+	
+	/**
+	 * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $value
+	 * @param null $key
+	 * @return \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
+	 */
+	public function prepend($value, $key = null) : SubdivisionCollection
+	{
+		return parent::prepend($value, $key);
+	}
+	
+	/**
+	 * @param string $key
+	 * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea|null $default
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
+	 */
+	public function pull($key, $default = null) : ?Subdivision
+	{
+		return parent::pull($key, $default);
+	}
+	
+	/**
+	 * @param string $key
+	 * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $value
+	 * @return \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
+	 */
+	public function put($key, $value) : SubdivisionCollection
+	{
+		return parent::put($key, $value);
+	}
+	
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea[]
+	 */
+	public function toArray() : array
+	{
+		return parent::toArray();
+	}
+	
+	/**
+	 * @param string $key
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
+	 */
+	public function offsetGet($key) : ?Subdivision
+	{
+		return parent::offsetGet($key);
+	}
+	
+	/**
+	 * @param string $key
+	 * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $value
+	 */
+	public function offsetSet($key, $value) : void
+	{
+		parent::offsetSet($key, $value);
+	}
 }

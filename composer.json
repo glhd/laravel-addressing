@@ -1,52 +1,63 @@
 {
-  "name": "galahad/laravel-addressing",
-  "description": "Laravel package providing addressing functionality",
-  "keywords": [
-    "laravel",
-    "address",
-    "addressing",
-    "validation",
-    "countries"
-  ],
-  "homepage": "https://github.com/glhd/laravel-addressing",
-  "authors": [
-    {
-      "name": "Chris Morrell"
-    },
-    {
-      "name": "Junior Grossi",
-      "email": "juniorgro@gmail.com",
-      "homepage": "http://github.com/jgrossi"
-    }
-  ],
-  "require": {
-    "php": ">=5.5.9",
-    "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "commerceguys/addressing": "^0.8.2",
-    "illuminate/http": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "illuminate/routing": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "symfony/intl": "^4.2",
-    "illuminate/validation": "5.5.*|5.6.*|5.7.*|5.8.*",
-    "commerceguys/intl": "^1.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~4.5",
-    "orchestra/testbench": "^3.2"
-  },
-  "autoload": {
-    "psr-4": {
-      "Galahad\\LaravelAddressing\\": "src/"
-    }
-  },
-  "license": "MIT",
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Galahad\\LaravelAddressing\\ServiceProvider"
-      ],
-      "aliases": {
-        "Addressing": "Galahad\\LaravelAddressing\\Facades\\Addressing"
-      }
-    }
-  }
+	"name": "galahad/laravel-addressing",
+	"description": "Laravel package providing addressing functionality",
+	"keywords": [
+		"laravel",
+		"address",
+		"addressing",
+		"validation",
+		"countries"
+	],
+	"homepage": "https://github.com/glhd/laravel-addressing",
+	"authors": [
+		{
+			"name": "Chris Morrell",
+			"homepage": "http://github.com/inxilpro"
+		},
+		{
+			"name": "Junior Grossi",
+			"email": "juniorgro@gmail.com",
+			"homepage": "http://github.com/jgrossi"
+		}
+	],
+	"require": {
+		"php": "^7.1.3",
+		"illuminate/contracts": "~5.7.0|~5.8.0|~5.9.0",
+		"illuminate/support": "~5.7.0|~5.8.0|~5.9.0",
+		"illuminate/http": "~5.7.0|~5.8.0|~5.9.0",
+		"illuminate/routing": "~5.7.0|~5.8.0|~5.9.0",
+		"illuminate/validation": "~5.7.0|~5.8.0|~5.9.0",
+		"commerceguys/addressing": "^1.0",
+		"symfony/intl": "^4.2",
+		"commerceguys/intl": "^1.0"
+	},
+	"require-dev": {
+		"ext-json": "*",
+		"phpunit/phpunit": "^7",
+		"orchestra/testbench": "~3.7.0|~3.8.0|~3.9.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Galahad\\LaravelAddressing\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
+		],
+		"psr-4": {
+			"Galahad\\LaravelAddressing\\Tests\\": "tests/"
+		}
+	},
+	"license": "MIT",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Galahad\\LaravelAddressing\\Support\\AddressingServiceProvider"
+			],
+			"aliases": {
+				"Addressing": "Galahad\\LaravelAddressing\\Support\\Facades\\Addressing"
+			}
+		}
+	}
 }

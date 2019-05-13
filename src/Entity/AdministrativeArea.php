@@ -2,31 +2,27 @@
 
 namespace Galahad\LaravelAddressing\Entity;
 
-use CommerceGuys\Addressing\Model\Subdivision;
+use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
 
-/**
- * Class AdministrativeArea
- *
- * @package Galahad\LaravelAddressing
- * @author Junior Grossi <juniorgro@gmail.com>
- */
 class AdministrativeArea extends Subdivision
 {
-    /**
-     * @param Subdivision $subdivision
-     */
-    public function __construct(Subdivision $subdivision)
-    {
-        $this->copyPropertiesFromBaseClass($subdivision);
-    }
-
-    /**
-     * @param Subdivision $subdivision
-     */
-    protected function copyPropertiesFromBaseClass(Subdivision $subdivision)
-    {
-        foreach (get_object_vars($subdivision) as $key => $value) {
-            $this->$key = $value;
-        }
-    }
+	public function __construct(Country $country, BaseSubdivision $subdivision)
+	{
+		parent::__construct($country, $subdivision);
+	}
+	
+	public function getParent() : ?Subdivision
+	{
+		return null;
+	}
+	
+	public function is(Subdivision $subdivision = null) : bool
+	{
+		if (!($subdivision instanceof self)) {
+			return false;
+		}
+		
+		return $this->getCountry()->is($subdivision->getCountry())
+			&& $this->getCode() === $subdivision->getCode();
+	}
 }

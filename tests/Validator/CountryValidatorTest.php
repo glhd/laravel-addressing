@@ -1,5 +1,7 @@
 <?php
 
+namespace Galahad\LaravelAddressing\Tests\Validator;
+
 /**
  * Class CountryValidatorTest
  *
