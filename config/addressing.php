@@ -6,7 +6,8 @@ return [
 	| Route Configuration
 	|--------------------------------------------------------------------------
 	*/
-	'route' => [
+	'routes' => [
+		'enabled' => true,
 		'prefix' => 'galahad/addressing', // change this to whatever you'd like
 	],
 ];

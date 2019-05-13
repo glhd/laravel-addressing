@@ -63,6 +63,8 @@ class AddressingServiceProvider extends ServiceProvider
 			return;
 		}
 		
+		// TODO: Config CSRF requirements/HTTP referrer checks
+		
 		try {
 			/** @var \Illuminate\Contracts\Routing\Registrar $router */
 			$router = $this->app->make('router');
@@ -70,7 +72,12 @@ class AddressingServiceProvider extends ServiceProvider
 			/** @var \Illuminate\Contracts\Config\Repository $config */
 			$config = $this->app->make('config');
 			
-			$prefix = $config->get('addressing.route.prefix', 'galahad/addressing');
+			// Skip if routes have been disabled
+			if (!$config->get('addressing.routes.enabled', true)) {
+				return;
+			}
+			
+			$prefix = $config->get('addressing.routes.prefix', 'galahad/addressing');
 			
 			$router->group(compact('prefix'), static function(Registrar $route) {
 				$route->get('/countries', CountriesController::class)
@@ -89,6 +96,8 @@ class AddressingServiceProvider extends ServiceProvider
 	 */
 	protected function registerValidators() : void
 	{
+		// TODO: Default country for validation
+		
 		$this->app->resolving(Factory::class, static function(Factory $validation_factory, Container $app) {
 			$validator = new Validator($app->make(LaravelAddressing::class));
 			

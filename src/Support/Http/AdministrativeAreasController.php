@@ -8,6 +8,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdministrativeAreasController extends Controller
@@ -22,10 +23,12 @@ class AdministrativeAreasController extends Controller
 		
 		$address_format = $country->addressFormat();
 		
+		$administrative_areas = $country->administrativeAreas();
+		
 		return new JsonResponse([
-			'label' => $address_format->getAdministrativeAreaType(),
+			'label' => ucwords(Str::plural($address_format->getAdministrativeAreaType() ?? 'state', $administrative_areas->count())),
 			'country_code' => $country_code,
-			'options' => $country->administrativeAreas()
+			'options' => $administrative_areas
 				->map(static function(Subdivision $admin_area) {
 					return $admin_area->getName();
 				})

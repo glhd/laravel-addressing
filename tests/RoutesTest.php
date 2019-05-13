@@ -10,8 +10,9 @@ class RoutesTest extends TestCase
 			->assertOk()
 			->assertJsonStructure(['label', 'options']);
 		
-		$options = $response->json('options');
+		$this->assertEquals('Countries', $response->json('label'));
 		
+		$options = $response->json('options');
 		$country_codes = json_decode(file_get_contents(__DIR__.'/test-country-codes.json'), true);
 		foreach ($country_codes as $country_code) {
 			$this->assertArrayHasKey($country_code, $options);
@@ -24,7 +25,7 @@ class RoutesTest extends TestCase
 			->assertOk()
 			->assertJsonStructure(['label', 'country_code', 'options']);
 		
-		$this->assertEquals('state', $response->json('label'));
+		$this->assertEquals('States', $response->json('label'));
 		
 		$options = $response->json('options');
 		
@@ -38,6 +39,6 @@ class RoutesTest extends TestCase
 	{
 		$response = $this->get(route('galahad.addressing.administrative-areas', 'ca'));
 		
-		$this->assertEquals('province', $response->json('label'));
+		$this->assertEquals('Provinces', $response->json('label'));
 	}
 }
