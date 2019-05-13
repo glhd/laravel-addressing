@@ -96,8 +96,6 @@ class AddressingServiceProvider extends ServiceProvider
 	 */
 	protected function registerValidators() : void
 	{
-		// TODO: Default country for validation
-		
 		$this->app->resolving(Factory::class, static function(Factory $validation_factory, Container $app) {
 			$validator = new Validator($app->make(LaravelAddressing::class));
 			

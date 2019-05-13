@@ -2,12 +2,9 @@
 
 namespace Galahad\LaravelAddressing\Tests;
 
-use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
-use CommerceGuys\Addressing\Country\CountryRepository;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
-use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
+use Galahad\LaravelAddressing\Support\Facades\Addressing;
 
 class CountryEntityTest extends TestCase
 {
@@ -25,12 +22,7 @@ class CountryEntityTest extends TestCase
 	{
 		parent::setUp();
 		
-		// TODO: Load from container, probably
-		$this->country = new Country(
-			(new CountryRepository())->get('US'),
-			new SubdivisionRepository(),
-			new AddressFormatRepository()
-		);
+		$this->country = Addressing::country('US');
 		
 		$this->test_state_codes = json_decode(file_get_contents(__DIR__.'/test-us-states.json'), true);
 	}

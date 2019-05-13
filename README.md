@@ -31,7 +31,8 @@ Version 1.0 was recently release. These are the breaking changes:
  - `$country->getPostalCodePattern()` has been removed in favor of `$country->addressFormat()->getPostalCodePattern()`
  - All validation logic has been refactored. The API is the same as long as you were using string-based validations (i.e. `'country_input' => 'country_code'`). If not, see `src/Support/Validation/` for details.
  - The `/{country}/administrative-areas` HTTP endpoint no longer returns an `expected_length` value and `country` has been renamed to `country_code`
- - The config `addressing.route.prefix` has been renamed `addressing.routes.prefix` and `addressing.routes.enabled` has been added 
+ - The config `addressing.route.prefix` has been renamed `addressing.routes.prefix` and `addressing.routes.enabled` has been added
+ - The `UnknownCountryException` is no longer thrown, and `NULL` is returned instead  
 
 ## Basic Usage
 
