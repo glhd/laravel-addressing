@@ -121,6 +121,17 @@ class Country
 			});
 	}
 	
+	/**
+	 * Find an administrative area, either by code or by name
+	 *
+	 * @param string $input
+	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
+	 */
+	public function findAdministrativeArea($input) : ?Subdivision
+	{
+		return $this->administrativeArea($input) ?? $this->administrativeAreaByName($input);
+	}
+	
 	public function is(Country $country = null) : bool
 	{
 		if (null === $country) {

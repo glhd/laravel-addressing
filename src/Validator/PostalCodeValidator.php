@@ -50,13 +50,11 @@ class PostalCodeValidator
 	{
 		$validator->setCustomMessages($this->messages);
 		
-		try {
-			$country = $this->getCountryInstance($parameters, $validator);
-		} catch (UnknownCountryException $exception) {
+		if (!$country = $this->getCountryInstance($parameters, $validator)) {
 			return false;
 		}
 		
-		$postalCodePattern = $country->getPostalCodePattern();
+		$postalCodePattern = $country->addressFormat()->getPostalCodePattern();
 		
 		if ($admArea = $this->getAdministrativeAreaInstance($country, $parameters, $validator)) {
 			$postalCodePattern = $admArea->getPostalCodePattern();
