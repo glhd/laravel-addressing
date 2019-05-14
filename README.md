@@ -1,6 +1,6 @@
 # Laravel Addressing
 
-[![Build Status](https://travis-ci.org/glhd/laravel-addressing.svg)](https://travis-ci.org/glhd/laravel-addressing)
+[![Build Status](https://travis-ci.org/glhd/laravel-addressing.svg)](https://travis-ci.org/glhd/laravel-addressing) [![Coverage Status](https://coveralls.io/repos/github/glhd/laravel-addressing/badge.svg?branch=master)](https://coveralls.io/github/glhd/laravel-addressing?branch=master) [![Latest Stable Version](https://poser.pugx.org/galahad/laravel-addressing/v/stable)](https://packagist.org/packages/galahad/laravel-addressing) [![License](https://poser.pugx.org/galahad/laravel-addressing/license)](https://packagist.org/packages/galahad/laravel-addressing)
 
 > Laravel package providing addressing functionality based on `[commerceguys/addressing](https://github.com/commerceguys/addressing)`
 
