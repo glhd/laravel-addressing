@@ -19,9 +19,12 @@ before_install:
   - phpenv config-rm xdebug.ini || true
 
 install:
-  - travis_retry composer require illuminate/contracts:${LARAVEL_VERSION} orchestra/testbench:${ORCHESTRA_VERSION} --dev --prefer-dist --no-interaction --no-suggest --update-with-dependencies
+  - travis_retry composer require php-coveralls/php-coveralls illuminate/contracts:${LARAVEL_VERSION} orchestra/testbench:${ORCHESTRA_VERSION} --dev --prefer-dist --no-interaction --no-suggest --update-with-dependencies
 
-script: vendor/bin/phpunit
+script: vendor/bin/phpunit --coverage-clover clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls -v -x clover.xml
 
 notifications:
   slack:
