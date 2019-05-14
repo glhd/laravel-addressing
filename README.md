@@ -12,28 +12,6 @@ First, install the composer package:
 composer require galahad/laravel-addressing
 ```
 
-### 1.0 Breaking Changes
-
-Version 1.0 is about to be released. These are the breaking changes:
-
- - Minimum supported Laravel version is now `5.7` and the minimum supported PHP version is now `7.1.3`
- - `Galahad\LaravelAddressing\ServiceProvider` has been moved to `Galahad\LaravelAddressing\Support\AddressingServiceProvider`, so if you were manually registering the service provider, please update your `app.php` config file. 
- - `Galahad\LaravelAddressing\Facades\Addressing` has been moved to `Galahad\LaravelAddressing\Support\Facades\Addressing`, so if you were manually registering the service provider, please update your `app.php` config file.
- - The previously-deprecated `Galahad\LaravelAddressing\AddressFacade` has been removed 
- - All custom repository classes (`AddressFormatRepository`, `AdministrativeAreaRepository`, `CountryRepository`) have been removed. Instead, countries are accessed via the facade or `LaravelAddressing` class, and everything else is loaded via its parent.
- - Most custom methods have been removed from `CountryCollection` and `AdministrativeAreaCollection` (`getCountryCode()`, etc) in favor of just calling `getCountry()` on the collection and then accessing the Country entity directly.
- - `LaravelAddressing::getCountryList()` has been removed in favor of `countries()->toSelectArray()`
- - `Country::getAdministrativeAreasList()` has been removed in favor of `administrativeAreas()->toSelectArray()`
- - `Entity\Country` no longer extends `CommerceGuys\Addressing\Country` (which is now a `final` class), and instead provides a similar/decorated API
- - `Entity\AdministrativeArea` no longer extends `CommerceGuys\Addressing\Subdivision\Subdivision`, and instead extends `Entity\Subdivision` and provides a similar/decorated API
- - Administrative areas are no longer keyed by compound codes (i.e. `US-PA`) and instead by their country-specific codes (i.e. `PA`)
- - `Galahad\LaravelAddressing\Controller` has been split up into separate controllers. If you're extending this, please see the `Support/Http/` directory.
- - `$country->getPostalCodePattern()` has been removed in favor of `$country->addressFormat()->getPostalCodePattern()`
- - All validation logic has been refactored. The API is the same as long as you were using string-based validations (i.e. `'country_input' => 'country_code'`). If not, see `src/Support/Validation/` for details.
- - The `/{country}/administrative-areas` HTTP endpoint no longer returns an `expected_length` value and `country` has been renamed to `country_code`
- - The config `addressing.route.prefix` has been renamed `addressing.routes.prefix` and `addressing.routes.enabled` has been added
- - The `UnknownCountryException` is no longer thrown, and `NULL` is returned instead  
-
 ## Basic Usage
 
 ### Country
@@ -136,6 +114,30 @@ The prefix (`/galahad/addressing`) can also be configured.
      }
 }
 ```
+
+## Changelog
+
+### 1.0.0
+
+This is the first stable release, with lots of breaking changes since 0.5.*
+
+ - Minimum supported Laravel version is now `5.7` and the minimum supported PHP version is now `7.1.3`
+ - `Galahad\LaravelAddressing\ServiceProvider` has been moved to `Galahad\LaravelAddressing\Support\AddressingServiceProvider`, so if you were manually registering the service provider, please update your `app.php` config file. 
+ - `Galahad\LaravelAddressing\Facades\Addressing` has been moved to `Galahad\LaravelAddressing\Support\Facades\Addressing`, so if you were manually registering the service provider, please update your `app.php` config file.
+ - The previously-deprecated `Galahad\LaravelAddressing\AddressFacade` has been removed 
+ - All custom repository classes (`AddressFormatRepository`, `AdministrativeAreaRepository`, `CountryRepository`) have been removed. Instead, countries are accessed via the facade or `LaravelAddressing` class, and everything else is loaded via its parent.
+ - Most custom methods have been removed from `CountryCollection` and `AdministrativeAreaCollection` (`getCountryCode()`, etc) in favor of just calling `getCountry()` on the collection and then accessing the Country entity directly.
+ - `LaravelAddressing::getCountryList()` has been removed in favor of `countries()->toSelectArray()`
+ - `Country::getAdministrativeAreasList()` has been removed in favor of `administrativeAreas()->toSelectArray()`
+ - `Entity\Country` no longer extends `CommerceGuys\Addressing\Country` (which is now a `final` class), and instead provides a similar/decorated API
+ - `Entity\AdministrativeArea` no longer extends `CommerceGuys\Addressing\Subdivision\Subdivision`, and instead extends `Entity\Subdivision` and provides a similar/decorated API
+ - Administrative areas are no longer keyed by compound codes (i.e. `US-PA`) and instead by their country-specific codes (i.e. `PA`)
+ - `Galahad\LaravelAddressing\Controller` has been split up into separate controllers. If you're extending this, please see the `Support/Http/` directory.
+ - `$country->getPostalCodePattern()` has been removed in favor of `$country->addressFormat()->getPostalCodePattern()`
+ - All validation logic has been refactored. The API is the same as long as you were using string-based validations (i.e. `'country_input' => 'country_code'`). If not, see `src/Support/Validation/` for details.
+ - The `/{country}/administrative-areas` HTTP endpoint no longer returns an `expected_length` value and `country` has been renamed to `country_code`
+ - The config `addressing.route.prefix` has been renamed `addressing.routes.prefix` and `addressing.routes.enabled` has been added
+ - The `UnknownCountryException` is no longer thrown, and `NULL` is returned instead  
 
 ### Thanks!
 
