@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/glhd/laravel-addressing.svg)](https://travis-ci.org/glhd/laravel-addressing) [![Coverage Status](https://coveralls.io/repos/github/glhd/laravel-addressing/badge.svg?branch=master)](https://coveralls.io/github/glhd/laravel-addressing?branch=master) [![Latest Stable Version](https://poser.pugx.org/galahad/laravel-addressing/v/stable)](https://packagist.org/packages/galahad/laravel-addressing) [![License](https://poser.pugx.org/galahad/laravel-addressing/license)](https://packagist.org/packages/galahad/laravel-addressing)
 
-> Laravel package providing addressing functionality based on `[commerceguys/addressing](https://github.com/commerceguys/addressing)`
+> Laravel package providing addressing functionality based on [`commerceguys/addressing`](https://github.com/commerceguys/addressing)
 
 ## Installation
 
@@ -14,7 +14,7 @@ composer require galahad/laravel-addressing
 
 ### 1.0 Breaking Changes
 
-Version 1.0 was recently release. These are the breaking changes:
+Version 1.0 is about to be released. These are the breaking changes:
 
  - Minimum supported Laravel version is now `5.7` and the minimum supported PHP version is now `7.1.3`
  - `Galahad\LaravelAddressing\ServiceProvider` has been moved to `Galahad\LaravelAddressing\Support\AddressingServiceProvider`, so if you were manually registering the service provider, please update your `app.php` config file. 
