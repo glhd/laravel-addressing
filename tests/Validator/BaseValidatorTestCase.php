@@ -2,11 +2,11 @@
 
 namespace Galahad\LaravelAddressing\Tests\Validator;
 
-use Galahad\LaravelAddressing\Tests\TestCase;
 use Illuminate\Validation\Factory;
+use Galahad\LaravelAddressing\Tests\TestCase;
 
 /**
- * Class BaseValidatorTestCase
+ * Class BaseValidatorTestCase.
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
@@ -20,7 +20,7 @@ class BaseValidatorTestCase extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        
+
         $this->validator = $this->app['validator'];
     }
 

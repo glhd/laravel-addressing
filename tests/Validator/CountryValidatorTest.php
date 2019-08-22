@@ -3,7 +3,7 @@
 namespace Galahad\LaravelAddressing\Tests\Validator;
 
 /**
- * Class CountryValidatorTest
+ * Class CountryValidatorTest.
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
