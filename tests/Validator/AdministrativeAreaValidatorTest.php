@@ -49,6 +49,30 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
         ]));
     }
 
+    public function testAdminAreaCodeArrayIsInvalid()
+    {
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => ['CO']],
+            'rules' => ['state' => 'administrative_area_code:country'],
+        ]));
+    }
+
+    public function testAdminAreaNameArrayIsInvalid()
+    {
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => ['Colorado']],
+            'rules' => ['state' => 'administrative_area_name:country'],
+        ]));
+    }
+
+    public function testGeneralAdminAreaArrayIsInvalid()
+    {
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => ['CO']],
+            'rules' => ['state' => 'administrative_area:country'],
+        ]));
+    }
+
     public function testUSStateByName()
     {
         // Valid state in US

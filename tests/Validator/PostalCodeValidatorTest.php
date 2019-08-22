@@ -25,6 +25,14 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
         ]));
     }
 
+    public function testArrayPostalCodeInvalid()
+    {
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'CO', 'code' => ['80301']],
+            'rules' => ['code' => 'postal_code:country,state'],
+        ]));
+    }
+
     public function testBrazilianPostalCodes()
     {
         $this->assertTrue($this->performValidation([
