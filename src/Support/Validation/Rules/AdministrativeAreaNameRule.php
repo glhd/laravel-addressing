@@ -27,7 +27,11 @@ class AdministrativeAreaNameRule implements Rule
 	 */
 	public function passes($attribute, $value) : bool
 	{
-		return null !== $this->country->administrativeAreaByName($value);
+        if (!is_string($value)) {
+            return false;
+        }
+
+        return null !== $this->country->administrativeAreaByName($value);
 	}
 	
 	/**

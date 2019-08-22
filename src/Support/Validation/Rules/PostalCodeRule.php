@@ -36,7 +36,11 @@ class PostalCodeRule implements Rule
 	 */
 	public function passes($attribute, $value) : bool
 	{
-		// If we don't have a pattern for this country/area, automatically pass
+        if (!is_string($value)) {
+            return false;
+        }
+
+        // If we don't have a pattern for this country/area, automatically pass
 		if (!$pattern = $this->pattern()) {
 			return true;
 		}

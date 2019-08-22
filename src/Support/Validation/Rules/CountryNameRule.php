@@ -27,6 +27,10 @@ class CountryNameRule implements Rule
 	 */
 	public function passes($attribute, $value) : bool
 	{
+        if (!is_string($value)) {
+            return false;
+        }
+
 		return null !== $this->addressing->countryByName($value);
 	}
 	
