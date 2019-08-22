@@ -3,7 +3,7 @@
 namespace Galahad\LaravelAddressing\Tests\Validator;
 
 /**
- * Class PostalCodeValidatorTest
+ * Class PostalCodeValidatorTest.
  *
  * @author Junior Grossi <juniorgro@gmail.com>
  */
@@ -49,17 +49,17 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
         ]));
     }
 
-	public function testUsesDefaultFieldNames()
-	{
-		$this->assertTrue($this->performValidation([
-			'data' => ['country' => 'US', 'administrative_area' => 'CO', 'code' => '80301'],
-			'rules' => ['code' => 'postal_code'],
-		]));
-		$this->assertTrue($this->performValidation([
-			'data' => ['country' => 'US', 'state' => 'CO', 'code' => '80301'],
-			'rules' => ['code' => 'postal_code'],
-		]));
-	}
+    public function testUsesDefaultFieldNames()
+    {
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US', 'administrative_area' => 'CO', 'code' => '80301'],
+            'rules' => ['code' => 'postal_code'],
+        ]));
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'US', 'state' => 'CO', 'code' => '80301'],
+            'rules' => ['code' => 'postal_code'],
+        ]));
+    }
 
     public function testUsesCountryRegExIfNoAdminArea()
     {
