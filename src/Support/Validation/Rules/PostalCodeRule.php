@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
 use CommerceGuys\Addressing\Subdivision\PatternType;
+use Throwable;
 
 class PostalCodeRule implements Rule
 {
@@ -36,7 +37,9 @@ class PostalCodeRule implements Rule
      */
     public function passes($attribute, $value) : bool
     {
-        if (! is_string($value)) {
+        try {
+            $value = (string) $value;
+        } catch (Throwable $exception) {
             return false;
         }
 

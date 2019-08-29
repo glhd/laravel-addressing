@@ -4,6 +4,7 @@ namespace Galahad\LaravelAddressing\Support\Validation\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Galahad\LaravelAddressing\Entity\Country;
+use Throwable;
 
 class AdministrativeAreaNameRule implements Rule
 {
@@ -27,7 +28,9 @@ class AdministrativeAreaNameRule implements Rule
      */
     public function passes($attribute, $value) : bool
     {
-        if (! is_string($value)) {
+        try {
+            $value = (string) $value;
+        } catch (Throwable $exception) {
             return false;
         }
 
