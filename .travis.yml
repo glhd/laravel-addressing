@@ -6,11 +6,13 @@ php:
   - "7.1"
   - "7.2"
   - "7.3"
+  - nightly
 
 env:
   matrix:
     - LARAVEL_VERSION="5.7.*" ORCHESTRA_VERSION="3.7.*"
     - LARAVEL_VERSION="5.8.*" ORCHESTRA_VERSION="3.8.*"
+    - LARAVEL_VERSION="6.0.*" ORCHESTRA_VERSION="3.9.*"
 
 matrix:
   fast_finish: true
@@ -25,7 +27,3 @@ script: vendor/bin/phpunit --log-junit ~/artifacts/junit.xml --coverage-clover ~
 
 after_success:
   - travis_retry php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
-
-# notifications:
-#   slack:
-#     secure: "fnH7dUaX8bxruG5Nlw30q1059Dxo7KEvicd7nulhoI/lzIlxdnKuMXSRhlrqLnz30J1QvfOdi8bgfLqCFdw8b3EX6oplxGXNyjEoLMr7fezt97rxj2VVRmNLziABWkjFH5pKhyvsgWfgJVVAUFmOw25W74gm9WpUzWjL5VZT7GcYc2BGQ0YIk7yyT3I/1FbKFXvQQtXUHZJ180WsUH5K73BP1/WVZ5P8uE5t+p0cEk/0YEDYEyKP/DkX7p4gjyBZVBD1j25ZUKSnV+8hCJlmRFsl2PKxzWQgyTGf5ZTTxjkNsowzQzRbeMUzxlpKrXkw7u+DlY1U0ZOnPaR9KR/tZfBKlb6q8nz2sDmaCFVbC/CloYWuVsqwYIeW+zl9FGW2pMhkakMBypUu92gnqIizc31MZarFdbq2+WXoWRwqsOFtVxbH+0+6IlnSIDfoS0GtxnhUBpDi8G4nHPs8maSSsUbTuibvtEz97QZJeSBFuroeE/XeEcUFN6zixnorzlbTzub+zsBaprusG7x6oksSmrOow3rLx0hZAhqnZegnvijzV8blggRmBQ2AmBWnlXUYmxitU3sOUrafj6BuwkYVv4j9xftERRWDp23SYre+89zKnkF1A8Iaq9rboaDxWohe1ZS0Bl1Ju+vthrVbavfw0/18g8XDW1IoQPOEldyoX/E="
