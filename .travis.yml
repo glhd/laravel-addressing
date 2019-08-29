@@ -6,13 +6,11 @@ php:
   - "7.1"
   - "7.2"
   - "7.3"
-  - nightly
 
 env:
   matrix:
     - LARAVEL_VERSION="5.7.*" ORCHESTRA_VERSION="3.7.*"
     - LARAVEL_VERSION="5.8.*" ORCHESTRA_VERSION="3.8.*"
-    - LARAVEL_VERSION="6.0.*" ORCHESTRA_VERSION="3.9.*"
 
 matrix:
   fast_finish: true
