@@ -102,7 +102,7 @@ The prefix (`/galahad/addressing`) can also be configured.
 }
 ```
 
-#### GET /galahad/addressing/us/administrative-areas
+#### GET /galahad/addressing/countries/us/administrative-areas
 ```json
 {
      "label": "States",
