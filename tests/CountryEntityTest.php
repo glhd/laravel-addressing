@@ -2,8 +2,8 @@
 
 namespace Galahad\LaravelAddressing\Tests;
 
-use Galahad\LaravelAddressing\Entity\Subdivision;
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Subdivision;
 use Galahad\LaravelAddressing\Support\Facades\Addressing;
 
 class CountryEntityTest extends TestCase

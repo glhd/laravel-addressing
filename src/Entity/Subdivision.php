@@ -3,8 +3,8 @@
 namespace Galahad\LaravelAddressing\Entity;
 
 use CommerceGuys\Addressing\Subdivision\PatternType;
-use Galahad\LaravelAddressing\Collection\SubdivisionCollection;
 use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
+use Galahad\LaravelAddressing\Collection\SubdivisionCollection;
 
 class Subdivision
 {

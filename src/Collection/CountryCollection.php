@@ -2,8 +2,8 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use Illuminate\Support\Collection;
 use Galahad\LaravelAddressing\Entity\Country;
+use Illuminate\Support\Collection;
 
 class CountryCollection extends Collection
 {

@@ -2,11 +2,11 @@
 
 namespace Galahad\LaravelAddressing\Support\Validation\Rules;
 
-use Throwable;
-use Illuminate\Contracts\Validation\Rule;
+use CommerceGuys\Addressing\Subdivision\PatternType;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
-use CommerceGuys\Addressing\Subdivision\PatternType;
+use Illuminate\Contracts\Validation\Rule;
+use Throwable;
 
 class PostalCodeRule implements Rule
 {

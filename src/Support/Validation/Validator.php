@@ -2,18 +2,18 @@
 
 namespace Galahad\LaravelAddressing\Support\Validation;
 
-use Illuminate\Support\Arr;
 use Galahad\LaravelAddressing\Entity\Country;
-use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Entity\Subdivision;
-use Illuminate\Validation\Validator as BaseValidator;
-use Galahad\LaravelAddressing\Support\Validation\Rules\PostalCodeRule;
-use Galahad\LaravelAddressing\Support\Validation\Rules\CountryCodeRule;
-use Galahad\LaravelAddressing\Support\Validation\Rules\CountryNameRule;
-use Galahad\LaravelAddressing\Support\Validation\Rules\LooseCountryRule;
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Galahad\LaravelAddressing\Support\Validation\Rules\AdministrativeAreaCodeRule;
 use Galahad\LaravelAddressing\Support\Validation\Rules\AdministrativeAreaNameRule;
+use Galahad\LaravelAddressing\Support\Validation\Rules\CountryCodeRule;
+use Galahad\LaravelAddressing\Support\Validation\Rules\CountryNameRule;
 use Galahad\LaravelAddressing\Support\Validation\Rules\LooseAdministrativeAreaRule;
+use Galahad\LaravelAddressing\Support\Validation\Rules\LooseCountryRule;
+use Galahad\LaravelAddressing\Support\Validation\Rules\PostalCodeRule;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\Validator as BaseValidator;
 
 class Validator
 {

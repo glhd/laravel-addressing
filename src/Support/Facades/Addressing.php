@@ -5,10 +5,10 @@
 
 namespace Galahad\LaravelAddressing\Support\Facades;
 
-use Illuminate\Support\Facades\Facade;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
-use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Illuminate\Support\Facades\Facade;
 
 class Addressing extends Facade
 {

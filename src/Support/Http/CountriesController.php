@@ -2,12 +2,12 @@
 
 namespace Galahad\LaravelAddressing\Support\Http;
 
-use Illuminate\Http\Request;
-use Illuminate\Config\Repository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\LaravelAddressing;
+use Illuminate\Config\Repository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class CountriesController extends Controller
 {

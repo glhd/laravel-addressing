@@ -2,8 +2,8 @@
 
 namespace Galahad\LaravelAddressing\Tests\Validator;
 
-use Illuminate\Validation\Factory;
 use Galahad\LaravelAddressing\Tests\TestCase;
+use Illuminate\Validation\Factory;
 
 /**
  * Class BaseValidatorTestCase.

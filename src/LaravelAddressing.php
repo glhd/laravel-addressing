@@ -2,12 +2,12 @@
 
 namespace Galahad\LaravelAddressing;
 
-use Galahad\LaravelAddressing\Entity\Country;
-use Galahad\LaravelAddressing\Collection\CountryCollection;
-use CommerceGuys\Addressing\Exception\UnknownCountryException;
-use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
+use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
+use CommerceGuys\Addressing\Exception\UnknownCountryException;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
+use Galahad\LaravelAddressing\Collection\CountryCollection;
+use Galahad\LaravelAddressing\Entity\Country;
 
 class LaravelAddressing
 {

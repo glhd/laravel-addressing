@@ -3,10 +3,10 @@
 namespace Galahad\LaravelAddressing\Entity;
 
 use CommerceGuys\Addressing\AddressFormat\AddressFormat;
-use CommerceGuys\Addressing\Country\Country as BaseCountry;
-use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
+use CommerceGuys\Addressing\Country\Country as BaseCountry;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
+use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 
 class Country
 {
