@@ -2,9 +2,9 @@
 
 namespace Galahad\LaravelAddressing\Support\Validation\Rules;
 
-use Throwable;
-use Illuminate\Contracts\Validation\Rule;
 use Galahad\LaravelAddressing\Entity\Country;
+use Illuminate\Contracts\Validation\Rule;
+use Throwable;
 
 class AdministrativeAreaNameRule implements Rule
 {

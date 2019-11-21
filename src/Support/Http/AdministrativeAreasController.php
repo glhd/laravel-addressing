@@ -2,13 +2,13 @@
 
 namespace Galahad\LaravelAddressing\Support\Http;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Galahad\LaravelAddressing\Entity\Subdivision;
+use Galahad\LaravelAddressing\LaravelAddressing;
 use Illuminate\Config\Repository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Galahad\LaravelAddressing\LaravelAddressing;
-use Galahad\LaravelAddressing\Entity\Subdivision;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdministrativeAreasController extends Controller

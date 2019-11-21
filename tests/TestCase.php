@@ -2,9 +2,9 @@
 
 namespace Galahad\LaravelAddressing\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
-use Galahad\LaravelAddressing\Support\Facades\Addressing;
 use Galahad\LaravelAddressing\Support\AddressingServiceProvider;
+use Galahad\LaravelAddressing\Support\Facades\Addressing;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {

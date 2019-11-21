@@ -2,9 +2,9 @@
 
 namespace Galahad\LaravelAddressing\Collection;
 
-use Illuminate\Support\Collection;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
+use Illuminate\Support\Collection;
 
 class SubdivisionCollection extends Collection
 {

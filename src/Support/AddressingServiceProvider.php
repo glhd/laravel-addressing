@@ -3,19 +3,19 @@
 namespace Galahad\LaravelAddressing\Support;
 
 use Closure;
-use Illuminate\Support\ServiceProvider;
+use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
+use CommerceGuys\Addressing\Country\CountryRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
+use Galahad\LaravelAddressing\LaravelAddressing;
+use Galahad\LaravelAddressing\Support\Http\AdministrativeAreasController;
+use Galahad\LaravelAddressing\Support\Http\CountriesController;
+use Galahad\LaravelAddressing\Support\Validation\Validator;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Contracts\Validation\Factory;
-use Illuminate\Contracts\Container\Container;
-use Galahad\LaravelAddressing\LaravelAddressing;
-use Illuminate\Contracts\Foundation\Application;
-use CommerceGuys\Addressing\Country\CountryRepository;
-use Galahad\LaravelAddressing\Support\Validation\Validator;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Galahad\LaravelAddressing\Support\Http\CountriesController;
-use CommerceGuys\Addressing\AddressFormat\AddressFormatRepository;
-use Galahad\LaravelAddressing\Support\Http\AdministrativeAreasController;
+use Illuminate\Support\ServiceProvider;
 
 class AddressingServiceProvider extends ServiceProvider
 {

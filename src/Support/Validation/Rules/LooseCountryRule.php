@@ -2,8 +2,8 @@
 
 namespace Galahad\LaravelAddressing\Support\Validation\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Galahad\LaravelAddressing\LaravelAddressing;
+use Illuminate\Contracts\Validation\Rule;
 
 class LooseCountryRule implements Rule
 {
