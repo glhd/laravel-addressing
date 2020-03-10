@@ -42,6 +42,11 @@ class PostalCodeRule implements Rule
         } catch (Throwable $exception) {
             return false;
         }
+        
+        // If it's not required and empty, pass
+        if ('' === $value && false === $this->isRequired()) {
+            return true;
+        }
 
         // If we don't have a pattern for this country/area, automatically pass
         if (! $pattern = $this->pattern()) {
@@ -59,6 +64,11 @@ class PostalCodeRule implements Rule
         $type = $this->country->addressFormat()->getPostalCodeType() ?? 'postal code';
 
         return trans('laravel-addressing::validation.postal_code', compact('type'));
+    }
+    
+    protected function isRequired() : bool
+    {
+        return in_array('postalCode', $this->country->addressFormat()->getRequiredFields());
     }
 
     protected function pattern() : ?string

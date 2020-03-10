@@ -34,6 +34,11 @@ class AdministrativeAreaCodeRule implements Rule
             return false;
         }
 
+        // If it's not required and empty, pass
+        if ('' === $value && false === $this->isRequired()) {
+            return true;
+        }
+
         return null !== $this->country->administrativeArea($value);
     }
 
@@ -45,5 +50,10 @@ class AdministrativeAreaCodeRule implements Rule
         $type = $this->country->addressFormat()->getAdministrativeAreaType();
 
         return trans('laravel-addressing::validation.administrative_area_code', compact('type'));
+    }
+
+    protected function isRequired() : bool
+    {
+        return in_array('administrativeArea', $this->country->addressFormat()->getRequiredFields());
     }
 }

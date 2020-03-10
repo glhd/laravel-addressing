@@ -147,4 +147,25 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
             'rules' => ['state' => 'administrative_area'],
         ]));
     }
+
+    public function testAllowsEmptyAdministrativeAreasInCountriesWhereItIsOptional()
+    {
+        // Empty county should be allowed in Ireland
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'IE', 'state' => ''],
+            'rules' => ['state' => 'administrative_area'],
+        ]));
+
+        // Valid county should be allowed in Ireland
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'IE', 'state' => 'Co. Clare'],
+            'rules' => ['state' => 'administrative_area'],
+        ]));
+        
+        // Invalid county should not be allowed in Ireland
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'IE', 'state' => 'Pennsylvania'],
+            'rules' => ['state' => 'administrative_area'],
+        ]));
+    }
 }

@@ -72,4 +72,17 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
             'rules' => ['code' => 'postal_code'],
         ]));
     }
+    
+    public function testAllowsEmptyPostalCodesInCountriesWhereItIsOptional()
+    {
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'IE', 'administrative_area' => '', 'code' => ''],
+            'rules' => ['code' => 'postal_code'],
+        ]));
+        
+        $this->assertFalse($this->performValidation([
+            'data' => ['country' => 'IE', 'administrative_area' => '', 'code' => '948723$&(#*'],
+            'rules' => ['code' => 'postal_code'],
+        ]));
+    }
 }
