@@ -26,7 +26,7 @@ class AdministrativeAreaNameRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function passes($attribute, $value): bool
+    public function passes($attribute, $value) : bool
     {
         try {
             $value = (string) $value;
