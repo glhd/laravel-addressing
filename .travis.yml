@@ -17,11 +17,11 @@ env:
 
 matrix:
   fast_finish: true
-  exclude:
+  include:
     - php: "7.1"
-      env: LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
+      env: LARAVEL_VERSION="5.7.*" ORCHESTRA_VERSION="3.7.*"
     - php: "7.1"
-      env: LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
+      env: LARAVEL_VERSION="5.8.*" ORCHESTRA_VERSION="3.8.*"
 
 before_install:
   - mkdir -p ~/artifacts
