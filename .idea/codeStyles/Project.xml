@@ -490,6 +490,9 @@
       <option name="DOWHILE_BRACE_FORCE" value="3" />
       <option name="WHILE_BRACE_FORCE" value="3" />
       <option name="FOR_BRACE_FORCE" value="3" />
+      <arrangement>
+        <groups />
+      </arrangement>
     </codeStyleSettings>
   </code_scheme>
 </component>
