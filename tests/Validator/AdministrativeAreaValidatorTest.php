@@ -168,4 +168,13 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
             'rules' => ['state' => 'administrative_area'],
         ]));
     }
+
+    public function testAllowsAnyAdminAreaInCountriesWeDontHaveDataFor()
+    {
+        // As of right now, addressing doesn't have an admin area list for South Africa
+        $this->assertTrue($this->performValidation([
+            'data' => ['country' => 'ZA', 'state' => 'GP'],
+            'rules' => ['state' => 'administrative_area'],
+        ]));
+    }
 }

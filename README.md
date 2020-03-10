@@ -117,6 +117,16 @@ The prefix (`/galahad/addressing`) can also be configured.
 
 ## Changelog
 
+### 2.0.1
+
+This release adds Laravel 7 support and also is more permissive in its validators:
+
+ - If we don't have a known list of administrative areas for a country, we just allow any value
+ - If a country does not require an administrative area, we allow an empty string
+ - If a country does not require a postal code, we allow an empty string
+ 
+(The 2.0.0 release had a bug that failed to allow admin areas when we don't have data.)
+
 ### 1.0.0
 
 This is the first stable release, with lots of breaking changes since 0.5.*

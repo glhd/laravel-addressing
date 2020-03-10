@@ -39,6 +39,11 @@ class AdministrativeAreaNameRule implements Rule
             return true;
         }
 
+        // If we don't have a known list of admin areas, just pass
+        if (0 === $this->country->administrativeAreas()->count()) {
+            return true;
+        }
+
         return null !== $this->country->administrativeAreaByName($value);
     }
 
