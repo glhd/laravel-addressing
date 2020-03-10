@@ -14,6 +14,11 @@ env:
     - LARAVEL_VERSION="5.8.*" ORCHESTRA_VERSION="3.8.*"
     - LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
     - LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
+  exclude:
+    - php: 7.1
+      env: LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
+    - php: 7.1
+      env: LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
 
 matrix:
   fast_finish: true
