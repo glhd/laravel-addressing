@@ -49,7 +49,7 @@ class PostalCodeRule implements Rule
         }
 
         // If we don't have a pattern for this country/area, automatically pass
-        if ( ! $pattern = $this->pattern()) {
+        if (! $pattern = $this->pattern()) {
             return true;
         }
 
