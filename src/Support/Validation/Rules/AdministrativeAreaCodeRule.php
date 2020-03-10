@@ -26,7 +26,7 @@ class AdministrativeAreaCodeRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function passes($attribute, $value) : bool
+    public function passes($attribute, $value): bool
     {
         try {
             $value = (string) $value;
@@ -57,7 +57,7 @@ class AdministrativeAreaCodeRule implements Rule
         return trans('laravel-addressing::validation.administrative_area_code', compact('type'));
     }
 
-    protected function isRequired() : bool
+    protected function isRequired(): bool
     {
         return in_array('administrativeArea', $this->country->addressFormat()->getRequiredFields());
     }
