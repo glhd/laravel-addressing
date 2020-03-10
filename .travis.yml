@@ -21,7 +21,7 @@ before_install:
   - mkdir -p ~/artifacts
 
 install:
-  - travis_retry composer require php-coveralls/php-coveralls illuminate/contracts:${LARAVEL_VERSION} orchestra/testbench:${ORCHESTRA_VERSION} --dev --prefer-dist --no-interaction --no-suggest --update-with-dependencies
+  - travis_retry composer require php-coveralls/php-coveralls phpunit/phpunit illuminate/contracts:${LARAVEL_VERSION} orchestra/testbench:${ORCHESTRA_VERSION} --dev --prefer-dist --no-interaction --no-suggest --update-with-dependencies
 
 script: vendor/bin/phpunit --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
 
