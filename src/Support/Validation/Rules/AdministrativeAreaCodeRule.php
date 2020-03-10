@@ -38,7 +38,7 @@ class AdministrativeAreaCodeRule implements Rule
         if ('' === $value && false === $this->isRequired()) {
             return true;
         }
-        
+
         // If we don't have a known list of admin areas, just pass
         if (0 === $this->country->administrativeAreas()->count()) {
             return true;
