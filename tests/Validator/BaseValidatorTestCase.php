@@ -17,7 +17,7 @@ class BaseValidatorTestCase extends TestCase
      */
     protected $validator;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

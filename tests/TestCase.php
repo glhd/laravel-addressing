@@ -8,7 +8,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -21,14 +21,14 @@ abstract class TestCase extends Orchestra
         // $this->app['view']->addLocation(__DIR__.'/Feature/stubs');
     }
 
-    protected function getPackageProviders($app) : array
+    protected function getPackageProviders($app): array
     {
         return [
             AddressingServiceProvider::class,
         ];
     }
 
-    protected function getPackageAliases($app) : array
+    protected function getPackageAliases($app): array
     {
         return [
             'Addressing' => Addressing::class,

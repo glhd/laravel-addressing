@@ -161,7 +161,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
             'data' => ['country' => 'IE', 'state' => 'Co. Clare'],
             'rules' => ['state' => 'administrative_area'],
         ]));
-        
+
         // Invalid county should not be allowed in Ireland
         $this->assertFalse($this->performValidation([
             'data' => ['country' => 'IE', 'state' => 'Pennsylvania'],

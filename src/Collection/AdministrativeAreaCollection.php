@@ -9,7 +9,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
     /**
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea[]
      */
-    public function all() : array
+    public function all(): array
     {
         return parent::all();
     }
@@ -19,7 +19,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea|null $default
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function get($key, $default = null) : ?Subdivision
+    public function get($key, $default = null): ?Subdivision
     {
         return parent::get($key, $default);
     }
@@ -29,7 +29,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $default
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function last(callable $callback = null, $default = null) : ?Subdivision
+    public function last(callable $callback = null, $default = null): ?Subdivision
     {
         return parent::last($callback, $default);
     }
@@ -37,7 +37,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
     /**
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function pop() : ?Subdivision
+    public function pop(): ?Subdivision
     {
         return parent::pop();
     }
@@ -47,7 +47,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param null $key
      * @return \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
      */
-    public function prepend($value, $key = null) : SubdivisionCollection
+    public function prepend($value, $key = null): SubdivisionCollection
     {
         return parent::prepend($value, $key);
     }
@@ -57,7 +57,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea|null $default
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function pull($key, $default = null) : ?Subdivision
+    public function pull($key, $default = null): ?Subdivision
     {
         return parent::pull($key, $default);
     }
@@ -67,7 +67,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $value
      * @return \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
      */
-    public function put($key, $value) : SubdivisionCollection
+    public function put($key, $value): SubdivisionCollection
     {
         return parent::put($key, $value);
     }
@@ -75,7 +75,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
     /**
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea[]
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         return parent::toArray();
     }
@@ -84,7 +84,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param string $key
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function offsetGet($key) : ?Subdivision
+    public function offsetGet($key): ?Subdivision
     {
         return parent::offsetGet($key);
     }
@@ -93,7 +93,7 @@ class AdministrativeAreaCollection extends SubdivisionCollection
      * @param string $key
      * @param \Galahad\LaravelAddressing\Entity\AdministrativeArea $value
      */
-    public function offsetSet($key, $value) : void
+    public function offsetSet($key, $value): void
     {
         parent::offsetSet($key, $value);
     }

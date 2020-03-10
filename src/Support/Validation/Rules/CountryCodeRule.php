@@ -26,7 +26,7 @@ class CountryCodeRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function passes($attribute, $value) : bool
+    public function passes($attribute, $value): bool
     {
         try {
             $value = (string) $value;
@@ -40,7 +40,7 @@ class CountryCodeRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function message() : string
+    public function message(): string
     {
         return trans('laravel-addressing::validation.country_code');
     }

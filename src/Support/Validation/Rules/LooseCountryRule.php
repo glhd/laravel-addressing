@@ -30,7 +30,7 @@ class LooseCountryRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function passes($attribute, $value) : bool
+    public function passes($attribute, $value): bool
     {
         return (new CountryCodeRule($this->addressing))->passes($attribute, $value)
             ?: (new CountryNameRule($this->addressing))->passes($attribute, $value);
@@ -39,7 +39,7 @@ class LooseCountryRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function message() : string
+    public function message(): string
     {
         return trans('laravel-addressing::validation.country');
     }

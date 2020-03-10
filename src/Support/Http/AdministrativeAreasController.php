@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdministrativeAreasController extends Controller
 {
-    public function __invoke(LaravelAddressing $addressing, Repository $config, Request $request, string $country_code) : JsonResponse
+    public function __invoke(LaravelAddressing $addressing, Repository $config, Request $request, string $country_code): JsonResponse
     {
         $country = $addressing->country($country_code, $request->input('locale', null));
 
