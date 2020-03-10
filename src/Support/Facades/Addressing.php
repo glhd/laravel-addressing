@@ -28,7 +28,7 @@ class Addressing extends Facade
      * @param string|null $locale
      * @return \Galahad\LaravelAddressing\Entity\Country
      */
-    public static function country($country_code, $locale = null) : ?Country
+    public static function country($country_code, $locale = null): ?Country
     {
         return static::getFacadeRoot()->country($country_code, $locale);
     }
@@ -39,7 +39,7 @@ class Addressing extends Facade
      * @param string|null $locale
      * @return \Galahad\LaravelAddressing\Collection\CountryCollection
      */
-    public static function countries($locale = null) : CountryCollection
+    public static function countries($locale = null): CountryCollection
     {
         return static::getFacadeRoot()->countries($locale);
     }
@@ -50,7 +50,7 @@ class Addressing extends Facade
      * @param string $name
      * @return \Galahad\LaravelAddressing\Entity\Country|null
      */
-    public static function countryByName($name) : ?Country
+    public static function countryByName($name): ?Country
     {
         return static::getFacadeRoot()->countryByName($name);
     }
@@ -61,7 +61,7 @@ class Addressing extends Facade
      * @param string $input
      * @return \Galahad\LaravelAddressing\Entity\Country|null
      */
-    public static function findCountry($input) : ?Country
+    public static function findCountry($input): ?Country
     {
         return static::getFacadeRoot()->findCountry($input);
     }
@@ -70,7 +70,7 @@ class Addressing extends Facade
      * {@inheritdoc}
      * @return string
      */
-    protected static function getFacadeAccessor() : string
+    protected static function getFacadeAccessor(): string
     {
         return LaravelAddressing::class;
     }

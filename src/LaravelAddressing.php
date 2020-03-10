@@ -76,7 +76,7 @@ class LaravelAddressing
      * @param string|null $locale
      * @return \Galahad\LaravelAddressing\Entity\Country
      */
-    public function country($country_code, $locale = null) : ?Country
+    public function country($country_code, $locale = null): ?Country
     {
         $country_code = strtoupper($country_code);
 
@@ -103,7 +103,7 @@ class LaravelAddressing
      * @param string|null $locale
      * @return \Galahad\LaravelAddressing\Collection\CountryCollection
      */
-    public function countries($locale = null) : CountryCollection
+    public function countries($locale = null): CountryCollection
     {
         if (! $this->all_countries_loaded) {
             $all_countries = $this->country_repository->getAll($locale ?? $this->locale);
@@ -127,7 +127,7 @@ class LaravelAddressing
      * @param string $name
      * @return \Galahad\LaravelAddressing\Entity\Country|null
      */
-    public function countryByName($name) : ?Country
+    public function countryByName($name): ?Country
     {
         return $this->countries()
             ->first(static function (Country $country) use ($name) {
@@ -141,7 +141,7 @@ class LaravelAddressing
      * @param string $input
      * @return \Galahad\LaravelAddressing\Entity\Country|null
      */
-    public function findCountry($input) : ?Country
+    public function findCountry($input): ?Country
     {
         return $this->country($input) ?? $this->countryByName($input);
     }

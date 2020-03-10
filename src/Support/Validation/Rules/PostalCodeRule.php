@@ -35,14 +35,14 @@ class PostalCodeRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function passes($attribute, $value) : bool
+    public function passes($attribute, $value): bool
     {
         try {
             $value = (string) $value;
         } catch (Throwable $exception) {
             return false;
         }
-        
+
         // If it's not required and empty, pass
         if ('' === $value && false === $this->isRequired()) {
             return true;
@@ -59,19 +59,19 @@ class PostalCodeRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function message() : string
+    public function message(): string
     {
         $type = $this->country->addressFormat()->getPostalCodeType() ?? 'postal code';
 
         return trans('laravel-addressing::validation.postal_code', compact('type'));
     }
-    
-    protected function isRequired() : bool
+
+    protected function isRequired(): bool
     {
         return in_array('postalCode', $this->country->addressFormat()->getRequiredFields());
     }
 
-    protected function pattern() : ?string
+    protected function pattern(): ?string
     {
         $pattern = $this->administrative_area
             ? $this->administrative_area->getPostalCodePattern()

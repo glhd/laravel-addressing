@@ -4,7 +4,7 @@ namespace Galahad\LaravelAddressing\Tests;
 
 class RoutesTest extends TestCase
 {
-    public function test_a_list_of_countries_can_be_loaded_via_http() : void
+    public function test_a_list_of_countries_can_be_loaded_via_http(): void
     {
         $response = $this->get(route('galahad.addressing.countries'))
             ->assertOk()
@@ -19,7 +19,7 @@ class RoutesTest extends TestCase
         }
     }
 
-    public function test_a_list_of_us_states_can_be_loaded_via_http() : void
+    public function test_a_list_of_us_states_can_be_loaded_via_http(): void
     {
         $response = $this->get(route('galahad.addressing.administrative-areas', 'us'))
             ->assertOk()
@@ -35,7 +35,7 @@ class RoutesTest extends TestCase
         }
     }
 
-    public function test_canada_returns_province_for_label() : void
+    public function test_canada_returns_province_for_label(): void
     {
         $response = $this->get(route('galahad.addressing.administrative-areas', 'ca'));
 

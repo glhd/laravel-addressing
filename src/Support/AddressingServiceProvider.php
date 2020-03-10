@@ -19,7 +19,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AddressingServiceProvider extends ServiceProvider
 {
-    public function boot() : void
+    public function boot(): void
     {
         $this->bootRoutes();
 
@@ -32,7 +32,7 @@ class AddressingServiceProvider extends ServiceProvider
         }
     }
 
-    public function register() : void
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/addressing.php', 'addressing');
 
@@ -57,7 +57,7 @@ class AddressingServiceProvider extends ServiceProvider
     /**
      * Boot routes if routing is supported.
      */
-    protected function bootRoutes() : void
+    protected function bootRoutes(): void
     {
         if ($this->app->routesAreCached()) {
             return;
@@ -94,7 +94,7 @@ class AddressingServiceProvider extends ServiceProvider
     /**
      * Register our custom validators.
      */
-    protected function registerValidators() : void
+    protected function registerValidators(): void
     {
         $this->app->resolving(Factory::class, static function (Factory $validation_factory, Container $app) {
             $validator = new Validator($app->make(LaravelAddressing::class));

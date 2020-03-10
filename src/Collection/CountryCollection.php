@@ -10,27 +10,27 @@ class CountryCollection extends Collection
     /**
      * @return \Galahad\LaravelAddressing\Entity\Country[]
      */
-    public function all() : array
+    public function all(): array
     {
         return parent::all();
     }
 
-    public function get($key, $default = null) : ?Country
+    public function get($key, $default = null): ?Country
     {
         return parent::get($key, $default);
     }
 
-    public function keys() : Collection
+    public function keys(): Collection
     {
         return new Collection(array_keys($this->items));
     }
 
-    public function last(callable $callback = null, $default = null) : ?Country
+    public function last(callable $callback = null, $default = null): ?Country
     {
         return parent::last($callback, $default);
     }
 
-    public function pop() : ?Country
+    public function pop(): ?Country
     {
         return parent::pop();
     }
@@ -40,12 +40,12 @@ class CountryCollection extends Collection
      * @param null $key
      * @return \Galahad\LaravelAddressing\Collection\CountryCollection
      */
-    public function prepend($value, $key = null) : self
+    public function prepend($value, $key = null): self
     {
         return parent::prepend($value, $key);
     }
 
-    public function pull($key, $default = null) : ?Country
+    public function pull($key, $default = null): ?Country
     {
         return parent::pull($key, $default);
     }
@@ -55,7 +55,7 @@ class CountryCollection extends Collection
      * @param Country $value
      * @return \Galahad\LaravelAddressing\Collection\CountryCollection
      */
-    public function put($key, $value) : self
+    public function put($key, $value): self
     {
         return parent::put($key, $value);
     }
@@ -63,19 +63,19 @@ class CountryCollection extends Collection
     /**
      * @return \Galahad\LaravelAddressing\Entity\Country[]
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         return parent::toArray();
     }
 
-    public function toSelectArray() : array
+    public function toSelectArray(): array
     {
         return $this->mapWithKeys(static function (Country $country) {
             return [$country->getCountryCode() => $country->getName()];
         })->toArray();
     }
 
-    public function offsetGet($key) : ?Country
+    public function offsetGet($key): ?Country
     {
         return parent::offsetGet($key);
     }
@@ -84,7 +84,7 @@ class CountryCollection extends Collection
      * @param mixed $key
      * @param \Galahad\LaravelAddressing\Entity\Country $value
      */
-    public function offsetSet($key, $value) : void
+    public function offsetSet($key, $value): void
     {
         parent::offsetSet($key, $value);
     }

@@ -49,7 +49,7 @@ class Country
         $this->address_format_repository = $address_format_repository;
     }
 
-    public function addressFormat() : AddressFormat
+    public function addressFormat(): AddressFormat
     {
         if (null === $this->address_format) {
             $this->address_format = $this->address_format_repository->get($this->country->getCountryCode());
@@ -58,17 +58,17 @@ class Country
         return $this->address_format;
     }
 
-    public function getAdministrativeAreaLabel() : ?string
+    public function getAdministrativeAreaLabel(): ?string
     {
         return $this->addressFormat()->getAdministrativeAreaType();
     }
 
-    public function getLocalityLabel() : ?string
+    public function getLocalityLabel(): ?string
     {
         return $this->addressFormat()->getLocalityType();
     }
 
-    public function administrativeAreas() : AdministrativeAreaCollection
+    public function administrativeAreas(): AdministrativeAreaCollection
     {
         if (null === $this->administrative_areas) {
             $this->administrative_areas = AdministrativeAreaCollection::make()->setCountry($this);
@@ -86,7 +86,7 @@ class Country
      * @param string $code
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function administrativeArea($code) : ?AdministrativeArea
+    public function administrativeArea($code): ?AdministrativeArea
     {
         // First try on the assumption that it's a 2-letter upper case code.
         // If that doesn't work, do a case-insensitive lookup.
@@ -101,7 +101,7 @@ class Country
      * @param string $name
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function administrativeAreaByName($name) : ?AdministrativeArea
+    public function administrativeAreaByName($name): ?AdministrativeArea
     {
         return $this->administrativeAreas()
             ->first(static function (AdministrativeArea $subdivision) use ($name) {
@@ -115,12 +115,12 @@ class Country
      * @param string $input
      * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
      */
-    public function findAdministrativeArea($input) : ?AdministrativeArea
+    public function findAdministrativeArea($input): ?AdministrativeArea
     {
         return $this->administrativeArea($input) ?? $this->administrativeAreaByName($input);
     }
 
-    public function is(self $country = null) : bool
+    public function is(self $country = null): bool
     {
         if (null === $country) {
             return false;
@@ -129,27 +129,27 @@ class Country
         return $this->getCountryCode() === $country->getCountryCode();
     }
 
-    public function getCountryCode() : string
+    public function getCountryCode(): string
     {
         return $this->country->getCountryCode();
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->country->getName();
     }
 
-    public function getThreeLetterCode() : string
+    public function getThreeLetterCode(): string
     {
         return $this->country->getThreeLetterCode();
     }
 
-    public function getNumericCode() : int
+    public function getNumericCode(): int
     {
         return (int) $this->country->getNumericCode();
     }
 
-    public function getCurrencyCode() : string
+    public function getCurrencyCode(): string
     {
         return $this->country->getCurrencyCode();
     }
@@ -157,12 +157,12 @@ class Country
     /**
      * @return string[]
      */
-    public function getTimezones() : array
+    public function getTimezones(): array
     {
         return $this->country->getTimezones();
     }
 
-    public function getLocale() : string
+    public function getLocale(): string
     {
         return $this->country->getLocale();
     }

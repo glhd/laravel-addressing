@@ -25,7 +25,7 @@ class LooseAdministrativeAreaRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function passes($attribute, $value) : bool
+    public function passes($attribute, $value): bool
     {
         return (new AdministrativeAreaCodeRule($this->country))->passes($attribute, $value)
             ?: (new AdministrativeAreaNameRule($this->country))->passes($attribute, $value);
@@ -34,7 +34,7 @@ class LooseAdministrativeAreaRule implements Rule
     /**
      * {@inheritdoc}
      */
-    public function message() : string
+    public function message(): string
     {
         $type = $this->country->addressFormat()->getAdministrativeAreaType();
 

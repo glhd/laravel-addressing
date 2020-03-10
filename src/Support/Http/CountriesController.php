@@ -11,7 +11,7 @@ use Illuminate\Routing\Controller;
 
 class CountriesController extends Controller
 {
-    public function __invoke(LaravelAddressing $addressing, Repository $config, Request $request) : JsonResponse
+    public function __invoke(LaravelAddressing $addressing, Repository $config, Request $request): JsonResponse
     {
         $countries = $addressing->countries($request->input('locale', null));
 

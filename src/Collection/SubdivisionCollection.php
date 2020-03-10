@@ -18,24 +18,24 @@ class SubdivisionCollection extends Collection
      */
     protected $parent;
 
-    public function getCountry() : Country
+    public function getCountry(): Country
     {
         return $this->country;
     }
 
-    public function setCountry(Country $country) : self
+    public function setCountry(Country $country): self
     {
         $this->country = $country;
 
         return $this;
     }
 
-    public function getParent() : ?Subdivision
+    public function getParent(): ?Subdivision
     {
         return $this->parent;
     }
 
-    public function setParent(Subdivision $parent) : self
+    public function setParent(Subdivision $parent): self
     {
         $this->parent = $parent;
 
@@ -45,27 +45,27 @@ class SubdivisionCollection extends Collection
     /**
      * @return \Galahad\LaravelAddressing\Entity\Subdivision[]
      */
-    public function all() : array
+    public function all(): array
     {
         return parent::all();
     }
 
-    public function get($key, $default = null) : ?Subdivision
+    public function get($key, $default = null): ?Subdivision
     {
         return parent::get($key, $default);
     }
 
-    public function keys() : Collection
+    public function keys(): Collection
     {
         return new Collection(array_keys($this->items));
     }
 
-    public function last(callable $callback = null, $default = null) : ?Subdivision
+    public function last(callable $callback = null, $default = null): ?Subdivision
     {
         return parent::last($callback, $default);
     }
 
-    public function pop() : ?Subdivision
+    public function pop(): ?Subdivision
     {
         return parent::pop();
     }
@@ -75,12 +75,12 @@ class SubdivisionCollection extends Collection
      * @param null $key
      * @return \Galahad\LaravelAddressing\Collection\SubdivisionCollection
      */
-    public function prepend($value, $key = null) : self
+    public function prepend($value, $key = null): self
     {
         return parent::prepend($value, $key);
     }
 
-    public function pull($key, $default = null) : ?Subdivision
+    public function pull($key, $default = null): ?Subdivision
     {
         return parent::pull($key, $default);
     }
@@ -90,7 +90,7 @@ class SubdivisionCollection extends Collection
      * @param Subdivision $value
      * @return \Galahad\LaravelAddressing\Collection\SubdivisionCollection
      */
-    public function put($key, $value) : self
+    public function put($key, $value): self
     {
         return parent::put($key, $value);
     }
@@ -98,19 +98,19 @@ class SubdivisionCollection extends Collection
     /**
      * @return \Galahad\LaravelAddressing\Entity\Subdivision[]
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         return parent::toArray();
     }
 
-    public function toSelectArray() : array
+    public function toSelectArray(): array
     {
         return $this->mapWithKeys(static function (Subdivision $subdivision) {
             return [$subdivision->getCode() => $subdivision->getName()];
         })->toArray();
     }
 
-    public function offsetGet($key) : ?Subdivision
+    public function offsetGet($key): ?Subdivision
     {
         return parent::offsetGet($key);
     }
@@ -119,7 +119,7 @@ class SubdivisionCollection extends Collection
      * @param mixed $key
      * @param \Galahad\LaravelAddressing\Entity\Subdivision $value
      */
-    public function offsetSet($key, $value) : void
+    public function offsetSet($key, $value): void
     {
         parent::offsetSet($key, $value);
     }

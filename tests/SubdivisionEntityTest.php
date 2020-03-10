@@ -6,7 +6,7 @@ use Galahad\LaravelAddressing\Support\Facades\Addressing;
 
 class SubdivisionEntityTest extends TestCase
 {
-    public function test_subdivisions_expose_their_country() : void
+    public function test_subdivisions_expose_their_country(): void
     {
         $usa = Addressing::country('US');
         $colorado = $usa->administrativeArea('CO');
@@ -15,7 +15,7 @@ class SubdivisionEntityTest extends TestCase
         $this->assertTrue($colorado->getCountry()->is($pennsylvania->getCountry()));
     }
 
-    public function test_subdivisions_can_be_compared() : void
+    public function test_subdivisions_can_be_compared(): void
     {
         $usa = Addressing::country('US');
         $colorado = $usa->administrativeArea('CO');

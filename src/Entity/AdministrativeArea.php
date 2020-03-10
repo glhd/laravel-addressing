@@ -11,12 +11,12 @@ class AdministrativeArea extends Subdivision
         parent::__construct($country, $subdivision);
     }
 
-    public function getParent() : ?Subdivision
+    public function getParent(): ?Subdivision
     {
         return null;
     }
 
-    public function is(Subdivision $subdivision = null) : bool
+    public function is(Subdivision $subdivision = null): bool
     {
         if (! ($subdivision instanceof self)) {
             return false;

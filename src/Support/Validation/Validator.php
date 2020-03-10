@@ -39,7 +39,7 @@ class Validator
      * @param $value
      * @return bool
      */
-    public function countryCode($attribute, $value) : bool
+    public function countryCode($attribute, $value): bool
     {
         return (new CountryCodeRule($this->addressing))->passes($attribute, $value);
     }
@@ -51,7 +51,7 @@ class Validator
      * @param $value
      * @return bool
      */
-    public function countryName($attribute, $value) : bool
+    public function countryName($attribute, $value): bool
     {
         return (new CountryNameRule($this->addressing))->passes($attribute, $value);
     }
@@ -63,7 +63,7 @@ class Validator
      * @param $value
      * @return bool
      */
-    public function looseCountry($attribute, $value) : bool
+    public function looseCountry($attribute, $value): bool
     {
         return (new LooseCountryRule($this->addressing))->passes($attribute, $value);
     }
@@ -77,7 +77,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return bool
      */
-    public function administrativeArea($attribute, $value, array $parameters, BaseValidator $validator) : bool
+    public function administrativeArea($attribute, $value, array $parameters, BaseValidator $validator): bool
     {
         if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
             return false;
@@ -95,7 +95,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return bool
      */
-    public function administrativeAreaName($attribute, $value, array $parameters, BaseValidator $validator) : bool
+    public function administrativeAreaName($attribute, $value, array $parameters, BaseValidator $validator): bool
     {
         if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
             return false;
@@ -113,7 +113,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return bool
      */
-    public function looseAdministrativeArea($attribute, $value, array $parameters, BaseValidator $validator) : bool
+    public function looseAdministrativeArea($attribute, $value, array $parameters, BaseValidator $validator): bool
     {
         if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
             return false;
@@ -131,7 +131,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return bool
      */
-    public function postalCode($attribute, $value, array $parameters, BaseValidator $validator) : bool
+    public function postalCode($attribute, $value, array $parameters, BaseValidator $validator): bool
     {
         if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
             return false;
@@ -151,7 +151,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return \Galahad\LaravelAddressing\Entity\Country|null
      */
-    protected function loadCountryFromValidationData(array $parameters, BaseValidator $validator) : ?Country
+    protected function loadCountryFromValidationData(array $parameters, BaseValidator $validator): ?Country
     {
         $country_input_name = $parameters[0] ?? 'country';
 
@@ -172,7 +172,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return \Galahad\LaravelAddressing\Entity\Subdivision|null
      */
-    protected function loadAdministrativeAreaFromValidationData(Country $country, array $parameters, BaseValidator $validator) : ?Subdivision
+    protected function loadAdministrativeAreaFromValidationData(Country $country, array $parameters, BaseValidator $validator): ?Subdivision
     {
         if (! $administrative_area_value = $this->loadAdministrativeAreaValueFromValidationData($parameters, $validator)) {
             return null;
@@ -189,7 +189,7 @@ class Validator
      * @param \Illuminate\Validation\Validator $validator
      * @return string|null
      */
-    protected function loadAdministrativeAreaValueFromValidationData(array $parameters, BaseValidator $validator) : ?string
+    protected function loadAdministrativeAreaValueFromValidationData(array $parameters, BaseValidator $validator): ?string
     {
         // Either use the explicitly set name, or try all common names
         $possible_input_names = isset($parameters[1])

@@ -37,12 +37,12 @@ class Subdivision
         $this->parent = $parent;
     }
 
-    public function getCountry() : Country
+    public function getCountry(): Country
     {
         return $this->country;
     }
 
-    public function getParent() : ?self
+    public function getParent(): ?self
     {
         if (null === $this->parent && $base_parent = $this->subdivision->getParent()) {
             $this->parent = new self($this->country, $base_parent);
@@ -51,54 +51,54 @@ class Subdivision
         return $this->parent;
     }
 
-    public function getCode() : string
+    public function getCode(): string
     {
         return $this->subdivision->getCode();
     }
 
-    public function getLocalCode() : string
+    public function getLocalCode(): string
     {
         return $this->subdivision->getLocalCode();
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->subdivision->getName();
     }
 
-    public function getLocalName() : string
+    public function getLocalName(): string
     {
         return $this->subdivision->getLocalName();
     }
 
-    public function getIsoCode() : string
+    public function getIsoCode(): string
     {
         return $this->subdivision->getIsoCode();
     }
 
-    public function getPostalCodePattern() : ?string
+    public function getPostalCodePattern(): ?string
     {
         return $this->subdivision->getPostalCodePattern()
             ?? $this->country->addressFormat()->getPostalCodePattern();
     }
 
-    public function getPostalCodePatternType() : string
+    public function getPostalCodePatternType(): string
     {
         return $this->subdivision->getPostalCodePatternType()
             ?? PatternType::FULL;
     }
 
-    public function getLocale() : string
+    public function getLocale(): string
     {
         return $this->subdivision->getLocale() ?? $this->country->getLocale();
     }
 
-    public function hasChildren() : bool
+    public function hasChildren(): bool
     {
         return $this->subdivision->hasChildren();
     }
 
-    public function getChildren() : SubdivisionCollection
+    public function getChildren(): SubdivisionCollection
     {
         if (null === $this->children) {
             $this->children = SubdivisionCollection::make()->setCountry($this->country)->setParent($this);
@@ -110,7 +110,7 @@ class Subdivision
         return $this->children;
     }
 
-    public function is(self $subdivision = null) : bool
+    public function is(self $subdivision = null): bool
     {
         if (null === $subdivision) {
             return false;
