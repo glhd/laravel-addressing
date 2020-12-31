@@ -3,20 +3,23 @@ language: php
 sudo: false
 
 php:
-  - "7.4"
-  - "7.3"
-  - "8.0"
+  - 7.4
+  - 7.3
+  - 8.0
 
 env:
   global: 
-    - XDEBUG_MODE=coverage
+    - XDEBUG_MODE="coverage"
   jobs:
-    - LARAVEL_VERSION="8.12" ORCHESTRA_VERSION="6.0"
+    - LARAVEL_VERSION="8.0" ORCHESTRA_VERSION="6.0"
     - LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
     - LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
 
 jobs:
   fast_finish: true
+  include:
+    - php: 8.0
+      env: LARAVEL_VERSION="8.12" ORCHESTRA_VERSION="6.0" 
 
 before_install:
   - mkdir -p ~/artifacts
