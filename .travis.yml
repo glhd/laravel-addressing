@@ -8,12 +8,14 @@ php:
   - "8.0"
 
 env:
-  matrix:
-    - LARAVEL_VERSION="8.0" ORCHESTRA_VERSION="6.0"
+  global: 
+    - XDEBUG_MODE=coverage
+  jobs:
+    - LARAVEL_VERSION="8.12" ORCHESTRA_VERSION="6.0"
     - LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
     - LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
 
-matrix:
+jobs:
   fast_finish: true
 
 before_install:
@@ -23,7 +25,7 @@ before_install:
 install:
   - travis_retry composer require php-coveralls/php-coveralls illuminate/contracts:${LARAVEL_VERSION} orchestra/testbench:${ORCHESTRA_VERSION} --dev --prefer-dist --no-interaction --no-suggest --update-with-dependencies
 
-script: XDEBUG_MODE=coverage vendor/bin/phpunit --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
+script: vendor/bin/phpunit --log-junit ~/artifacts/junit.xml --coverage-clover ~/artifacts/clover.xml
 
 after_success:
   - travis_retry php vendor/bin/php-coveralls -v -x ~/artifacts/clover.xml -o ~/artifacts/coveralls.json
