@@ -3,26 +3,18 @@ language: php
 sudo: false
 
 php:
-  - "7.1"
-  - "7.2"
-  - "7.3"
   - "7.4"
+  - "7.3"
   - "8.0"
 
 env:
   matrix:
-    - LARAVEL_VERSION="5.7.*" ORCHESTRA_VERSION="3.7.*"
-    - LARAVEL_VERSION="5.8.*" ORCHESTRA_VERSION="3.8.*"
-    - LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
+    - LARAVEL_VERSION="8.0" ORCHESTRA_VERSION="6.0"
     - LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
+    - LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
 
 matrix:
   fast_finish: true
-  exclude:
-    - php: "7.1"
-      env: LARAVEL_VERSION="6.0" ORCHESTRA_VERSION="4.0"
-    - php: "7.1"
-      env: LARAVEL_VERSION="7.0" ORCHESTRA_VERSION="5.0"
 
 before_install:
   - mkdir -p ~/artifacts
