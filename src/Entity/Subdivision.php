@@ -66,12 +66,12 @@ class Subdivision
         return $this->subdivision->getName();
     }
 
-    public function getLocalName(): string
+    public function getLocalName(): ?string
     {
         return $this->subdivision->getLocalName();
     }
 
-    public function getIsoCode(): string
+    public function getIsoCode(): ?string
     {
         return $this->subdivision->getIsoCode();
     }
