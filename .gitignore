@@ -3,11 +3,6 @@
 composer.phar
 .DS_Store
 .env
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/php.xml
-.idea/vagrant.xml
-.idea/remote-mappings.xml
-.idea/runConfigurations/Build_Templates_Command.xml
+.idea/
 */.iws
 npm-debug.log
