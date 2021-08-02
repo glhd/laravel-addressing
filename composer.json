@@ -34,7 +34,8 @@
 	"require-dev": {
 		"ext-json": "*",
 		"phpunit/phpunit": "^7.0|^8.0",
-		"orchestra/testbench": "~3.7.0|~3.8.0|~3.9.0|^4.0|^5.0|^6.0"
+		"orchestra/testbench": "~3.7.0|~3.8.0|~3.9.0|^4.0|^5.0|^6.0",
+		"friendsofphp/php-cs-fixer": "^3.0"
 	},
 	"autoload": {
 		"psr-4": {
