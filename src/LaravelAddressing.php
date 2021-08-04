@@ -11,56 +11,26 @@ use Galahad\LaravelAddressing\Entity\Country;
 
 class LaravelAddressing
 {
-	/**
-	 * @var string
-	 */
-	protected $locale;
-
-	/**
-	 * @var string
-	 */
-	protected $fallback_locale;
-
-	/**
-	 * @var \CommerceGuys\Addressing\Country\CountryRepositoryInterface
-	 */
-	protected $country_repository;
-
-	/**
-	 * @var \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface
-	 */
-	protected $subdivision_repository;
-
-	/**
-	 * @var \CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface
-	 */
-	protected $address_format_repository;
-
-	/**
-	 * @var \Galahad\LaravelAddressing\Collection\CountryCollection
-	 */
-	protected $countries;
-
-	/**
-	 * @var bool
-	 */
-	protected $all_countries_loaded = false;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param \CommerceGuys\Addressing\Country\CountryRepositoryInterface $country_repository
-	 * @param \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface $subdivision_repository
-	 * @param \CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface $address_format_repository
-	 * @param string $locale
-	 * @param string $fallback_locale
-	 */
+	protected string $locale;
+	
+	protected string $fallback_locale;
+	
+	protected CountryRepositoryInterface $country_repository;
+	
+	protected SubdivisionRepositoryInterface $subdivision_repository;
+	
+	protected AddressFormatRepositoryInterface $address_format_repository;
+	
+	protected CountryCollection $countries;
+	
+	protected bool $all_countries_loaded = false;
+	
 	public function __construct(
 		CountryRepositoryInterface $country_repository,
 		SubdivisionRepositoryInterface $subdivision_repository,
 		AddressFormatRepositoryInterface $address_format_repository,
-		$locale = 'en',
-		$fallback_locale = 'en'
+		string $locale = 'en',
+		string $fallback_locale = 'en'
 	) {
 		$this->country_repository = $country_repository;
 		$this->subdivision_repository = $subdivision_repository;
@@ -81,7 +51,7 @@ class LaravelAddressing
 	 * @param string|null $locale
 	 * @return \Galahad\LaravelAddressing\Entity\Country
 	 */
-	public function country($country_code, $locale = null): ?Country
+	public function country(string $country_code, ?string $locale = null): ?Country
 	{
 		$country_code = strtoupper($country_code);
 
@@ -107,10 +77,11 @@ class LaravelAddressing
 	 * @param string|null $locale
 	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
 	 */
-	public function countries($locale = null): CountryCollection
+	public function countries(?string $locale = null): CountryCollection
 	{
 		if (!$this->all_countries_loaded) {
 			$all_countries = $this->country_repository->getAll($locale ?? $this->locale);
+			
 			foreach ($all_countries as $country_code => $base_country) {
 				$this->countries->put($country_code, new Country(
 					$base_country,
@@ -131,12 +102,10 @@ class LaravelAddressing
 	 * @param string $name
 	 * @return \Galahad\LaravelAddressing\Entity\Country|null
 	 */
-	public function countryByName($name): ?Country
+	public function countryByName(string $name): ?Country
 	{
 		return $this->countries()
-			->first(static function(Country $country) use ($name) {
-				return 0 === strcasecmp($country->getName(), $name);
-			});
+			->first(fn(Country $country) => 0 === strcasecmp($country->getName(), $name));
 	}
 
 	/**
@@ -145,7 +114,7 @@ class LaravelAddressing
 	 * @param string $input
 	 * @return \Galahad\LaravelAddressing\Entity\Country|null
 	 */
-	public function findCountry($input): ?Country
+	public function findCountry(string $input): ?Country
 	{
 		return $this->country($input) ?? $this->countryByName($input);
 	}
