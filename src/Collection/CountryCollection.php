@@ -29,8 +29,12 @@ class CountryCollection extends Collection
     {
         return parent::last($callback, $default);
     }
-
-    public function pop($count = 1): ?Country
+	
+	/**
+	 * @param int $count
+	 * @return \Galahad\LaravelAddressing\Entity\Country|\Galahad\LaravelAddressing\Entity\Country[]|\Galahad\LaravelAddressing\Collection\CountryCollection|null
+	 */
+    public function pop($count = 1)
     {
         return parent::pop($count);
     }

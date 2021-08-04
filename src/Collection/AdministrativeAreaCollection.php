@@ -33,13 +33,14 @@ class AdministrativeAreaCollection extends SubdivisionCollection
     {
         return parent::last($callback, $default);
     }
-
-    /**
-     * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
-     */
-    public function pop(): ?Subdivision
+	
+	/**
+	 * @param int $count
+	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|\Galahad\LaravelAddressing\Entity\AdministrativeArea[]|\Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection|null
+	 */
+    public function pop($count = 1)
     {
-        return parent::pop();
+        return parent::pop($count);
     }
 
     /**

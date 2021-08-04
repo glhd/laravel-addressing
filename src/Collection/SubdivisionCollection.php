@@ -64,10 +64,14 @@ class SubdivisionCollection extends Collection
     {
         return parent::last($callback, $default);
     }
-
-    public function pop(): ?Subdivision
+	
+	/**
+	 * @param int $count
+	 * @return \Galahad\LaravelAddressing\Entity\Subdivision|\Galahad\LaravelAddressing\Entity\Subdivision[]|\Galahad\LaravelAddressing\Collection\SubdivisionCollection|null
+	 */
+    public function pop($count = 1)
     {
-        return parent::pop();
+        return parent::pop($count);
     }
 
     /**
