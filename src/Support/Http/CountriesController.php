@@ -11,15 +11,15 @@ use Illuminate\Routing\Controller;
 
 class CountriesController extends Controller
 {
-    public function __invoke(LaravelAddressing $addressing, Repository $config, Request $request): JsonResponse
-    {
-        $countries = $addressing->countries($request->input('locale', null));
+	public function __invoke(LaravelAddressing $addressing, Repository $config, Request $request): JsonResponse
+	{
+		$countries = $addressing->countries($request->input('locale', null));
 
-        return new JsonResponse([
-            'label' => 'Countries',
-            'options' => $countries->map(static function (Country $country) {
-                return $country->getName();
-            })->toArray(),
-        ], 200);
-    }
+		return new JsonResponse([
+			'label' => 'Countries',
+			'options' => $countries->map(static function (Country $country) {
+				return $country->getName();
+			})->toArray(),
+		], 200);
+	}
 }
