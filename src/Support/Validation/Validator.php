@@ -17,16 +17,8 @@ use Illuminate\Validation\Validator as BaseValidator;
 
 class Validator
 {
-	/**
-	 * @var \Galahad\LaravelAddressing\LaravelAddressing
-	 */
-	protected $addressing;
-
-	/**
-	 * Validator constructor.
-	 *
-	 * @param \Galahad\LaravelAddressing\LaravelAddressing $addressing
-	 */
+	protected LaravelAddressing $addressing;
+	
 	public function __construct(LaravelAddressing $addressing)
 	{
 		$this->addressing = $addressing;
