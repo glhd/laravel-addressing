@@ -1,6 +1,17 @@
 # Laravel Addressing
 
-[![Build Status](https://travis-ci.org/glhd/laravel-addressing.svg)](https://travis-ci.org/glhd/laravel-addressing) [![Coverage Status](https://coveralls.io/repos/github/glhd/laravel-addressing/badge.svg?branch=master)](https://coveralls.io/github/glhd/laravel-addressing?branch=master) [![Latest Stable Version](https://poser.pugx.org/galahad/laravel-addressing/v/stable)](https://packagist.org/packages/galahad/laravel-addressing) [![License](https://poser.pugx.org/galahad/laravel-addressing/license)](https://packagist.org/packages/galahad/laravel-addressing)
+<a href="https://codeclimate.com/github/glhd/laravel-addressing/test_coverage" target="_blank">
+    <img src="https://api.codeclimate.com/v1/badges/f01ed69a607407fc9114/test_coverage" alt="Code coverage status" />
+</a>
+<a href="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml" target="_blank">
+    <img src="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml/badge.svg" alt="Tests status" />
+</a>
+<a href="https://github.com/glhd/laravel-addressing/blob/main/LICENSE">
+    <img src="https://poser.pugx.org/galahad/laravel-addressing/license" alt="MIT License" />
+</a>
+<a href="https://packagist.org/packages/galahad/laravel-addressing" target="_blank">
+    <img src="https://poser.pugx.org/galahad/laravel-addressing/v/stable" alt="Latest stable version" />
+</a>
 
 > Laravel package providing addressing functionality based on [`commerceguys/addressing`](https://github.com/commerceguys/addressing)
 
@@ -114,40 +125,6 @@ The prefix (`/galahad/addressing`) can also be configured.
      }
 }
 ```
-
-## Changelog
-
-### 2.0.1
-
-This release adds Laravel 7 support and also is more permissive in its validators:
-
- - If we don't have a known list of administrative areas for a country, we just allow any value
- - If a country does not require an administrative area, we allow an empty string
- - If a country does not require a postal code, we allow an empty string
- 
-(The 2.0.0 release had a bug that failed to allow admin areas when we don't have data.)
-
-### 1.0.0
-
-This is the first stable release, with lots of breaking changes since 0.5.*
-
- - Minimum supported Laravel version is now `5.7` and the minimum supported PHP version is now `7.1.3`
- - `Galahad\LaravelAddressing\ServiceProvider` has been moved to `Galahad\LaravelAddressing\Support\AddressingServiceProvider`, so if you were manually registering the service provider, please update your `app.php` config file. 
- - `Galahad\LaravelAddressing\Facades\Addressing` has been moved to `Galahad\LaravelAddressing\Support\Facades\Addressing`, so if you were manually registering the service provider, please update your `app.php` config file.
- - The previously-deprecated `Galahad\LaravelAddressing\AddressFacade` has been removed 
- - All custom repository classes (`AddressFormatRepository`, `AdministrativeAreaRepository`, `CountryRepository`) have been removed. Instead, countries are accessed via the facade or `LaravelAddressing` class, and everything else is loaded via its parent.
- - Most custom methods have been removed from `CountryCollection` and `AdministrativeAreaCollection` (`getCountryCode()`, etc) in favor of just calling `getCountry()` on the collection and then accessing the Country entity directly.
- - `LaravelAddressing::getCountryList()` has been removed in favor of `countries()->toSelectArray()`
- - `Country::getAdministrativeAreasList()` has been removed in favor of `administrativeAreas()->toSelectArray()`
- - `Entity\Country` no longer extends `CommerceGuys\Addressing\Country` (which is now a `final` class), and instead provides a similar/decorated API
- - `Entity\AdministrativeArea` no longer extends `CommerceGuys\Addressing\Subdivision\Subdivision`, and instead extends `Entity\Subdivision` and provides a similar/decorated API
- - Administrative areas are no longer keyed by compound codes (i.e. `US-PA`) and instead by their country-specific codes (i.e. `PA`)
- - `Galahad\LaravelAddressing\Controller` has been split up into separate controllers. If you're extending this, please see the `Support/Http/` directory.
- - `$country->getPostalCodePattern()` has been removed in favor of `$country->addressFormat()->getPostalCodePattern()`
- - All validation logic has been refactored. The API is the same as long as you were using string-based validations (i.e. `'country_input' => 'country_code'`). If not, see `src/Support/Validation/` for details.
- - The `/{country}/administrative-areas` HTTP endpoint no longer returns an `expected_length` value and `country` has been renamed to `country_code`
- - The config `addressing.route.prefix` has been renamed `addressing.routes.prefix` and `addressing.routes.enabled` has been added
- - The `UnknownCountryException` is no longer thrown, and `NULL` is returned instead  
 
 ### Thanks!
 
