@@ -13,7 +13,18 @@
     <img src="https://poser.pugx.org/galahad/laravel-addressing/v/stable" alt="Latest stable version" />
 </a>
 
-> Laravel package providing addressing functionality based on [`commerceguys/addressing`](https://github.com/commerceguys/addressing)
+Laravel Addressing is a Laravel package providing addressing functionality based on 
+[`commerceguys/addressing`](https://github.com/commerceguys/addressing). It lets you easily
+work with addresses using data from CLDR and Google.
+
+The primary focus of Laravel Addressing is:
+
+- Access to up-to-date lists of countries, states/provinces, etc
+- Easily validate address data
+- Format addresses to match a specific country's rules
+
+If you find this package useful, you should check out [Franklin](https://internachi.github.io/franklin/),
+our universal address input that follows the same conventions as Laravel Addressing.
 
 ## Installation
 

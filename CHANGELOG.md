@@ -9,8 +9,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Switched to PHP 7.4 syntax (more usage of types)
+- Dropped support for older PHP and Laravel versions
+- Switched to PHP 7.4 syntax (more usage of type hints)
 - Switched to GitHub actions for CI
+- Implemented Get a Changelog standard
 
 ### Added
 
