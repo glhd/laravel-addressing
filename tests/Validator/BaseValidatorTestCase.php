@@ -12,26 +12,26 @@ use Illuminate\Validation\Factory;
  */
 class BaseValidatorTestCase extends TestCase
 {
-    /**
-     * @var Factory
-     */
-    protected $validator;
+	/**
+	 * @var Factory
+	 */
+	protected $validator;
 
-    public function setUp(): void
-    {
-        parent::setUp();
+	public function setUp(): void
+	{
+		parent::setUp();
 
-        $this->validator = $this->app['validator'];
-    }
+		$this->validator = $this->app['validator'];
+	}
 
-    /**
-     * @param array $data
-     * @return bool
-     */
-    public function performValidation(array $data)
-    {
-        $validator = $this->validator->make($data['data'], $data['rules']);
+	/**
+	 * @param array $data
+	 * @return bool
+	 */
+	public function performValidation(array $data)
+	{
+		$validator = $this->validator->make($data['data'], $data['rules']);
 
-        return $validator->passes();
-    }
+		return $validator->passes();
+	}
 }

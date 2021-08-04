@@ -8,57 +8,57 @@ use Throwable;
 
 class AdministrativeAreaNameRule implements Rule
 {
-    /**
-     * @var \Galahad\LaravelAddressing\Entity\Country
-     */
-    protected $country;
+	/**
+	 * @var \Galahad\LaravelAddressing\Entity\Country
+	 */
+	protected $country;
 
-    /**
-     * Constructor.
-     *
-     * @param \Galahad\LaravelAddressing\Entity\Country $country
-     */
-    public function __construct(Country $country)
-    {
-        $this->country = $country;
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param \Galahad\LaravelAddressing\Entity\Country $country
+	 */
+	public function __construct(Country $country)
+	{
+		$this->country = $country;
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passes($attribute, $value): bool
-    {
-        try {
-            $value = (string) $value;
-        } catch (Throwable $exception) {
-            return false;
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function passes($attribute, $value): bool
+	{
+		try {
+			$value = (string) $value;
+		} catch (Throwable $exception) {
+			return false;
+		}
 
-        // If it's not required and empty, pass
-        if ('' === $value && false === $this->isRequired()) {
-            return true;
-        }
+		// If it's not required and empty, pass
+		if ('' === $value && false === $this->isRequired()) {
+			return true;
+		}
 
-        // If we don't have a known list of admin areas, just pass
-        if (0 === $this->country->administrativeAreas()->count()) {
-            return true;
-        }
+		// If we don't have a known list of admin areas, just pass
+		if (0 === $this->country->administrativeAreas()->count()) {
+			return true;
+		}
 
-        return null !== $this->country->administrativeAreaByName($value);
-    }
+		return null !== $this->country->administrativeAreaByName($value);
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function message(): string
-    {
-        $type = $this->country->addressFormat()->getAdministrativeAreaType();
+	/**
+	 * {@inheritdoc}
+	 */
+	public function message(): string
+	{
+		$type = $this->country->addressFormat()->getAdministrativeAreaType();
 
-        return trans('laravel-addressing::validation.administrative_area_name', compact('type'));
-    }
+		return trans('laravel-addressing::validation.administrative_area_name', compact('type'));
+	}
 
-    protected function isRequired(): bool
-    {
-        return in_array('administrativeArea', $this->country->addressFormat()->getRequiredFields());
-    }
+	protected function isRequired(): bool
+	{
+		return in_array('administrativeArea', $this->country->addressFormat()->getRequiredFields());
+	}
 }

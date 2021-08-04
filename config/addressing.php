@@ -1,13 +1,13 @@
 <?php
 
 return [
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Route Configuration
     |--------------------------------------------------------------------------
     */
-    'routes' => [
-        'enabled' => true,
-        'prefix' => 'galahad/addressing',
-    ],
+	'routes' => [
+		'enabled' => true,
+		'prefix' => 'galahad/addressing',
+	],
 ];

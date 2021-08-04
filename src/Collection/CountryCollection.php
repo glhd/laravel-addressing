@@ -7,23 +7,23 @@ use Illuminate\Support\Collection;
 
 class CountryCollection extends Collection
 {
-    /**
-     * @return \Galahad\LaravelAddressing\Entity\Country[]
-     */
-    public function all(): array
-    {
-        return parent::all();
-    }
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\Country[]
+	 */
+	public function all(): array
+	{
+		return parent::all();
+	}
 
-    public function get($key, $default = null): ?Country
-    {
-        return parent::get($key, $default);
-    }
+	public function get($key, $default = null): ?Country
+	{
+		return parent::get($key, $default);
+	}
 
-    public function keys(): Collection
-    {
-        return new Collection(array_keys($this->items));
-    }
+	public function keys(): Collection
+	{
+		return new Collection(array_keys($this->items));
+	}
 
     public function last(callable $callback = null, $default = null): ?Country
     {
@@ -35,61 +35,61 @@ class CountryCollection extends Collection
 	 * @return \Galahad\LaravelAddressing\Entity\Country|\Galahad\LaravelAddressing\Entity\Country[]|\Galahad\LaravelAddressing\Collection\CountryCollection|null
 	 */
     public function pop($count = 1)
-    {
-        return parent::pop($count);
-    }
+	{
+		return parent::pop($count);
+	}
 
-    /**
-     * @param \Galahad\LaravelAddressing\Entity\Country $value
-     * @param null $key
-     * @return \Galahad\LaravelAddressing\Collection\CountryCollection
-     */
-    public function prepend($value, $key = null): self
-    {
-        return parent::prepend($value, $key);
-    }
+	/**
+	 * @param \Galahad\LaravelAddressing\Entity\Country $value
+	 * @param null $key
+	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
+	 */
+	public function prepend($value, $key = null): self
+	{
+		return parent::prepend($value, $key);
+	}
 
-    public function pull($key, $default = null): ?Country
-    {
-        return parent::pull($key, $default);
-    }
+	public function pull($key, $default = null): ?Country
+	{
+		return parent::pull($key, $default);
+	}
 
-    /**
-     * @param mixed $key
-     * @param Country $value
-     * @return \Galahad\LaravelAddressing\Collection\CountryCollection
-     */
-    public function put($key, $value): self
-    {
-        return parent::put($key, $value);
-    }
+	/**
+	 * @param mixed $key
+	 * @param Country $value
+	 * @return \Galahad\LaravelAddressing\Collection\CountryCollection
+	 */
+	public function put($key, $value): self
+	{
+		return parent::put($key, $value);
+	}
 
-    /**
-     * @return \Galahad\LaravelAddressing\Entity\Country[]
-     */
-    public function toArray(): array
-    {
-        return parent::toArray();
-    }
+	/**
+	 * @return \Galahad\LaravelAddressing\Entity\Country[]
+	 */
+	public function toArray(): array
+	{
+		return parent::toArray();
+	}
 
-    public function toSelectArray(): array
-    {
-        return $this->mapWithKeys(static function (Country $country) {
-            return [$country->getCountryCode() => $country->getName()];
-        })->toArray();
-    }
+	public function toSelectArray(): array
+	{
+		return $this->mapWithKeys(static function (Country $country) {
+			return [$country->getCountryCode() => $country->getName()];
+		})->toArray();
+	}
 
-    public function offsetGet($key): ?Country
-    {
-        return parent::offsetGet($key);
-    }
+	public function offsetGet($key): ?Country
+	{
+		return parent::offsetGet($key);
+	}
 
-    /**
-     * @param mixed $key
-     * @param \Galahad\LaravelAddressing\Entity\Country $value
-     */
-    public function offsetSet($key, $value): void
-    {
-        parent::offsetSet($key, $value);
-    }
+	/**
+	 * @param mixed $key
+	 * @param \Galahad\LaravelAddressing\Entity\Country $value
+	 */
+	public function offsetSet($key, $value): void
+	{
+		parent::offsetSet($key, $value);
+	}
 }
