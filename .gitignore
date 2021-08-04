@@ -7,3 +7,4 @@ composer.lock
 .idea/
 */.iws
 npm-debug.log
+.phpunit.result.cache

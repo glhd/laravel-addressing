@@ -6,27 +6,32 @@ use CommerceGuys\Addressing\Subdivision\PatternType;
 use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
 use Galahad\LaravelAddressing\Collection\SubdivisionCollection;
 
+/**
+ * @property-read \Galahad\LaravelAddressing\Entity\Subdivision $parent
+ * @property-read string $country_code
+ * @property-read string|null $locale
+ * @property-read string $code
+ * @property-read string|null $local_code
+ * @property-read string $name
+ * @property-read string|null $local_name
+ * @property-read string|null $iso_code
+ * @property-read string|null $postal_code_pattern
+ * @property-read string $postal_code_pattern_type
+ * @property-read \CommerceGuys\Addressing\Subdivision\Subdivision[] $children
+ * 
+ * @mixin \CommerceGuys\Addressing\Subdivision\Subdivision
+ */
 class Subdivision
 {
-	/**
-	 * @var \CommerceGuys\Addressing\Subdivision\Subdivision
-	 */
-	protected $subdivision;
-
-	/**
-	 * @var \Galahad\LaravelAddressing\Entity\Country
-	 */
-	protected $country;
-
-	/**
-	 * @var \Galahad\LaravelAddressing\Entity\Subdivision
-	 */
-	protected $parent;
-
-	/**
-	 * @var \Galahad\LaravelAddressing\Collection\SubdivisionCollection
-	 */
-	protected $children;
+	use DecoratesEntity;
+	
+	protected BaseSubdivision $subdivision;
+	
+	protected Country $country;
+	
+	protected ?Subdivision $parent = null;
+	
+	protected ?SubdivisionCollection $children = null;
 
 	public function __construct(Country $country, BaseSubdivision $subdivision, self $parent = null)
 	{
@@ -51,31 +56,6 @@ class Subdivision
 		return $this->parent;
 	}
 
-	public function getCode(): string
-	{
-		return $this->subdivision->getCode();
-	}
-
-	public function getLocalCode(): string
-	{
-		return $this->subdivision->getLocalCode();
-	}
-
-	public function getName(): string
-	{
-		return $this->subdivision->getName();
-	}
-
-	public function getLocalName(): ?string
-	{
-		return $this->subdivision->getLocalName();
-	}
-
-	public function getIsoCode(): ?string
-	{
-		return $this->subdivision->getIsoCode();
-	}
-
 	public function getPostalCodePattern(): ?string
 	{
 		return $this->subdivision->getPostalCodePattern()
@@ -84,18 +64,12 @@ class Subdivision
 
 	public function getPostalCodePatternType(): string
 	{
-		return $this->subdivision->getPostalCodePatternType()
-            ?? PatternType::FULL;
+		return $this->subdivision->getPostalCodePatternType() ?? PatternType::FULL;
 	}
 
 	public function getLocale(): string
 	{
 		return $this->subdivision->getLocale() ?? $this->country->getLocale();
-	}
-
-	public function hasChildren(): bool
-	{
-		return $this->subdivision->hasChildren();
 	}
 
 	public function getChildren(): SubdivisionCollection
@@ -134,5 +108,10 @@ class Subdivision
 	public function __call($name, $arguments)
 	{
 		return $this->subdivision->$name(...$arguments);
+	}
+	
+	protected function decoratedEntity()
+	{
+		return $this->subdivision;
 	}
 }

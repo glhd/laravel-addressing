@@ -7,10 +7,7 @@ use Galahad\LaravelAddressing\LaravelAddressing;
 
 class LaravelAddressingTest extends TestCase
 {
-	/**
-	 * @var LaravelAddressing
-	 */
-	protected $addressing;
+	protected LaravelAddressing $addressing;
 
 	protected $test_iso_codes;
 

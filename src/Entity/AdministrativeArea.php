@@ -6,6 +6,8 @@ use CommerceGuys\Addressing\Subdivision\Subdivision as BaseSubdivision;
 
 class AdministrativeArea extends Subdivision
 {
+	use DecoratesEntity;
+	
 	public function __construct(Country $country, BaseSubdivision $subdivision)
 	{
 		parent::__construct($country, $subdivision);

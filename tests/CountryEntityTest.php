@@ -3,15 +3,13 @@
 namespace Galahad\LaravelAddressing\Tests;
 
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
+use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
 use Galahad\LaravelAddressing\Support\Facades\Addressing;
 
 class CountryEntityTest extends TestCase
 {
-	/**
-	 * @var \Galahad\LaravelAddressing\Entity\Country
-	 */
-	protected $country;
+	protected Country $country;
 
 	/**
 	 * @var string[]
@@ -107,5 +105,18 @@ class CountryEntityTest extends TestCase
 		$list = $this->country->administrativeAreas()->toSelectArray();
 
 		$this->assertEquals('Pennsylvania', $list['PA']);
+	}
+	
+	public function test_attributes_can_get_accessed_as_properties(): void
+	{
+		$usa = Addressing::country('US');
+		
+		$this->assertEquals($usa->getCountryCode(), $usa->country_code);
+		$this->assertEquals($usa->getName(), $usa->name);
+		$this->assertEquals($usa->getThreeLetterCode(), $usa->three_letter_code);
+		$this->assertEquals($usa->getNumericCode(), $usa->numeric_code);
+		$this->assertEquals($usa->getCurrencyCode(), $usa->currency_code);
+		$this->assertEquals($usa->getTimezones(), $usa->timezones);
+		$this->assertEquals($usa->getLocale(), $usa->locale);
 	}
 }

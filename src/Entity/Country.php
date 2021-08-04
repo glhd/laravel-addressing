@@ -8,47 +8,41 @@ use CommerceGuys\Addressing\Country\Country as BaseCountry;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
 
+/**
+ * @property-read $country_code
+ * @property-read $name
+ * @property-read $three_letter_code
+ * @property-read $numeric_code
+ * @property-read $currency_code
+ * @property-read $timezones
+ * @property-read $locale
+ *
+ * @mixin \CommerceGuys\Addressing\Country\Country
+ */
 class Country
 {
-	/**
-	 * @var \CommerceGuys\Addressing\Country\Country
-	 */
-	protected $country;
-
-	/**
-	 * @var \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface
-	 */
-	protected $subdivision_repository;
-
-	/**
-	 * @var \CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface
-	 */
-	protected $address_format_repository;
-
-	/**
-	 * @var \Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection
-	 */
-	protected $administrative_areas;
-
-	/**
-	 * @var \CommerceGuys\Addressing\AddressFormat\AddressFormat
-	 */
-	protected $address_format;
-
-	/**
-	 * Country constructor.
-	 *
-	 * @param \CommerceGuys\Addressing\Country\Country $country
-	 * @param \CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface $subdivision_repository
-	 * @param \CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface $address_format_repository
-	 */
-	public function __construct(BaseCountry $country, SubdivisionRepositoryInterface $subdivision_repository, AddressFormatRepositoryInterface $address_format_repository)
-	{
+	use DecoratesEntity;
+	
+	protected BaseCountry $country;
+	
+	protected SubdivisionRepositoryInterface $subdivision_repository;
+	
+	protected AddressFormatRepositoryInterface $address_format_repository;
+	
+	protected ?AdministrativeAreaCollection $administrative_areas = null;
+	
+	protected ?AddressFormat $address_format = null;
+	
+	public function __construct(
+		BaseCountry $country,
+		SubdivisionRepositoryInterface $subdivision_repository,
+		AddressFormatRepositoryInterface $address_format_repository
+	) {
 		$this->country = $country;
 		$this->subdivision_repository = $subdivision_repository;
 		$this->address_format_repository = $address_format_repository;
 	}
-
+	
 	public function addressFormat(): AddressFormat
 	{
 		if (null === $this->address_format) {
@@ -81,32 +75,20 @@ class Country
 
 		return $this->administrative_areas;
 	}
-
-	/**
-	 * @param string $code
-	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
-	 */
-	public function administrativeArea($code): ?AdministrativeArea
+	
+	public function administrativeArea(string $code): ?AdministrativeArea
 	{
 		// First try on the assumption that it's a 2-letter upper case code.
 		// If that doesn't work, do a case-insensitive lookup.
-
+		
 		return $this->administrativeAreas()->get(strtoupper($code))
-            ?? $this->administrativeAreas()->first(static function (AdministrativeArea $subdivision) use ($code) {
-            	return 0 === strcasecmp($subdivision->getCode(), $code);
-            });
+            ?? $this->administrativeAreas()->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getCode(), $code));
 	}
-
-	/**
-	 * @param string $name
-	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
-	 */
-	public function administrativeAreaByName($name): ?AdministrativeArea
+	
+	public function administrativeAreaByName(string $name): ?AdministrativeArea
 	{
 		return $this->administrativeAreas()
-            ->first(static function (AdministrativeArea $subdivision) use ($name) {
-            	return 0 === strcasecmp($subdivision->getName(), $name);
-            });
+            ->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getName(), $name));
 	}
 
 	/**
@@ -115,7 +97,7 @@ class Country
 	 * @param string $input
 	 * @return \Galahad\LaravelAddressing\Entity\AdministrativeArea|null
 	 */
-	public function findAdministrativeArea($input): ?AdministrativeArea
+	public function findAdministrativeArea(string $input): ?AdministrativeArea
 	{
 		return $this->administrativeArea($input) ?? $this->administrativeAreaByName($input);
 	}
@@ -128,47 +110,9 @@ class Country
 
 		return $this->getCountryCode() === $country->getCountryCode();
 	}
-
-	public function getCountryCode(): string
+	
+	protected function decoratedEntity()
 	{
-		return $this->country->getCountryCode();
-	}
-
-	public function getName(): string
-	{
-		return $this->country->getName();
-	}
-
-	public function getThreeLetterCode(): string
-	{
-		return $this->country->getThreeLetterCode();
-	}
-
-	public function getNumericCode(): int
-	{
-		return (int) $this->country->getNumericCode();
-	}
-
-	public function getCurrencyCode(): string
-	{
-		return $this->country->getCurrencyCode();
-	}
-
-	/**
-	 * @return string[]
-	 */
-	public function getTimezones(): array
-	{
-		return $this->country->getTimezones();
-	}
-
-	public function getLocale(): string
-	{
-		return $this->country->getLocale();
-	}
-
-	public function __call($name, $arguments)
-	{
-		return $this->country->$name(...$arguments);
+		return $this->country;
 	}
 }
