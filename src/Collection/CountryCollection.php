@@ -30,9 +30,9 @@ class CountryCollection extends Collection
         return parent::last($callback, $default);
     }
 
-    public function pop(): ?Country
+    public function pop($count = 1): ?Country
     {
-        return parent::pop();
+        return parent::pop($count);
     }
 
     /**
