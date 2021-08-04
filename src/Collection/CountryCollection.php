@@ -74,7 +74,7 @@ class CountryCollection extends Collection
 
 	public function toSelectArray(): array
 	{
-		return $this->mapWithKeys(static function (Country $country) {
+		return $this->mapWithKeys(static function(Country $country) {
 			return [$country->getCountryCode() => $country->getName()];
 		})->toArray();
 	}

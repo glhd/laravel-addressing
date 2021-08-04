@@ -109,7 +109,7 @@ class SubdivisionCollection extends Collection
 
 	public function toSelectArray(): array
 	{
-		return $this->mapWithKeys(static function (Subdivision $subdivision) {
+		return $this->mapWithKeys(static function(Subdivision $subdivision) {
 			return [$subdivision->getCode() => $subdivision->getName()];
 		})->toArray();
 	}

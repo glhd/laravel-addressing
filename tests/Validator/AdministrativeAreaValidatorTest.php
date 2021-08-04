@@ -9,7 +9,7 @@ namespace Galahad\LaravelAddressing\Tests\Validator;
  */
 class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 {
-	public function testMGStateInBrazil()
+	public function test_mg_state_in_brazil()
 	{
 		$this->assertTrue($this->performValidation([
 			'rules' => ['state' => 'administrative_area_code:country'],
@@ -17,7 +17,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testInvalidStateInBrazil()
+	public function test_invalid_state_in_brazil()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'BR', 'state' => 'ZZ'],
@@ -25,7 +25,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCOStateInUnitedStates()
+	public function test_co_state_in_united_states()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'US', 'state' => 'CO'],
@@ -33,7 +33,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCountryAndStateAreLowerCase()
+	public function test_country_and_state_are_lower_case()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'us', 'state' => 'co'],
@@ -41,7 +41,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testPassesIfCountryHasNoAdminAreas()
+	public function test_passes_if_country_has_no_admin_areas()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'GB', 'state' => ''],
@@ -49,7 +49,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testAdminAreaCodeArrayIsInvalid()
+	public function test_admin_area_code_array_is_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'US', 'state' => ['CO']],
@@ -57,7 +57,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testAdminAreaNameArrayIsInvalid()
+	public function test_admin_area_name_array_is_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'US', 'state' => ['Colorado']],
@@ -65,7 +65,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testGeneralAdminAreaArrayIsInvalid()
+	public function test_general_admin_area_array_is_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'US', 'state' => ['CO']],
@@ -73,7 +73,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testUSStateByName()
+	public function test_us_state_by_name()
 	{
 		// Valid state in US
 		$this->assertTrue($this->performValidation([
@@ -87,7 +87,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testStateUsingCountryName()
+	public function test_state_using_country_name()
 	{
 		// Valid US state
 		$this->assertTrue($this->performValidation([
@@ -101,7 +101,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testGeneralAdministrativeAreaValidation()
+	public function test_general_administrative_area_validation()
 	{
 		// Valid US state
 		$this->assertTrue($this->performValidation([
@@ -125,7 +125,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testUsesDefaultFieldNames()
+	public function test_uses_default_field_names()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'US', 'state' => 'CO'],
@@ -148,7 +148,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testAllowsEmptyAdministrativeAreasInCountriesWhereItIsOptional()
+	public function test_allows_empty_administrative_areas_in_countries_where_it_is_optional()
 	{
 		// Empty county should be allowed in Ireland
 		$this->assertTrue($this->performValidation([
@@ -169,7 +169,7 @@ class AdministrativeAreaValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testAllowsAnyAdminAreaInCountriesWeDontHaveDataFor()
+	public function test_allows_any_admin_area_in_countries_we_dont_have_data_for()
 	{
 		// As of right now, addressing doesn't have an admin area list for South Africa
 		$this->assertTrue($this->performValidation([

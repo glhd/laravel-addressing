@@ -36,7 +36,7 @@ class AddressingServiceProvider extends ServiceProvider
 	{
 		$this->mergeConfigFrom(__DIR__.'/../../config/addressing.php', 'addressing');
 
-		$this->app->singleton(LaravelAddressing::class, static function (Application $app) {
+		$this->app->singleton(LaravelAddressing::class, static function(Application $app) {
 			$locale = $app['config']->get('app.locale', 'en');
 			$fallback_locale = $app['config']->get('app.fallback_locale', 'en');
 
@@ -79,12 +79,12 @@ class AddressingServiceProvider extends ServiceProvider
 
 			$prefix = $config->get('addressing.routes.prefix', 'galahad/addressing');
 
-			$router->group(compact('prefix'), static function (Registrar $route) {
+			$router->group(compact('prefix'), static function(Registrar $route) {
 				$route->get('/countries', CountriesController::class)
-                    ->name('galahad.addressing.countries');
+					->name('galahad.addressing.countries');
 
 				$route->get('/countries/{country_code}/administrative-areas', AdministrativeAreasController::class)
-                    ->name('galahad.addressing.administrative-areas');
+					->name('galahad.addressing.administrative-areas');
 			});
 		} catch (BindingResolutionException $exception) {
 			// Skip routes if no router exists
@@ -96,7 +96,7 @@ class AddressingServiceProvider extends ServiceProvider
 	 */
 	protected function registerValidators(): void
 	{
-		$this->app->resolving(Factory::class, static function (Factory $validation_factory, Container $app) {
+		$this->app->resolving(Factory::class, static function(Factory $validation_factory, Container $app) {
 			$validator = new Validator($app->make(LaravelAddressing::class));
 
 			$validation_factory->extend('country', Closure::fromCallable([$validator, 'looseCountry']));

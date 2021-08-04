@@ -59,7 +59,7 @@ class Subdivision
 	public function getPostalCodePattern(): ?string
 	{
 		return $this->subdivision->getPostalCodePattern()
-            ?? $this->country->addressFormat()->getPostalCodePattern();
+			?? $this->country->addressFormat()->getPostalCodePattern();
 	}
 
 	public function getPostalCodePatternType(): string

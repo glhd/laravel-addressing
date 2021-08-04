@@ -17,7 +17,7 @@ class CountriesController extends Controller
 
 		return new JsonResponse([
 			'label' => 'Countries',
-			'options' => $countries->map(static function (Country $country) {
+			'options' => $countries->map(static function(Country $country) {
 				return $country->getName();
 			})->toArray(),
 		], 200);

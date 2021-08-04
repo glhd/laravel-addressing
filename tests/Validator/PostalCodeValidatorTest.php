@@ -9,7 +9,7 @@ namespace Galahad\LaravelAddressing\Tests\Validator;
  */
 class PostalCodeValidatorTest extends BaseValidatorTestCase
 {
-	public function testColoradoPostalCode()
+	public function test_colorado_postal_code()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'US', 'state' => 'CO', 'code' => '80301'],
@@ -25,7 +25,7 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testArrayPostalCodeInvalid()
+	public function test_array_postal_code_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'US', 'state' => 'CO', 'code' => ['80301']],
@@ -33,7 +33,7 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testBrazilianPostalCodes()
+	public function test_brazilian_postal_codes()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'BR', 'state' => 'MG', 'code' => '31170-070'],
@@ -49,7 +49,7 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testUsesDefaultFieldNames()
+	public function test_uses_default_field_names()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'US', 'administrative_area' => 'CO', 'code' => '80301'],
@@ -61,7 +61,7 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testUsesCountryRegExIfNoAdminArea()
+	public function test_uses_country_reg_ex_if_no_admin_area()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'GB', 'administrative_area' => '', 'code' => 'NW4 2HX'],
@@ -73,7 +73,7 @@ class PostalCodeValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testAllowsEmptyPostalCodesInCountriesWhereItIsOptional()
+	public function test_allows_empty_postal_codes_in_countries_where_it_is_optional()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'IE', 'administrative_area' => '', 'code' => ''],

@@ -8,3 +8,4 @@ composer.lock
 */.iws
 npm-debug.log
 .phpunit.result.cache
+.php-cs-fixer.cache

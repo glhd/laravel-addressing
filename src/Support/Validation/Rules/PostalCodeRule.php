@@ -74,12 +74,12 @@ class PostalCodeRule implements Rule
 	protected function pattern(): ?string
 	{
 		$pattern = $this->administrative_area
-            ? $this->administrative_area->getPostalCodePattern()
-            : $this->country->addressFormat()->getPostalCodePattern();
+			? $this->administrative_area->getPostalCodePattern()
+			: $this->country->addressFormat()->getPostalCodePattern();
 
 		$pattern_type = $this->administrative_area
-            ? $this->administrative_area->getPostalCodePatternType()
-            : PatternType::FULL;
+			? $this->administrative_area->getPostalCodePatternType()
+			: PatternType::FULL;
 
 		if (PatternType::START === $pattern_type) {
 			return '/^'.$pattern.'/i';

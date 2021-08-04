@@ -185,8 +185,8 @@ class Validator
 	{
 		// Either use the explicitly set name, or try all common names
 		$possible_input_names = isset($parameters[1])
-            ? [$parameters[1]]
-            : ['administrative_area', 'state', 'province'];
+			? [$parameters[1]]
+			: ['administrative_area', 'state', 'province'];
 
 		$data = $validator->getData();
 		foreach ($possible_input_names as $input_name) {

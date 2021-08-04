@@ -28,7 +28,7 @@ class LooseAdministrativeAreaRule implements Rule
 	public function passes($attribute, $value): bool
 	{
 		return (new AdministrativeAreaCodeRule($this->country))->passes($attribute, $value)
-            ?: (new AdministrativeAreaNameRule($this->country))->passes($attribute, $value);
+			?: (new AdministrativeAreaNameRule($this->country))->passes($attribute, $value);
 	}
 
 	/**

@@ -9,7 +9,7 @@ namespace Galahad\LaravelAddressing\Tests\Validator;
  */
 class CountryValidatorTest extends BaseValidatorTestCase
 {
-	public function testCountryCodeWithDifferentSize()
+	public function test_country_code_with_different_size()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'USA'],
@@ -17,7 +17,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCountryCodeWithCorrectSizeButInvalid()
+	public function test_country_code_with_correct_size_but_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'ZZ'],
@@ -25,7 +25,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCountryCodeArrayIsInvalid()
+	public function test_country_code_array_is_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => ['US']],
@@ -33,7 +33,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCorrectCountryCode()
+	public function test_correct_country_code()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'BR'],
@@ -45,7 +45,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testWrongCountryName()
+	public function test_wrong_country_name()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => 'United Stattes'],
@@ -53,7 +53,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCountryNameArrayIsInvalid()
+	public function test_country_name_array_is_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => ['United States']],
@@ -61,7 +61,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testCorrectCountryName()
+	public function test_correct_country_name()
 	{
 		$this->assertTrue($this->performValidation([
 			'data' => ['country' => 'United States'],
@@ -69,7 +69,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testGeneralCountryValidation()
+	public function test_general_country_validation()
 	{
 		// Valid country code
 		$this->assertTrue($this->performValidation([
@@ -93,7 +93,7 @@ class CountryValidatorTest extends BaseValidatorTestCase
 		]));
 	}
 
-	public function testGeneralCountryArrayIsInvalid()
+	public function test_general_country_array_is_invalid()
 	{
 		$this->assertFalse($this->performValidation([
 			'data' => ['country' => ['United States']],

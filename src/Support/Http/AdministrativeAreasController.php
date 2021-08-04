@@ -29,10 +29,10 @@ class AdministrativeAreasController extends Controller
 			'label' => ucwords(Str::plural($address_format->getAdministrativeAreaType() ?? 'state', $administrative_areas->count())),
 			'country_code' => $country_code,
 			'options' => $administrative_areas
-			    ->map(static function (Subdivision $admin_area) {
-			    	return $admin_area->getName();
-			    })
-			    ->toArray(),
+				->map(static function(Subdivision $admin_area) {
+					return $admin_area->getName();
+				})
+				->toArray(),
 		], 200);
 	}
 }

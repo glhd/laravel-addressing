@@ -82,13 +82,13 @@ class Country
 		// If that doesn't work, do a case-insensitive lookup.
 		
 		return $this->administrativeAreas()->get(strtoupper($code))
-            ?? $this->administrativeAreas()->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getCode(), $code));
+			?? $this->administrativeAreas()->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getCode(), $code));
 	}
 	
 	public function administrativeAreaByName(string $name): ?AdministrativeArea
 	{
 		return $this->administrativeAreas()
-            ->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getName(), $name));
+			->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getName(), $name));
 	}
 
 	/**

@@ -25,6 +25,6 @@ class AdministrativeArea extends Subdivision
 		}
 
 		return $this->getCountry()->is($subdivision->getCountry())
-            && $this->getCode() === $subdivision->getCode();
+			&& $this->getCode() === $subdivision->getCode();
 	}
 }

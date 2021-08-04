@@ -93,7 +93,7 @@ class LaravelAddressing
 					$this->address_format_repository
 				));
 			} catch (UnknownCountryException $exception) {
-				//
+				
 			}
 		}
 
@@ -135,9 +135,9 @@ class LaravelAddressing
 	public function countryByName($name): ?Country
 	{
 		return $this->countries()
-            ->first(static function (Country $country) use ($name) {
-            	return 0 === strcasecmp($country->getName(), $name);
-            });
+			->first(static function(Country $country) use ($name) {
+				return 0 === strcasecmp($country->getName(), $name);
+			});
 	}
 
 	/**

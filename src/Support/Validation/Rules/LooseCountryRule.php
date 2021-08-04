@@ -33,7 +33,7 @@ class LooseCountryRule implements Rule
 	public function passes($attribute, $value): bool
 	{
 		return (new CountryCodeRule($this->addressing))->passes($attribute, $value)
-            ?: (new CountryNameRule($this->addressing))->passes($attribute, $value);
+			?: (new CountryNameRule($this->addressing))->passes($attribute, $value);
 	}
 
 	/**

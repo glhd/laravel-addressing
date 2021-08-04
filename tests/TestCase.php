@@ -18,7 +18,7 @@ abstract class TestCase extends Orchestra
 		$config->set('app.key', 'base64:tfsezwCu4ZRixRLA/+yL/qoouX++Q3lPAPOAbtnBCG8=');
 
 		// Add feature stubs to view
-        // $this->app['view']->addLocation(__DIR__.'/Feature/stubs');
+		// $this->app['view']->addLocation(__DIR__.'/Feature/stubs');
 	}
 
 	protected function getPackageProviders($app): array

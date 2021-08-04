@@ -7,8 +7,8 @@ class RoutesTest extends TestCase
 	public function test_a_list_of_countries_can_be_loaded_via_http(): void
 	{
 		$response = $this->get(route('galahad.addressing.countries'))
-            ->assertOk()
-            ->assertJsonStructure(['label', 'options']);
+			->assertOk()
+			->assertJsonStructure(['label', 'options']);
 
 		$this->assertEquals('Countries', $response->json('label'));
 
@@ -22,8 +22,8 @@ class RoutesTest extends TestCase
 	public function test_a_list_of_us_states_can_be_loaded_via_http(): void
 	{
 		$response = $this->get(route('galahad.addressing.administrative-areas', 'us'))
-            ->assertOk()
-            ->assertJsonStructure(['label', 'country_code', 'options']);
+			->assertOk()
+			->assertJsonStructure(['label', 'country_code', 'options']);
 
 		$this->assertEquals('States', $response->json('label'));
 
