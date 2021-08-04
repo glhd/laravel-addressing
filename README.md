@@ -1,17 +1,19 @@
-# Laravel Addressing
+<p align="right">
+    <a href="https://codeclimate.com/github/glhd/laravel-addressing/test_coverage" target="_blank">
+        <img src="https://api.codeclimate.com/v1/badges/f01ed69a607407fc9114/test_coverage" alt="Code coverage status" />
+    </a>
+    <a href="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml" target="_blank">
+        <img src="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml/badge.svg" alt="Tests status" />
+    </a>
+    <a href="https://github.com/glhd/laravel-addressing/blob/main/LICENSE">
+        <img src="https://poser.pugx.org/galahad/laravel-addressing/license" alt="MIT License" />
+    </a>
+    <a href="https://packagist.org/packages/galahad/laravel-addressing" target="_blank">
+        <img src="https://poser.pugx.org/galahad/laravel-addressing/v/stable" alt="Latest stable version" />
+    </a>
+</p>
 
-<a href="https://codeclimate.com/github/glhd/laravel-addressing/test_coverage" target="_blank">
-    <img src="https://api.codeclimate.com/v1/badges/f01ed69a607407fc9114/test_coverage" alt="Code coverage status" />
-</a>
-<a href="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml" target="_blank">
-    <img src="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml/badge.svg" alt="Tests status" />
-</a>
-<a href="https://github.com/glhd/laravel-addressing/blob/main/LICENSE">
-    <img src="https://poser.pugx.org/galahad/laravel-addressing/license" alt="MIT License" />
-</a>
-<a href="https://packagist.org/packages/galahad/laravel-addressing" target="_blank">
-    <img src="https://poser.pugx.org/galahad/laravel-addressing/v/stable" alt="Latest stable version" />
-</a>
+# Laravel Addressing
 
 Laravel Addressing is a Laravel package providing addressing functionality based on 
 [`commerceguys/addressing`](https://github.com/commerceguys/addressing). It lets you easily
