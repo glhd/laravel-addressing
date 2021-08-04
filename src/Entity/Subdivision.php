@@ -18,7 +18,7 @@ use Galahad\LaravelAddressing\Collection\SubdivisionCollection;
  * @property-read string|null $postal_code_pattern
  * @property-read string $postal_code_pattern_type
  * @property-read \CommerceGuys\Addressing\Subdivision\Subdivision[] $children
- * 
+ *
  * @mixin \CommerceGuys\Addressing\Subdivision\Subdivision
  */
 class Subdivision
