@@ -93,7 +93,6 @@ class LaravelAddressing
 					$this->address_format_repository
 				));
 			} catch (UnknownCountryException $exception) {
-				
 			}
 		}
 
