@@ -7,6 +7,7 @@ use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\Country as BaseCountry;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Galahad\LaravelAddressing\Collection\AdministrativeAreaCollection;
+use Galahad\LaravelAddressing\Exceptions\AdministrativeAreaNotFoundException;
 
 /**
  * @property-read $country_code
@@ -83,6 +84,15 @@ class Country
 		
 		return $this->administrativeAreas()->get(strtoupper($code))
 			?? $this->administrativeAreas()->first(fn(AdministrativeArea $subdivision) => 0 === strcasecmp($subdivision->getCode(), $code));
+	}
+	
+	public function administrativeAreaOrFail(string $code): AdministrativeArea
+	{
+		if ($administrative_area = $this->administrativeArea($code)) {
+			return $administrative_area;
+		}
+		
+		throw new AdministrativeAreaNotFoundException($this->getCountryCode(), $code);
 	}
 	
 	public function administrativeAreaByName(string $name): ?AdministrativeArea

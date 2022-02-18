@@ -3,6 +3,7 @@
 namespace Galahad\LaravelAddressing\Tests;
 
 use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\Exceptions\CountryNotFoundException;
 use Galahad\LaravelAddressing\LaravelAddressing;
 
 class LaravelAddressingTest extends TestCase
@@ -40,6 +41,13 @@ class LaravelAddressingTest extends TestCase
 	public function test_it_returns_null_when_an_unknown_country_code_is_provided(): void
 	{
 		$this->assertNull($this->addressing->country('XX'));
+	}
+	
+	public function test_it_triggers_an_exception_when_using_or_fail_method(): void
+	{
+		$this->expectException(CountryNotFoundException::class);
+		
+		$this->addressing->countryOrFail('XX');
 	}
 
 	public function test_a_country_can_be_loaded_by_its_name(): void

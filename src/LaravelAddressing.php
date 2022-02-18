@@ -8,9 +8,13 @@ use CommerceGuys\Addressing\Exception\UnknownCountryException;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Galahad\LaravelAddressing\Collection\CountryCollection;
 use Galahad\LaravelAddressing\Entity\Country;
+use Galahad\LaravelAddressing\Exceptions\CountryNotFoundException;
+use Illuminate\Support\Traits\Macroable;
 
 class LaravelAddressing
 {
+	use Macroable;
+	
 	protected string $locale;
 	
 	protected string $fallback_locale;
@@ -67,6 +71,15 @@ class LaravelAddressing
 		}
 
 		return $this->countries->get($country_code, null);
+	}
+	
+	public function countryOrFail(string $country_code, ?string $locale = null): Country
+	{
+		if ($country = $this->country($country_code, $locale)) {
+			return $country;
+		}
+		
+		throw new CountryNotFoundException($country_code);
 	}
 
 	/**

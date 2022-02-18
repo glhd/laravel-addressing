@@ -5,6 +5,7 @@ namespace Galahad\LaravelAddressing\Tests;
 use Galahad\LaravelAddressing\Entity\AdministrativeArea;
 use Galahad\LaravelAddressing\Entity\Country;
 use Galahad\LaravelAddressing\Entity\Subdivision;
+use Galahad\LaravelAddressing\Exceptions\AdministrativeAreaNotFoundException;
 use Galahad\LaravelAddressing\Support\Facades\Addressing;
 
 class CountryEntityTest extends TestCase
@@ -87,6 +88,13 @@ class CountryEntityTest extends TestCase
 	public function test_it_returns_null_on_invalid_administrative_areas(): void
 	{
 		$this->assertNull($this->country->administrativeArea('XX'));
+	}
+	
+	public function test_it_triggers_an_exception_when_using_or_fail_method(): void
+	{
+		$this->expectException(AdministrativeAreaNotFoundException::class);
+		
+		$this->country->administrativeAreaOrFail('XX');
 	}
 
 	public function test_a_administrative_area_can_be_loaded_by_name(): void

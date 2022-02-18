@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static Country|null country($country_code, $locale = null)
+ * @method static Country countryOrFail($country_code, $locale = null)
  * @method static CountryCollection countries($locale = null)
  * @method static Country|null countryByName($name)
  * @method static Country|null findCountry($input)

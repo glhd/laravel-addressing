@@ -5,12 +5,23 @@ namespace Galahad\LaravelAddressing\Entity;
 use BadMethodCallException;
 use Exception;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\ForwardsCalls;
+use Illuminate\Support\Traits\Macroable;
 
 trait DecoratesEntity
 {
+	use ForwardsCalls;
+	use Macroable {
+		__call as macroCall;
+	}
+	
 	public function __call($name, $arguments)
 	{
-		return $this->decoratedEntity()->$name(...$arguments);
+		if (static::hasMacro($name)) {
+			return $this->macroCall($name, $arguments);
+		}
+		
+		return $this->forwardCallTo($this->decoratedEntity(), $name, $arguments);
 	}
 	
 	public function __get($name)
