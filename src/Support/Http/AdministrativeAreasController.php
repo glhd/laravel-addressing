@@ -17,7 +17,7 @@ class AdministrativeAreasController extends Controller
 	{
 		$country = $addressing->country($country_code, $request->input('locale', null));
 
-		if (! $country) {
+		if (!$country) {
 			throw new NotFoundHttpException("No country found for code '{$country_code}'");
 		}
 

@@ -59,7 +59,7 @@ class LaravelAddressing
 	{
 		$country_code = strtoupper($country_code);
 
-		if (! $this->countries->has($country_code)) {
+		if (!$this->countries->has($country_code)) {
 			try {
 				$this->countries->put($country_code, new Country(
 					$this->country_repository->get($country_code, $locale ?? $this->locale),
@@ -92,7 +92,7 @@ class LaravelAddressing
 	 */
 	public function countries(?string $locale = null): CountryCollection
 	{
-		if (! $this->all_countries_loaded) {
+		if (!$this->all_countries_loaded) {
 			$all_countries = $this->country_repository->getAll($locale ?? $this->locale);
 			
 			foreach ($all_countries as $country_code => $base_country) {

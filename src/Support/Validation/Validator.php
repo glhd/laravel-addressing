@@ -71,7 +71,7 @@ class Validator
 	 */
 	public function administrativeArea($attribute, $value, array $parameters, BaseValidator $validator): bool
 	{
-		if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
+		if (!$country = $this->loadCountryFromValidationData($parameters, $validator)) {
 			return false;
 		}
 
@@ -89,7 +89,7 @@ class Validator
 	 */
 	public function administrativeAreaName($attribute, $value, array $parameters, BaseValidator $validator): bool
 	{
-		if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
+		if (!$country = $this->loadCountryFromValidationData($parameters, $validator)) {
 			return false;
 		}
 
@@ -107,7 +107,7 @@ class Validator
 	 */
 	public function looseAdministrativeArea($attribute, $value, array $parameters, BaseValidator $validator): bool
 	{
-		if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
+		if (!$country = $this->loadCountryFromValidationData($parameters, $validator)) {
 			return false;
 		}
 
@@ -125,7 +125,7 @@ class Validator
 	 */
 	public function postalCode($attribute, $value, array $parameters, BaseValidator $validator): bool
 	{
-		if (! $country = $this->loadCountryFromValidationData($parameters, $validator)) {
+		if (!$country = $this->loadCountryFromValidationData($parameters, $validator)) {
 			return false;
 		}
 
@@ -147,7 +147,7 @@ class Validator
 	{
 		$country_input_name = $parameters[0] ?? 'country';
 
-		if (! $country_value = Arr::get($validator->getData(), $country_input_name)) {
+		if (!$country_value = Arr::get($validator->getData(), $country_input_name)) {
 			return null;
 		}
 
@@ -166,7 +166,7 @@ class Validator
 	 */
 	protected function loadAdministrativeAreaFromValidationData(Country $country, array $parameters, BaseValidator $validator): ?Subdivision
 	{
-		if (! $administrative_area_value = $this->loadAdministrativeAreaValueFromValidationData($parameters, $validator)) {
+		if (!$administrative_area_value = $this->loadAdministrativeAreaValueFromValidationData($parameters, $validator)) {
 			return null;
 		}
 
