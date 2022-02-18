@@ -90,11 +90,11 @@ class Subdivision
 			return false;
 		}
 
-		if (! $this->getCode() === $subdivision->getCode()) {
+		if (!$this->getCode() === $subdivision->getCode()) {
 			return false;
 		}
 
-		if (! $this->getCountry()->is($subdivision->getCountry())) {
+		if (!$this->getCountry()->is($subdivision->getCountry())) {
 			return false;
 		}
 

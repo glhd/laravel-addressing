@@ -73,7 +73,7 @@ class AddressingServiceProvider extends ServiceProvider
 			$config = $this->app->make('config');
 
 			// Skip if routes have been disabled
-			if (! $config->get('addressing.routes.enabled', true)) {
+			if (!$config->get('addressing.routes.enabled', true)) {
 				return;
 			}
 
