@@ -20,7 +20,7 @@ class AdministrativeArea extends Subdivision
 
 	public function is(Subdivision $subdivision = null): bool
 	{
-		if (! ($subdivision instanceof self)) {
+		if (!($subdivision instanceof self)) {
 			return false;
 		}
 
