@@ -5,6 +5,15 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Added support for PHP 8 and Laravel 9
+
+### Added
+
+- Add 'orFail' variants of country and administrative area methods
+- Added `Macroable` to entities
+
 ## [3.0.0]
 
 ### Changed
