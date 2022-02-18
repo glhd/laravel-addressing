@@ -35,7 +35,7 @@
 	"require-dev": {
 		"ext-json": "*",
 		"phpunit/phpunit": "^9.5",
-		"orchestra/testbench": "^5.0|^6.0|^7.0",
+		"orchestra/testbench": "^5.20|^6.24|^7.0",
 		"friendsofphp/php-cs-fixer": "^3.0"
 	},
 	"autoload": {
