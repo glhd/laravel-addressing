@@ -97,6 +97,7 @@ enabled:
   - standardize_not_equals
   - strict_comparison
   - ternary_operator_spaces
+  - not_operator_with_successor_space
   - trailing_comma_in_multiline_array
   - whitespace_after_comma_in_array
   - trim_array_spaces
