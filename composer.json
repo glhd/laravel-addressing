@@ -22,11 +22,11 @@
 	],
 	"require": {
 		"php": "^7.4|^8.0",
-		"illuminate/contracts": "^v7.0|^v8.0",
-		"illuminate/support": "^v7.0|^v8.0",
-		"illuminate/http": "^v7.0|^v8.0",
-		"illuminate/routing": "^v7.0|^v8.0",
-		"illuminate/validation": "^v7.0|^v8.0",
+		"illuminate/contracts": "^v7.0|^v8.0|^9.0|dev-master",
+		"illuminate/support": "^v7.0|^v8.0|^9.0|dev-master",
+		"illuminate/http": "^v7.0|^v8.0|^9.0|dev-master",
+		"illuminate/routing": "^v7.0|^v8.0|^9.0|dev-master",
+		"illuminate/validation": "^v7.0|^v8.0|^9.0|dev-master",
 		"commerceguys/addressing": "^v1.2",
 		"symfony/intl": "^v4.2|^v5.0|^v6.0",
 		"commerceguys/intl": "^v1.1",
@@ -34,8 +34,8 @@
 	},
 	"require-dev": {
 		"ext-json": "*",
-		"phpunit/phpunit": "^7.0|^8.0",
-		"orchestra/testbench": "^5.0|^6.0",
+		"phpunit/phpunit": "^7.0|^8.0|^9.5",
+		"orchestra/testbench": "^5.0|^6.0|^7.0",
 		"friendsofphp/php-cs-fixer": "^3.0"
 	},
 	"autoload": {
@@ -51,6 +51,10 @@
 			"Galahad\\LaravelAddressing\\Tests\\": "tests/"
 		}
 	},
+	"scripts": {
+		"fix-style": "vendor/bin/php-cs-fixer fix",
+		"check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
+	},
 	"license": "MIT",
 	"extra": {
 		"laravel": {
@@ -61,5 +65,7 @@
 				"Addressing": "Galahad\\LaravelAddressing\\Support\\Facades\\Addressing"
 			}
 		}
-	}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }

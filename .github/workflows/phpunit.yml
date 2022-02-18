@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 14 * * 3' # Run Wednesdays at 2pm EST
 
 jobs:
   php-tests:
@@ -13,13 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ 7.4, 8.0 ]
-        laravel: [ ^8.12 ]
-        dependency-version: [ lowest, stable ]
-        include:
-          - laravel: ^8.12
-            testbench: ^6.0
-            minimum-stability: stable
+        php: [ 7.4, 8.0, 8.1 ]
+        laravel: [ ^8.12, ^9.0 ]
+        dependency-version: [ stable, lowest ]
+        exclude:
+          - php: 7.4
+            laravel: ^9.0
+          - laravel: ^9.0
+            dependency-version: lowest
 
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
@@ -32,7 +33,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
-          coverage: none
+          tools: composer:v2
 
       - name: Register composer cache directory
         id: composer-cache-files-dir
@@ -44,7 +45,7 @@ jobs:
           path: |
             vendor
             ${{ steps.composer-cache-files-dir.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}-${{ matrix.dependency-version }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
           restore-keys: |
             ${{ runner.os }}-composer-
 
@@ -54,7 +55,7 @@ jobs:
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
-        run: composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}"
+        run: composer require --no-suggest --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}"
 
       - name: Set dependency version
         env:
