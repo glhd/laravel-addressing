@@ -1,72 +1,72 @@
 {
-	"name": "galahad/laravel-addressing",
-	"description": "Laravel package providing addressing functionality",
-	"keywords": [
-		"laravel",
-		"address",
-		"addressing",
-		"validation",
-		"countries"
-	],
-	"type": "library",
-	"homepage": "https://github.com/glhd/laravel-addressing",
-	"authors": [
-		{
-			"name": "Chris Morrell",
-			"homepage": "http://github.com/inxilpro"
-		},
-		{
-			"name": "Junior Grossi",
-			"email": "juniorgro@gmail.com",
-			"homepage": "http://github.com/jgrossi"
-		}
-	],
-	"require": {
-		"php": ">=7.4",
-		"illuminate/contracts": "^v7|^8|^9|^10|11.x-dev|dev-master",
-		"illuminate/support": "^v7|^8|^9|^10|11.x-dev|dev-master",
-		"illuminate/http": "^v7|^8|^9|^10|11.x-dev|dev-master",
-		"illuminate/routing": "^v7|^8|^9|^10|11.x-dev|dev-master",
-		"illuminate/validation": "^v7|^8|^9|^10|11.x-dev|dev-master",
-		"commerceguys/addressing": "^v1.2",
-		"symfony/intl": "^v4.2|^v5.0|^v6.0",
-		"commerceguys/intl": "^v1.1",
-		"doctrine/collections": "^1.6.2"
-	},
-	"require-dev": {
-		"ext-json": "*",
-		"phpunit/phpunit": "^9.5",
-		"orchestra/testbench": "^5.20|^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
-		"friendsofphp/php-cs-fixer": "^3.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"Galahad\\LaravelAddressing\\": "src/"
-		}
-	},
-	"autoload-dev": {
-		"classmap": [
-			"tests/TestCase.php"
-		],
-		"psr-4": {
-			"Galahad\\LaravelAddressing\\Tests\\": "tests/"
-		}
-	},
-	"scripts": {
-		"fix-style": "vendor/bin/php-cs-fixer fix",
-		"check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
-	},
-	"license": "MIT",
-	"extra": {
-		"laravel": {
-			"providers": [
-				"Galahad\\LaravelAddressing\\Support\\AddressingServiceProvider"
-			],
-			"aliases": {
-				"Addressing": "Galahad\\LaravelAddressing\\Support\\Facades\\Addressing"
-			}
-		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true
+    "name": "galahad/laravel-addressing",
+    "description": "Laravel package providing addressing functionality",
+    "keywords": [
+        "laravel",
+        "address",
+        "addressing",
+        "validation",
+        "countries"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/glhd/laravel-addressing",
+    "authors": [
+        {
+            "name": "Chris Morrell",
+            "homepage": "http://github.com/inxilpro"
+        },
+        {
+            "name": "Junior Grossi",
+            "email": "juniorgro@gmail.com",
+            "homepage": "http://github.com/jgrossi"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "illuminate/contracts": "^v7|^8|^9|^10|11.x-dev|dev-master",
+        "illuminate/support": "^v7|^8|^9|^10|11.x-dev|dev-master",
+        "illuminate/http": "^v7|^8|^9|^10|11.x-dev|dev-master",
+        "illuminate/routing": "^v7|^8|^9|^10|11.x-dev|dev-master",
+        "illuminate/validation": "^v7|^8|^9|^10|11.x-dev|dev-master",
+        "commerceguys/addressing": "^v1.2|^2.2",
+        "symfony/intl": "^v4.2|^v5.0|^v6.0",
+        "commerceguys/intl": "^v1.1|^2.0",
+        "doctrine/collections": "^1.6.2|^2.2"
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "phpunit/phpunit": "^9.5|^10.5",
+        "orchestra/testbench": "^5.20|^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
+        "friendsofphp/php-cs-fixer": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Galahad\\LaravelAddressing\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ],
+        "psr-4": {
+            "Galahad\\LaravelAddressing\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "fix-style": "vendor/bin/php-cs-fixer fix",
+        "check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
+    },
+    "license": "MIT",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Galahad\\LaravelAddressing\\Support\\AddressingServiceProvider"
+            ],
+            "aliases": {
+                "Addressing": "Galahad\\LaravelAddressing\\Support\\Facades\\Addressing"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
