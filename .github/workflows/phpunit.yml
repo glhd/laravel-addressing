@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         dependency-version: [ stable, lowest ]
-        laravel: [ ^8.79, ^9.50.2, 10.* ]
-        php: [ 8.0, 8.1, 8.2 ]
+        laravel: [ ^8.79, ^9.50.2, 10.*, 11.* ]
+        php: [ 8.0, 8.1, 8.2, 8.3 ]
         include:
           - laravel: ^8.79
             testbench: ^6.24
@@ -27,7 +27,9 @@ jobs:
           - php: 8.2
             laravel: ^8.79
           - php: 8.0
-            laravel: 10.*
+            laravel: 11.*
+          - php: 8.0
+            laravel: [ 10.*, 11.* ]
 
     timeout-minutes: 10
     name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
