@@ -1,7 +1,4 @@
 <p align="right">
-    <a href="https://codeclimate.com/github/glhd/laravel-addressing/test_coverage" target="_blank">
-        <img src="https://api.codeclimate.com/v1/badges/f01ed69a607407fc9114/test_coverage" alt="Code coverage status" />
-    </a>
     <a href="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml" target="_blank">
         <img src="https://github.com/glhd/laravel-addressing/actions/workflows/phpunit.yml/badge.svg" alt="Tests status" />
     </a>
