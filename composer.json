@@ -23,21 +23,21 @@
 	],
 	"require": {
 		"php": ">=7.4",
-		"illuminate/contracts": "^v7|^8|^9|^10|^11|12.x-dev|dev-master",
-		"illuminate/support": "^v7|^8|^9|^10|^11|12.x-dev|dev-master",
-		"illuminate/http": "^v7|^8|^9|^10|^11|12.x-dev|dev-master",
-		"illuminate/routing": "^v7|^8|^9|^10|^11|12.x-dev|dev-master",
-		"illuminate/validation": "^v7|^8|^9|^10|^11|12.x-dev|dev-master",
-		"commerceguys/addressing": "^v1.2",
-		"symfony/intl": "^v4.2|^v5.0|^v6.0|^7.0",
+		"illuminate/contracts": "^v7|^8|^9|^10|^11|^12|^13|14.x-dev|dev-master",
+		"illuminate/support": "^v7|^8|^9|^10|^11|^12|^13|14.x-dev|dev-master",
+		"illuminate/http": "^v7|^8|^9|^10|^11|^12|^13|14.x-dev|dev-master",
+		"illuminate/routing": "^v7|^8|^9|^10|^11|^12|^13|14.x-dev|dev-master",
+		"illuminate/validation": "^v7|^8|^9|^10|^11|^12|^13|14.x-dev|dev-master",
+		"commerceguys/addressing": "^v1.4",
+		"symfony/intl": "^v4.2|^v5.0|^v6.0|^7.0|^8.0",
 		"commerceguys/intl": "^v1.1",
 		"doctrine/collections": "^1.6.2"
 	},
 	"require-dev": {
 		"ext-json": "*",
-		"phpunit/phpunit": "^9.5|^10",
-		"orchestra/testbench": "^5.20|^6.24|^7.10|^8|9.x-dev|10.x-dev|dev-master",
-		"friendsofphp/php-cs-fixer": "^3.0"
+		"phpunit/phpunit": "^9.5|^10|^11.5|^12.5|^13.0",
+		"orchestra/testbench": "^5.20|^6.24|^7.10|^8.37|^9.17|^10.11|^11.0|12.x-dev|dev-master",
+		"friendsofphp/php-cs-fixer": "^3.64"
 	},
 	"autoload": {
 		"psr-4": {
