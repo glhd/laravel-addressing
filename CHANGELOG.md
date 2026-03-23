@@ -5,6 +5,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-03-23
+
 ## [3.3.0] - 2024-07-22
 
 ## [3.2.0] - 2023-02-17
@@ -85,7 +87,9 @@ This is the first stable release, with lots of breaking changes since 0.5.\*
 -   The config `addressing.route.prefix` has been renamed `addressing.routes.prefix` and `addressing.routes.enabled` has been added
 -   The `UnknownCountryException` is no longer thrown, and `NULL` is returned instead
 
-[Unreleased]: https://github.com/glhd/laravel-addressing/compare/3.3.0...HEAD
+[Unreleased]: https://github.com/glhd/laravel-addressing/compare/4.0.0...HEAD
+
+[4.0.0]: https://github.com/glhd/laravel-addressing/compare/3.3.0...4.0.0
 
 [3.3.0]: https://github.com/glhd/laravel-addressing/compare/3.2.0...3.3.0
 
